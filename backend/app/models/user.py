@@ -27,11 +27,10 @@ class User(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
     
-    # 관계 (다른 모델이 생성되면 활성화)
+    # 관계
     # region = relationship("ServiceRegion", back_populates="inspectors")
     # vehicles = relationship("Vehicle", back_populates="owner")
-    # inspections_as_client = relationship("Inspection", foreign_keys="Inspection.user_id", back_populates="client")
-    # inspections_as_inspector = relationship("Inspection", foreign_keys="Inspection.inspector_id", back_populates="inspector")
+    inspections = relationship("Inspection", foreign_keys="Inspection.user_id", back_populates="user")
     
     def __repr__(self):
         return f"<User(id={self.id}, role={self.role}, name={self.name})>"

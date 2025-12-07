@@ -63,6 +63,20 @@ class Settings(BaseSettings):
     COOKIE_HTTP_ONLY: bool = True
     COOKIE_SAME_SITE: str = "lax"
     
+    # 토스페이먼츠 설정
+    TOSS_CLIENT_KEY: str = ""
+    TOSS_SECRET_KEY: str = ""
+    TOSS_API_URL: str = "https://api.tosspayments.com/v1"  # 프로덕션
+    TOSS_TEST_API_URL: str = "https://api.tosspayments.com/v1"  # 테스트/프로덕션 동일
+    FRONTEND_URL: str = "http://localhost:3000"  # 프론트엔드 URL
+    
+    @property
+    def toss_api_url(self) -> str:
+        """토스페이먼츠 API URL 반환"""
+        if self.ENVIRONMENT == "production":
+            return self.TOSS_API_URL
+        return self.TOSS_TEST_API_URL
+    
     class Config:
         env_file = ".env"
         case_sensitive = True
