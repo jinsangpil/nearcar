@@ -135,11 +135,12 @@
           "11",
           "12"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [],
         "complexity": 6,
         "recommendedSubtasks": 3,
-        "expansionPrompt": "차량 마스터 조회 API 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 제조사/모델/상세 조회 API 개발, 2) Redis 캐싱 구현 및 최적화, 3) 국토교통부 API 연동 기초 작업. 각 하위 작업에 대해 구체적인 구현 단계, 성능 최적화 방안, 테스트 전략을 설명하세요."
+        "expansionPrompt": "차량 마스터 조회 API 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 제조사/모델/상세 조회 API 개발, 2) Redis 캐싱 구현 및 최적화, 3) 국토교통부 API 연동 기초 작업. 각 하위 작업에 대해 구체적인 구현 단계, 성능 최적화 방안, 테스트 전략을 설명하세요.",
+        "updatedAt": "2025-12-07T05:20:12.488Z"
       },
       {
         "id": "14",
@@ -550,9 +551,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-07T05:00:27.483Z",
+      "lastModified": "2025-12-07T05:20:12.489Z",
       "taskCount": 10,
-      "completedCount": 2,
+      "completedCount": 3,
       "tags": [
         "master"
       ]

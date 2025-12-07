@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.core.redis import get_redis, close_redis
-from app.api.v1 import auth, users
+from app.api.v1 import auth, users, vehicles
 
 
 @asynccontextmanager
@@ -38,6 +38,7 @@ app.add_middleware(
 # 라우터 등록
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(users.router, prefix="/api/v1")
+app.include_router(vehicles.router, prefix="/api/v1")
 
 
 @app.get("/")
