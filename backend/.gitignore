@@ -1,0 +1,6 @@
+
+# Server PID files
+*.pid
+server.pid
+server.log
+celery.log
