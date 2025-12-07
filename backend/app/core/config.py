@@ -77,6 +77,24 @@ class Settings(BaseSettings):
             return self.TOSS_API_URL
         return self.TOSS_TEST_API_URL
     
+    # AWS S3 설정 (선택적)
+    AWS_ACCESS_KEY_ID: Optional[str] = None
+    AWS_SECRET_ACCESS_KEY: Optional[str] = None
+    AWS_REGION: str = "ap-northeast-2"
+    AWS_S3_BUCKET: str = "nearcar-uploads"
+    
+    # 알리고 알림 서비스 설정 (SMS 및 알림톡)
+    ALIGO_API_KEY: Optional[str] = None  # 알리고 API Key
+    ALIGO_USER_ID: Optional[str] = None  # 알리고 사용자 ID
+    ALIGO_SENDER: Optional[str] = None  # 발신번호 (사전 등록 필요)
+    ALIGO_TEST_MODE: bool = False  # 테스트 모드 (testmode_yn)
+    
+    # AWS SES 설정 (이메일용)
+    AWS_SES_REGION: str = "ap-northeast-2"
+    
+    # Slack 웹훅 URL (선택적)
+    SLACK_WEBHOOK_URL: Optional[str] = None
+    
     class Config:
         env_file = ".env"
         case_sensitive = True

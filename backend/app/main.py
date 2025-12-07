@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.core.redis import get_redis, close_redis
-from app.api.v1 import auth, users, vehicles, quotes, packages, regions, payments
+from app.api.v1 import auth, users, vehicles, quotes, packages, regions, payments, client, inspector, admin, checklists, notifications, uploads, templates, reports
 
 
 @asynccontextmanager
@@ -43,6 +43,14 @@ app.include_router(quotes.router, prefix="/api/v1")
 app.include_router(packages.router, prefix="/api/v1")
 app.include_router(regions.router, prefix="/api/v1")
 app.include_router(payments.router, prefix="/api/v1")
+app.include_router(client.router, prefix="/api/v1")
+app.include_router(inspector.router, prefix="/api/v1")
+app.include_router(admin.router, prefix="/api/v1")
+app.include_router(checklists.router, prefix="/api/v1")
+app.include_router(notifications.router, prefix="/api/v1")
+app.include_router(uploads.router, prefix="/api/v1")
+app.include_router(templates.router, prefix="/api/v1")
+app.include_router(reports.router, prefix="/api/v1")
 
 
 @app.get("/")

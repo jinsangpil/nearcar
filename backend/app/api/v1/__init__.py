@@ -1,2 +1,16 @@
 # API v1 routes
-
+from . import auth
+from . import users
+from . import vehicles
+from . import quotes
+from . import packages
+from . import regions
+from . import payments
+from . import client
+from . import inspector
+from . import admin
+from . import checklists
+from . import notifications
+from . import uploads
+from . import templates
+from . import reports

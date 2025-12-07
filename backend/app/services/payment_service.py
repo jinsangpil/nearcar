@@ -146,11 +146,20 @@ class PaymentService:
         if payment.status == "paid":
             raise ValueError("이미 결제가 완료되었습니다")
         
-        # 2. 금액 검증
+        # 2. Inspection 조회
+        inspection_result = await db.execute(
+            select(Inspection).where(Inspection.id == payment.inspection_id)
+        )
+        inspection = inspection_result.scalar_one_or_none()
+        
+        if not inspection:
+            raise ValueError("진단 신청을 찾을 수 없습니다")
+        
+        # 3. 금액 검증
         if payment.amount != amount:
             raise ValueError(f"결제 금액이 일치하지 않습니다. 예상 금액: {payment.amount}원")
         
-        # 3. 토스페이먼츠 승인 API 호출
+        # 4. 토스페이먼츠 승인 API 호출
         try:
             toss_response = self.toss_service.confirm_payment(
                 payment_key=payment_key,
@@ -158,14 +167,45 @@ class PaymentService:
                 amount=amount
             )
             
-            # 4. Payment 레코드 업데이트
+            # 5. Payment 레코드 업데이트
             payment.status = "paid"
             payment.transaction_id = toss_response.get("transactionKey") or payment_key
             payment.paid_at = datetime.now()
             payment.method = toss_response.get("method", "card")
             
+            # 6. Inspection 상태 업데이트 (결제 완료 -> requested)
+            inspection.status = "requested"
+            
             await db.commit()
             await db.refresh(payment)
+            
+            # 7. 결제 완료 알림 트리거
+            from app.services.notification_trigger_service import NotificationTriggerService
+            from app.services.inspection_service import InspectionService
+            
+            # Inspection 상세 정보 조회
+            inspection_detail = await InspectionService.get_inspection_detail(
+                db=db,
+                inspection_id=str(inspection.id),
+                user_id=str(inspection.user_id)
+            )
+            
+            NotificationTriggerService.trigger_payment_completed(
+                inspection_id=str(inspection.id),
+                user_id=str(inspection.user_id),
+                payment_data={
+                    "amount": payment.amount,
+                    "method": payment.method,
+                    "transaction_id": payment.transaction_id
+                }
+            )
+            
+            # 신청 완료 알림도 발송
+            NotificationTriggerService.trigger_inspection_created(
+                inspection_id=str(inspection.id),
+                user_id=str(inspection.user_id),
+                inspection_data=inspection_detail
+            )
             
             # 5. Inspection 상태는 'requested'로 유지 (결제 완료 후에도 신청 상태)
             # 필요시 별도 상태 필드 추가 고려

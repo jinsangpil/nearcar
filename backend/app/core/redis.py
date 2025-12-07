@@ -2,8 +2,8 @@
 Redis 연결 및 유틸리티 함수
 """
 from typing import Optional
-import aioredis
-from aioredis import Redis
+import redis.asyncio as aioredis
+from redis.asyncio import Redis
 
 from app.core.config import settings
 
@@ -20,7 +20,7 @@ async def get_redis() -> Redis:
     global redis_pool
     
     if redis_pool is None:
-        redis_pool = await aioredis.from_url(
+        redis_pool = aioredis.from_url(
             settings.redis_url,
             encoding="utf-8",
             decode_responses=True

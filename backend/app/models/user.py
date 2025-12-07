@@ -29,7 +29,7 @@ class User(Base):
     
     # 관계
     # region = relationship("ServiceRegion", back_populates="inspectors")
-    # vehicles = relationship("Vehicle", back_populates="owner")
+    vehicles = relationship("Vehicle", back_populates="user")
     inspections = relationship("Inspection", foreign_keys="Inspection.user_id", back_populates="user")
     
     def __repr__(self):

@@ -30,9 +30,10 @@ class Inspection(Base):
     # Relationships
     user = relationship("User", foreign_keys=[user_id], back_populates="inspections")
     inspector = relationship("User", foreign_keys=[inspector_id])
-    # vehicle = relationship("Vehicle", back_populates="inspections")  # Vehicle 모델 생성 후 활성화
+    vehicle = relationship("Vehicle", back_populates="inspections")
     package = relationship("Package")
     payment = relationship("Payment", back_populates="inspection", uselist=False)
+    report = relationship("InspectionReport", back_populates="inspection", uselist=False)
     
     def __repr__(self):
         return f"<Inspection(id={self.id}, user_id={self.user_id}, status={self.status}, total_amount={self.total_amount})>"

@@ -158,11 +158,7 @@ CREATE TABLE inspections (
     location_address VARCHAR(255) NOT NULL,
     total_amount INT NOT NULL CHECK (total_amount > 0),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT inspector_role_check CHECK (
-        inspector_id IS NULL OR 
-        EXISTS (SELECT 1 FROM users WHERE id = inspector_id AND role = 'inspector')
-    )
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 COMMENT ON TABLE inspections IS '진단 신청 정보 및 상태 관리';
