@@ -228,11 +228,12 @@
           "11",
           "13"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [],
         "complexity": 6,
         "recommendedSubtasks": 3,
-        "expansionPrompt": "견적 산출 API 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 견적 계산 로직 및 API 개발, 2) 패키지 및 지역 조회 API 개발, 3) 캐싱 및 가격 정책 변경 관리 구현. 각 하위 작업에 대해 구체적인 구현 단계, 비즈니스 로직 분리 방안, 테스트 전략을 설명하세요."
+        "expansionPrompt": "견적 산출 API 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 견적 계산 로직 및 API 개발, 2) 패키지 및 지역 조회 API 개발, 3) 캐싱 및 가격 정책 변경 관리 구현. 각 하위 작업에 대해 구체적인 구현 단계, 비즈니스 로직 분리 방안, 테스트 전략을 설명하세요.",
+        "updatedAt": "2025-12-07T05:24:31.989Z"
       },
       {
         "id": "16",
@@ -551,9 +552,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-07T05:20:12.489Z",
+      "lastModified": "2025-12-07T05:24:31.990Z",
       "taskCount": 10,
-      "completedCount": 3,
+      "completedCount": 4,
       "tags": [
         "master"
       ]

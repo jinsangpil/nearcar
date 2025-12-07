@@ -7,7 +7,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.core.redis import get_redis, close_redis
-from app.api.v1 import auth, users, vehicles
+from app.api.v1 import auth, users, vehicles, quotes, packages, regions
 
 
 @asynccontextmanager
@@ -39,6 +39,9 @@ app.add_middleware(
 app.include_router(auth.router, prefix="/api/v1")
 app.include_router(users.router, prefix="/api/v1")
 app.include_router(vehicles.router, prefix="/api/v1")
+app.include_router(quotes.router, prefix="/api/v1")
+app.include_router(packages.router, prefix="/api/v1")
+app.include_router(regions.router, prefix="/api/v1")
 
 
 @app.get("/")
