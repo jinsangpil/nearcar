@@ -1,0 +1,35 @@
+# FastAPI 및 서버 관련
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+gunicorn==21.2.0
+
+# 데이터베이스
+asyncpg==0.29.0
+sqlalchemy[asyncio]==2.0.25
+alembic==1.13.1
+
+# 인증 및 보안
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# Redis
+aioredis==2.0.1
+redis==5.0.1
+
+# 환경 변수 관리
+python-dotenv==1.0.0
+pydantic==2.5.3
+pydantic-settings==2.1.0
+
+# 유틸리티
+python-dateutil==2.8.2
+
+# 로깅
+loguru==0.7.2
+
+# 테스트 (개발 환경)
+pytest==7.4.4
+pytest-asyncio==0.23.3
+httpx==0.26.0
+
