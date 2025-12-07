@@ -7,9 +7,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.core.database import get_db
 from app.schemas.quote import (
     QuoteCalculateRequest,
-    QuoteCalculateResponse,
-    StandardResponse
+    QuoteCalculateResponse
 )
+from app.schemas.vehicle import StandardResponse
 from app.services.pricing_service import PricingService
 
 router = APIRouter(prefix="/quotes", tags=["견적"])
