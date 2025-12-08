@@ -118,16 +118,54 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
                 <h1 className="text-xl font-bold text-gray-900">니어카 관리자</h1>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-                <Link href="/admin/dashboard" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                <Link 
+                  href="/admin/dashboard" 
+                  className={`${
+                    pathname === '/admin/dashboard'
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
                   대시보드
                 </Link>
-                <Link href="/admin/inspections" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                <Link 
+                  href="/admin/inspections" 
+                  className={`${
+                    pathname?.startsWith('/admin/inspections')
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
                   신청 관리
                 </Link>
-                <Link href="/admin/reports" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                <Link 
+                  href="/admin/reports" 
+                  className={`${
+                    pathname?.startsWith('/admin/reports')
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
                   레포트 검수
                 </Link>
-                <Link href="/admin/users" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                <Link 
+                  href="/admin/packages" 
+                  className={`${
+                    pathname?.startsWith('/admin/packages')
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
+                  패키지 관리
+                </Link>
+                <Link 
+                  href="/admin/users" 
+                  className={`${
+                    pathname?.startsWith('/admin/users')
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
                   유저 관리
                 </Link>
               </div>

@@ -306,3 +306,94 @@ export const updateUser = async (userId: string, data: UserUpdateRequest): Promi
   return response.data.data;
 };
 
+// ==================== 패키지 관리 API ====================
+
+// 패키지 목록 조회
+export interface PackageListItem {
+  id: string;
+  name: string;
+  base_price: number;
+  included_items: Record<string, any>;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string | null;
+}
+
+export interface PackageListParams {
+  search?: string;
+  is_active?: boolean;
+  page?: number;
+  limit?: number;
+}
+
+export interface PackageListResponse {
+  items: PackageListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export const getPackages = async (params: PackageListParams = {}): Promise<PackageListResponse> => {
+  const response = await apiClient.get<StandardResponse<PackageListResponse>>('/admin/packages', { params });
+  if (!response.data.data) {
+    throw new Error('패키지 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 패키지 상세 조회
+export interface PackageDetail {
+  id: string;
+  name: string;
+  base_price: number;
+  included_items: Record<string, any>;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string | null;
+}
+
+export const getPackageDetail = async (id: string): Promise<PackageDetail> => {
+  const response = await apiClient.get<StandardResponse<PackageDetail>>(`/admin/packages/${id}`);
+  if (!response.data.data) {
+    throw new Error('패키지 상세 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 패키지 생성
+export interface PackageCreateRequest {
+  name: string;
+  base_price: number;
+  included_items: Record<string, any>;
+}
+
+export const createPackage = async (data: PackageCreateRequest): Promise<PackageDetail> => {
+  const response = await apiClient.post<StandardResponse<PackageDetail>>('/admin/packages', data);
+  if (!response.data.data) {
+    throw new Error('패키지 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 패키지 수정
+export interface PackageUpdateRequest {
+  name?: string | null;
+  base_price?: number | null;
+  included_items?: Record<string, any> | null;
+  is_active?: boolean | null;
+}
+
+export const updatePackage = async (packageId: string, data: PackageUpdateRequest): Promise<PackageDetail> => {
+  const response = await apiClient.patch<StandardResponse<PackageDetail>>(`/admin/packages/${packageId}`, data);
+  if (!response.data.data) {
+    throw new Error('패키지 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 패키지 삭제
+export const deletePackage = async (packageId: string): Promise<void> => {
+  await apiClient.delete(`/admin/packages/${packageId}`);
+};
+

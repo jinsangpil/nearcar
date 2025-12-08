@@ -25,8 +25,15 @@ from app.schemas.user import (
     UserStatusUpdateRequest
 )
 from app.schemas.vehicle import StandardResponse
+from app.schemas.package import (
+    PackageCreateRequest,
+    PackageUpdateRequest,
+    PackageResponse,
+    PackageListResponse
+)
 from app.services.admin_service import AdminService
 from app.services.user_service import UserService
+from app.services.package_service import PackageService
 from app.models.user import User
 
 router = APIRouter(prefix="/admin", tags=["운영자"])
@@ -900,5 +907,188 @@ async def update_user_status(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"상태 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+# ==================== 패키지 관리 API ====================
+
+@router.post("/packages", response_model=StandardResponse)
+async def create_package(
+    request: PackageCreateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    패키지 생성 API
+    
+    관리자가 새 패키지를 생성합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await PackageService.create_package(
+            db=db,
+            name=request.name,
+            base_price=request.base_price,
+            included_items=request.included_items
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"패키지 생성 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/packages/{package_id}", response_model=StandardResponse)
+async def get_package(
+    package_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    패키지 상세 조회 API
+    
+    관리자가 패키지 상세 정보를 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await PackageService.get_package(db=db, package_id=package_id)
+        
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="패키지를 찾을 수 없습니다"
+            )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"패키지 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/packages/{package_id}", response_model=StandardResponse)
+async def update_package(
+    package_id: str,
+    request: PackageUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    패키지 수정 API
+    
+    관리자가 패키지 정보를 수정합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await PackageService.update_package(
+            db=db,
+            package_id=package_id,
+            name=request.name,
+            base_price=request.base_price,
+            included_items=request.included_items,
+            is_active=request.is_active
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"패키지 수정 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.delete("/packages/{package_id}", response_model=StandardResponse)
+async def delete_package(
+    package_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    패키지 삭제 API (Soft Delete)
+    
+    관리자가 패키지를 삭제합니다. 실제로는 is_active를 False로 변경합니다.
+    활성 신청 건이 있으면 삭제할 수 없습니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await PackageService.delete_package(db=db, package_id=package_id)
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"패키지 삭제 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/packages", response_model=StandardResponse)
+async def list_packages(
+    search: Optional[str] = Query(None, description="검색어 (패키지 이름)"),
+    is_active: Optional[bool] = Query(None, description="활성화 여부 필터"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    패키지 목록 조회 API
+    
+    필터링, 검색, 페이지네이션을 지원합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await PackageService.list_packages(
+            db=db,
+            search=search,
+            is_active=is_active,
+            page=page,
+            limit=limit
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"패키지 목록 조회 중 오류가 발생했습니다: {str(e)}"
         )
 

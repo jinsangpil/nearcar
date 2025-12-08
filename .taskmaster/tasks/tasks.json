@@ -570,7 +570,7 @@
         "description": "관리자가 사용자를 생성, 수정, 삭제하고 등급 및 역할을 관리할 수 있는 종합 유저 관리 시스템을 개발합니다. 백엔드 API와 프론트엔드 관리 화면을 포함합니다.",
         "details": "FastAPI와 Next.js를 사용하여 어드민 유저 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n\n1. 유저 CRUD API\n   - POST /admin/users - 유저 생성\n     - 역할별 필수 필드 검증 (기사: 등급, 수수료율, 활동 지역 필수)\n     - 비밀번호 해싱 (bcrypt, passlib 1.7.4+)\n     - 전화번호 암호화 저장 (AES-256)\n   - GET /admin/users/{id} - 유저 상세 조회\n   - PATCH /admin/users/{id} - 유저 정보 수정\n   - DELETE /admin/users/{id} - 유저 삭제/비활성화 (soft delete)\n   - GET /admin/users - 유저 목록 조회\n     - 필터링: 역할(client/inspector/staff/admin), 상태, 등급\n     - 검색: 이름, 이메일, 전화번호 (암호화된 데이터 검색 지원)\n     - 페이지네이션: offset/limit 방식\n\n2. 유저 등급 관리 API (기사 전용)\n   - PATCH /admin/users/{id}/level - 기사 등급 변경 (1~5)\n   - PATCH /admin/users/{id}/commission - 수수료율 변경 (0~100%)\n   - PATCH /admin/users/{id}/region - 활동 지역 변경 (다중 선택 가능)\n\n3. 유저 역할/상태 관리 API\n   - PATCH /admin/users/{id}/role - 역할 변경\n     - 권한 검증: admin만 admin 역할 부여 가능\n   - PATCH /admin/users/{id}/status - 계정 상태 변경 (active/inactive/suspended)\n\n**프론트엔드 화면 개발:**\n\n1. 유저 목록 화면 (/admin/users)\n   - TanStack Table 8.0.0+ 활용\n   - 역할별 필터 탭 (전체/고객/기사/직원/관리자)\n   - 검색 입력 (디바운스 적용, 300ms)\n   - 정렬: 가입일, 이름, 역할\n   - 페이지네이션 (페이지당 20건)\n\n2. 유저 상세/수정 화면 (/admin/users/[id])\n   - 기본 정보 섹션: 이름, 이메일, 전화번호\n   - 역할 및 권한 섹션: 역할 변경, 상태 변경\n   - 기사 전용 섹션: 등급, 수수료율, 활동 지역 관리\n   - 활동 이력 섹션: 최근 로그인, 진단 건수 등\n\n3. 유저 생성 화면 (/admin/users/new)\n   - 역할 선택에 따른 동적 폼 렌더링\n   - React Hook Form + Zod 유효성 검증\n   - 기사 생성 시 추가 필드 표시\n\n**보안 구현:**\n- @require_role(['admin', 'staff']) 데코레이터 적용\n- 전화번호 암호화: cryptography 라이브러리 (Fernet)\n- 비밀번호 해싱: bcrypt (rounds=12)\n- 역할 변경 시 현재 사용자 권한 검증\n- 감사 로그 기록 (변경 이력 추적)",
         "testStrategy": "1. 유저 CRUD API 단위 테스트\n   - 각 역할별 유저 생성 성공/실패 케이스\n   - 필수 필드 누락 시 400 에러 반환 확인\n   - 중복 이메일 등록 시 409 에러 반환 확인\n\n2. 권한 검증 테스트\n   - 관리자/직원 외 접근 시 403 에러 반환\n   - 직원이 admin 역할 부여 시도 시 거부 확인\n   - 자기 자신의 역할 변경 시도 시 거부 확인\n\n3. 암호화 테스트\n   - 전화번호 암호화 저장 및 복호화 조회 확인\n   - 비밀번호 해싱 및 검증 테스트\n   - 암호화된 전화번호 검색 기능 테스트\n\n4. 필터링/검색/페이지네이션 테스트\n   - 역할별 필터링 정확성 테스트\n   - 검색어 부분 일치 테스트\n   - 페이지네이션 경계값 테스트\n\n5. 프론트엔드 컴포넌트 테스트\n   - 유저 목록 렌더링 테스트\n   - 폼 유효성 검증 테스트\n   - 역할별 동적 폼 렌더링 테스트\n\n6. 통합 테스트\n   - 유저 생성 → 수정 → 삭제 전체 플로우\n   - 기사 등급/수수료율 변경 플로우\n   - 계정 상태 변경 및 로그인 차단 확인\n\n7. 보안 테스트\n   - SQL Injection 방어 테스트\n   - XSS 방어 테스트\n   - 감사 로그 기록 확인",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           "12",
           "17"
@@ -583,9 +583,9 @@
             "description": "FastAPI를 사용하여 유저 생성, 조회, 수정, 삭제를 위한 RESTful API 엔드포인트를 개발합니다. 비밀번호 해싱(bcrypt)과 전화번호 암호화(AES-256)를 포함합니다.",
             "dependencies": [],
             "details": "1. POST /admin/users - 유저 생성 API 구현\n   - 역할별 필수 필드 검증 로직 (기사: 등급, 수수료율, 활동 지역)\n   - passlib 1.7.4+를 사용한 bcrypt 비밀번호 해싱 (rounds=12)\n   - cryptography 라이브러리 Fernet을 사용한 전화번호 AES-256 암호화\n\n2. GET /admin/users/{id} - 유저 상세 조회 API\n   - 암호화된 전화번호 복호화 후 반환\n\n3. PATCH /admin/users/{id} - 유저 정보 수정 API\n   - 부분 업데이트 지원\n\n4. DELETE /admin/users/{id} - Soft Delete 구현\n   - is_deleted 플래그 및 deleted_at 타임스탬프 설정\n\n5. GET /admin/users - 유저 목록 조회 API\n   - 필터링: role, status, level 파라미터\n   - 검색: 이름, 이메일, 전화번호 (암호화 데이터 검색 지원)\n   - 페이지네이션: offset/limit 방식 구현",
-            "status": "in-progress",
+            "status": "done",
             "testStrategy": "1. 각 역할별(client/inspector/staff/admin) 유저 생성 성공 케이스 테스트\n2. 필수 필드 누락 시 400 에러 반환 확인\n3. 중복 이메일 등록 시 409 에러 반환 확인\n4. 전화번호 암호화 저장 및 복호화 조회 확인\n5. 비밀번호 해싱 및 검증 테스트\n6. Soft Delete 후 목록에서 제외 확인\n7. 페이지네이션 및 필터링 정확성 테스트",
-            "updatedAt": "2025-12-08T02:59:00.937Z",
+            "updatedAt": "2025-12-08T12:59:00.937Z",
             "parentId": "undefined"
           },
           {
@@ -643,14 +643,83 @@
             "updatedAt": "2025-12-08T12:05:22.882Z"
           }
         ],
-        "updatedAt": "2025-12-08T12:05:22.882Z"
+        "updatedAt": "2025-12-08T14:39:14.423Z"
+      },
+      {
+        "id": "22",
+        "title": "어드민 패키지 관리 시스템 개발",
+        "description": "관리자가 진단 패키지를 생성, 수정, 삭제하고 패키지별 포함 항목을 관리할 수 있는 시스템을 개발합니다.",
+        "details": "FastAPI와 Next.js를 사용하여 어드민 패키지 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n1. 패키지 CRUD API\n   - GET /admin/packages - 패키지 목록 조회\n   - POST /admin/packages - 패키지 생성 (이름, 기본 가격, 포함 항목)\n   - GET /admin/packages/{id} - 패키지 상세 조회\n   - PATCH /admin/packages/{id} - 패키지 수정\n   - DELETE /admin/packages/{id} - 패키지 삭제 (soft delete)\n\n2. 패키지 포함 항목 관리\n   - 패키지별 포함될 체크리스트 섹션 관리 (엔진, 하부, 내부 등)\n   - JSONB 필드(included_items) 구조:\n     {\n       \"sections\": [\"외관\", \"엔진룸\", \"하부\", \"실내\", \"전장품\"],\n       \"items\": {\n         \"외관\": [\"도어\", \"휀더\", \"범퍼\", \"유리\"],\n         \"엔진룸\": [\"엔진 오일\", \"냉각수\", \"벨트\", \"배터리\"],\n         ...\n       }\n     }\n\n**프론트엔드 화면 개발:**\n1. 패키지 목록 화면 (/admin/packages)\n   - 패키지 목록 테이블 (이름, 기본 가격, 포함 섹션 수)\n   - 검색 및 필터링 기능\n   - 패키지 생성 버튼\n\n2. 패키지 상세/수정 화면 (/admin/packages/[id])\n   - 기본 정보: 이름, 기본 가격\n   - 포함 항목 관리: 섹션별 체크리스트 항목 선택 UI\n   - 섹션 추가/삭제 기능\n   - 항목 추가/삭제 기능\n\n3. 패키지 생성 화면 (/admin/packages/new)\n   - 기본 정보 입력 폼\n   - 포함 항목 설정 UI\n\n**구현 사항:**\n- 패키지 수정 시 기존 신청 건에 영향 없도록 버전 관리 고려\n- 포함 항목 변경 이력 추적\n- 패키지 삭제 시 활성 신청 건이 있으면 삭제 불가 처리",
+        "testStrategy": "1. 패키지 CRUD API 단위 테스트\n2. 포함 항목 JSONB 구조 검증 테스트\n3. 패키지 삭제 시 활성 신청 건 체크 테스트\n4. 프론트엔드 폼 유효성 검증 테스트\n5. 포함 항목 관리 UI 사용성 테스트\n6. 통합 테스트 (생성 → 수정 → 삭제 플로우)",
+        "status": "pending",
+        "dependencies": [
+          "17"
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": "23",
+        "title": "어드민 차량 마스터 관리 시스템 개발",
+        "description": "관리자가 차량 마스터 데이터(국내/해외, 제조사, 모델, 상세모델, 클래스)를 관리하고 스크래핑 DB를 동기화할 수 있는 시스템을 개발합니다.",
+        "details": "FastAPI와 Next.js를 사용하여 어드민 차량 마스터 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n1. 차량 마스터 CRUD API\n   - GET /admin/vehicles/master - 차량 마스터 목록 조회 (필터링: origin, manufacturer, vehicle_class)\n   - POST /admin/vehicles/master - 차량 마스터 생성\n   - GET /admin/vehicles/master/{id} - 차량 마스터 상세 조회\n   - PATCH /admin/vehicles/master/{id} - 차량 마스터 수정 (등급, 클래스 재조정)\n   - DELETE /admin/vehicles/master/{id} - 차량 마스터 삭제\n\n2. 스크래핑 DB 동기화 API\n   - POST /admin/vehicles/master/sync - 스크래핑 데이터 일괄 동기화\n   - POST /admin/vehicles/master/bulk-import - CSV/Excel 파일 일괄 등록\n   - GET /admin/vehicles/master/sync-status - 동기화 상태 조회\n\n3. 차량 마스터 계층 구조 관리\n   - 제조사 목록 조회 및 관리\n   - 모델 그룹 관리\n   - 상세 모델 관리\n   - 차량 등급(클래스) 관리\n\n**프론트엔드 화면 개발:**\n1. 차량 마스터 목록 화면 (/admin/vehicles/master)\n   - 계층형 트리 뷰 (제조사 → 모델 → 상세모델)\n   - 필터링: 국내/해외, 제조사, 차량 등급\n   - 검색 기능 (제조사, 모델명)\n   - 대량 데이터 처리를 위한 가상 스크롤\n\n2. 차량 마스터 상세/수정 화면 (/admin/vehicles/master/[id])\n   - 기본 정보: 제조사, 모델, 상세모델, 차량 등급\n   - 출시 연도 정보\n   - 등급 수정 기능\n\n3. 스크래핑 동기화 화면 (/admin/vehicles/master/sync)\n   - 동기화 실행 버튼\n   - 동기화 진행 상황 표시\n   - 동기화 결과 요약 (추가/수정/삭제 건수)\n   - 일괄 등록 기능 (CSV/Excel 업로드)\n\n**구현 사항:**\n- 스크래핑 데이터와 기존 데이터 비교 로직\n- 중복 데이터 처리 전략\n- 차량 등급 변경 시 기존 신청 건에 영향 분석\n- Redis 캐시 무효화 로직 (차량 마스터 변경 시)",
+        "testStrategy": "1. 차량 마스터 CRUD API 단위 테스트\n2. 계층 구조 데이터 정합성 테스트\n3. 스크래핑 동기화 로직 테스트\n4. 대량 데이터 일괄 등록 성능 테스트\n5. 프론트엔드 트리 뷰 렌더링 성능 테스트\n6. 캐시 무효화 동작 확인 테스트\n7. 통합 테스트 (생성 → 수정 → 동기화 플로우)",
+        "status": "pending",
+        "dependencies": [
+          "13",
+          "17"
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": "24",
+        "title": "어드민 차종별 금액 관리 시스템 개발",
+        "description": "관리자가 차종별(국산/수입, 차량 등급별) 추가 요금 정책을 관리할 수 있는 시스템을 개발합니다.",
+        "details": "FastAPI와 Next.js를 사용하여 어드민 차종별 금액 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n1. 가격 정책 CRUD API\n   - GET /admin/prices - 가격 정책 목록 조회 (필터링: origin, vehicle_class)\n   - POST /admin/prices - 가격 정책 생성\n   - GET /admin/prices/{id} - 가격 정책 상세 조회\n   - PATCH /admin/prices/{id} - 가격 정책 수정\n   - DELETE /admin/prices/{id} - 가격 정책 삭제\n\n2. 가격 정책 구조\n   - 국산차: 경차, 소형, 중형, 대형A, 대형B별 할증 금액\n   - 수입차: 소형, 준준형, 중형, 대형, 고성능, 슈퍼카별 할증 금액\n   - 각 등급별 add_amount (추가 요금) 관리\n\n3. 가격 정책 변경 관리\n   - 가격 정책 변경 시 기존 신청 건에 영향 없도록 버전 관리\n   - 변경 이력 추적\n   - 가격 정책 변경 시 Redis 캐시 무효화\n\n**프론트엔드 화면 개발:**\n1. 가격 정책 목록 화면 (/admin/prices)\n   - 국산/수입 탭 구분\n   - 차량 등급별 가격 정책 테이블\n   - 검색 및 필터링 기능\n\n2. 가격 정책 상세/수정 화면 (/admin/prices/[id])\n   - 기본 정보: 국산/수입, 차량 등급, 추가 요금\n   - 가격 수정 폼\n   - 변경 이력 표시\n\n3. 가격 정책 생성 화면 (/admin/prices/new)\n   - 국산/수입 선택\n   - 차량 등급 선택\n   - 추가 요금 입력\n\n**구현 사항:**\n- 가격 정책 변경 시 견적 재계산 로직 고려\n- 가격 정책 변경 이력 추적\n- 가격 정책 삭제 시 활성 신청 건 체크\n- Redis 캐시 무효화 로직",
+        "testStrategy": "1. 가격 정책 CRUD API 단위 테스트\n2. 국산/수입별 등급별 가격 정책 검증 테스트\n3. 가격 정책 변경 시 견적 재계산 테스트\n4. 캐시 무효화 동작 확인 테스트\n5. 프론트엔드 폼 유효성 검증 테스트\n6. 통합 테스트 (생성 → 수정 → 삭제 플로우)",
+        "status": "pending",
+        "dependencies": [
+          "15",
+          "17"
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": "25",
+        "title": "어드민 서비스 지역 관리 시스템 개발",
+        "description": "관리자가 서비스 지역(특별시/광역시/도 단위, 시/구 단위)과 지역별 추가 요금을 관리할 수 있는 시스템을 개발합니다.",
+        "details": "FastAPI와 Next.js를 사용하여 어드민 서비스 지역 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n1. 서비스 지역 CRUD API\n   - GET /admin/regions - 서비스 지역 목록 조회 (계층 구조)\n   - POST /admin/regions - 서비스 지역 생성\n   - GET /admin/regions/{id} - 서비스 지역 상세 조회\n   - PATCH /admin/regions/{id} - 서비스 지역 수정 (지역명, 추가 요금)\n   - DELETE /admin/regions/{id} - 서비스 지역 삭제\n\n2. 계층 구조 관리\n   - 상위 지역 (특별시, 광역시, 도 단위): province 필드\n   - 하위 지역 (시, 구 단위): city 필드\n   - 계층 구조 조회 API (부모-자식 관계)\n\n3. 지역별 추가 요금 관리\n   - extra_fee 필드로 지역별 출장비 관리\n   - 지역별 추가 요금 변경 시 기존 신청 건에 영향 없도록 버전 관리\n\n**프론트엔드 화면 개발:**\n1. 서비스 지역 목록 화면 (/admin/regions)\n   - 계층형 트리 뷰 (도/시 → 시/구)\n   - 지역별 추가 요금 표시\n   - 검색 및 필터링 기능\n\n2. 서비스 지역 상세/수정 화면 (/admin/regions/[id])\n   - 기본 정보: 상위 지역, 하위 지역, 추가 요금\n   - 지역명 수정\n   - 추가 요금 수정\n\n3. 서비스 지역 생성 화면 (/admin/regions/new)\n   - 상위 지역 선택 (드롭다운)\n   - 하위 지역 입력\n   - 추가 요금 입력\n\n**구현 사항:**\n- 계층 구조 데이터 정합성 검증\n- 지역별 추가 요금 변경 시 견적 재계산 로직 고려\n- 지역 삭제 시 활성 신청 건 체크\n- Redis 캐시 무효화 로직",
+        "testStrategy": "1. 서비스 지역 CRUD API 단위 테스트\n2. 계층 구조 데이터 정합성 테스트\n3. 지역별 추가 요금 변경 시 견적 재계산 테스트\n4. 지역 삭제 시 활성 신청 건 체크 테스트\n5. 프론트엔드 트리 뷰 렌더링 테스트\n6. 통합 테스트 (생성 → 수정 → 삭제 플로우)",
+        "status": "pending",
+        "dependencies": [
+          "15",
+          "17"
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": "26",
+        "title": "어드민 정산 관리 시스템 개발",
+        "description": "관리자가 기사별 정산 내역을 조회하고 관리하며, 정산 집계 및 엑셀 다운로드 기능을 제공하는 시스템을 개발합니다.",
+        "details": "FastAPI와 Next.js를 사용하여 어드민 정산 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n1. 정산 내역 조회 API\n   - GET /admin/settlements - 정산 내역 목록 조회\n     - 필터링: 기사 ID, 정산 상태, 기간\n     - 정렬: 정산일, 금액\n     - 페이지네이션\n   - GET /admin/settlements/{id} - 정산 상세 내역 조회\n   - GET /admin/settlements/inspector/{inspector_id} - 기사별 정산 내역 조회\n\n2. 정산 집계 API\n   - POST /admin/settlements/calculate - 정산 집계 실행 (수동)\n   - GET /admin/settlements/summary - 정산 요약 정보 조회\n     - 일/주/월 단위 정산 예정액 산출\n     - 기사별 진단 건수 / 누적금액\n     - 기사별 정산액, 정산 상태(미정산/정산완료)\n\n3. 정산 상태 관리 API\n   - PATCH /admin/settlements/{id}/status - 정산 상태 변경 (미정산 → 정산완료)\n   - POST /admin/settlements/bulk-update - 일괄 정산 상태 변경\n\n4. 정산 엑셀 다운로드 API\n   - GET /admin/settlements/export - 정산 내역 엑셀 다운로드 (세무처리용)\n     - 기간별 필터링 지원\n     - 기사별 필터링 지원\n\n5. 정산 자동화 (Celery Task)\n   - 진단 완료 즉시 정산 테이블 기록 (settlements 테이블)\n   - 매일 0시 정산 집계 실행 (Celery Beat)\n   - 기사 수수료 계산 로직\n     - 시스템 기본 수수료율 또는 기사별 수수료율 적용\n     - 예: 고객 결제금액의 70% → 기사 몫\n\n**프론트엔드 화면 개발:**\n1. 정산 목록 화면 (/admin/settlements)\n   - 정산 내역 테이블 (기사명, 진단 건수, 총 금액, 정산액, 정산 상태, 정산일)\n   - 필터링: 기사, 정산 상태, 기간\n   - 검색 기능\n   - 페이지네이션\n\n2. 정산 상세 화면 (/admin/settlements/[id])\n   - 기사 정보\n   - 진단 건별 상세 내역 (진단 ID, 고객 결제금액, 수수료율, 정산액)\n   - 정산 상태 변경 기능\n   - 정산 완료 처리 버튼\n\n3. 정산 집계 화면 (/admin/settlements/summary)\n   - 일/주/월 단위 정산 예정액 차트\n   - 기사별 정산 현황 테이블\n   - 정산 집계 실행 버튼 (수동)\n\n4. 정산 엑셀 다운로드 기능\n   - 기간 선택\n   - 기사 선택 (옵션)\n   - 엑셀 다운로드 버튼\n\n**구현 사항:**\n- 정산 계산 로직: 고객 결제금액 × 수수료율 = 기사 정산액\n- 정산 상태: pending(미정산), completed(정산완료)\n- 정산 집계 시 중복 계산 방지 로직\n- 엑셀 파일 생성 (openpyxl 또는 pandas 활용)\n- 정산 변경 이력 추적",
+        "testStrategy": "1. 정산 내역 조회 API 단위 테스트\n2. 정산 계산 로직 정확성 테스트 (다양한 수수료율 시나리오)\n3. 정산 집계 로직 테스트 (일/주/월 단위)\n4. Celery Task 정산 자동화 테스트\n5. 정산 엑셀 다운로드 기능 테스트\n6. 정산 상태 변경 테스트\n7. 통합 테스트 (진단 완료 → 정산 기록 → 집계 → 엑셀 다운로드 플로우)\n8. 대량 데이터 처리 성능 테스트",
+        "status": "pending",
+        "dependencies": [
+          "16",
+          "17"
+        ],
+        "priority": "high",
+        "subtasks": []
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-08T12:56:02.772Z",
-      "taskCount": 11,
-      "completedCount": 8,
+      "lastModified": "2025-12-08T14:39:14.424Z",
+      "taskCount": 16,
+      "completedCount": 9,
       "tags": [
         "master"
       ]
