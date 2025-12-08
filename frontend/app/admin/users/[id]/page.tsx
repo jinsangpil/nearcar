@@ -50,6 +50,11 @@ export default function UserDetailPage() {
       queryClient.invalidateQueries({ queryKey: ['user-detail', userId] });
       queryClient.invalidateQueries({ queryKey: ['users'] });
       setIsEditing(false);
+      alert('유저 정보가 성공적으로 수정되었습니다.');
+    },
+    onError: (error: any) => {
+      console.error('유저 수정 실패:', error);
+      alert(error.response?.data?.detail || '유저 수정에 실패했습니다');
     },
   });
 
@@ -80,22 +85,17 @@ export default function UserDetailPage() {
   }, [data, isEditing, reset]);
 
   const onSubmit = async (formData: UserUpdateFormData) => {
-    try {
-      const updateData: UserUpdateRequest = {
-        name: formData.name,
-        email: formData.email || null,
-        phone: formData.phone,
-        password: formData.password || null,
-        region_id: formData.region_id || null,
-        level: formData.level || null,
-        commission_rate: formData.commission_rate || null,
-        status: formData.status,
-      };
-      await updateMutation.mutateAsync(updateData);
-    } catch (error: any) {
-      console.error('유저 수정 실패:', error);
-      alert(error.response?.data?.detail || '유저 수정에 실패했습니다');
-    }
+    const updateData: UserUpdateRequest = {
+      name: formData.name,
+      email: formData.email || null,
+      phone: formData.phone,
+      password: formData.password || null,
+      region_id: formData.region_id || null,
+      level: formData.level || null,
+      commission_rate: formData.commission_rate || null,
+      status: formData.status,
+    };
+    updateMutation.mutate(updateData);
   };
 
   const roleMap: Record<string, string> = {

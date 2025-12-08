@@ -204,16 +204,16 @@ export default function UsersPage() {
         header: '관리',
         cell: ({ row }) => {
           return (
-            <div className="flex space-x-2">
+            <div className="flex space-x-2" onClick={(e) => e.stopPropagation()}>
               <Link
                 href={`/admin/users/${row.original.id}`}
-                className="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
+                className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
                 상세/수정
               </Link>
               <button
                 onClick={() => setDeleteModalOpen(row.original.id)}
-                className="text-red-600 hover:text-red-900 text-sm font-medium"
+                className="inline-flex items-center px-3 py-1.5 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
               >
                 삭제
               </button>
@@ -411,7 +411,11 @@ export default function UsersPage() {
               </tr>
             ) : (
               table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-50">
+                <tr 
+                  key={row.id} 
+                  className="hover:bg-gray-50 cursor-pointer"
+                  onClick={() => router.push(`/admin/users/${row.original.id}`)}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <td key={cell.id} className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {cell.renderValue() as React.ReactNode}
