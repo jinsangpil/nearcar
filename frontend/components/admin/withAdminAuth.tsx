@@ -25,6 +25,7 @@ export default function withAdminAuth<P extends object>(
           
           if (!token) {
             router.push('/login');
+            setIsLoading(false);
             return;
           }
 
@@ -33,13 +34,19 @@ export default function withAdminAuth<P extends object>(
           
           // 관리자/직원 권한 확인
           if (userInfo.role !== 'admin' && userInfo.role !== 'staff') {
+            console.error('권한이 없습니다:', userInfo.role);
             router.push('/login');
+            setIsLoading(false);
             return;
           }
 
           setUser(userInfo);
-        } catch (error) {
+        } catch (error: any) {
           console.error('인증 확인 실패:', error);
+          // 토큰 제거
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('access_token');
+          }
           router.push('/login');
         } finally {
           setIsLoading(false);

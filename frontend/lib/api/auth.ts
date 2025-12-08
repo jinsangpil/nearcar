@@ -51,15 +51,36 @@ export const logout = async (): Promise<void> => {
 };
 
 export const getCurrentUser = async (): Promise<UserInfo> => {
-  const response = await apiClient.get<StandardResponse<UserInfo> | UserInfo>('/users/me');
-  
-  // 응답 형식 확인
-  if ('success' in response.data && response.data.success && response.data.data) {
-    return response.data.data;
-  } else if ('id' in response.data) {
-    return response.data as UserInfo;
-  } else {
-    throw new Error('사용자 정보 응답 형식이 올바르지 않습니다');
+  try {
+    const response = await apiClient.get<StandardResponse<UserInfo>>('/users/me', {
+      timeout: 5000, // 5초 타임아웃
+    });
+    
+    // 응답 형식 확인
+    if (response.data.success && response.data.data) {
+      return response.data.data;
+    } else {
+      throw new Error(response.data.error || '사용자 정보를 가져올 수 없습니다');
+    }
+  } catch (error: any) {
+    console.error('getCurrentUser 오류:', error);
+    
+    // 네트워크 오류
+    if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+      throw new Error('서버 응답 시간이 초과되었습니다');
+    }
+    
+    // 401 에러인 경우 이미 인터셉터에서 처리됨
+    if (error.response?.status === 401) {
+      throw new Error('인증이 필요합니다');
+    }
+    
+    // 403 에러
+    if (error.response?.status === 403) {
+      throw new Error('권한이 없습니다');
+    }
+    
+    throw error instanceof Error ? error : new Error('사용자 정보를 가져올 수 없습니다');
   }
 };
 

@@ -20,11 +20,20 @@ export default function LoginPage() {
 
     try {
       await login({ email, password });
-      const userInfo = await import('@/lib/api/auth').then(m => m.getCurrentUser());
-      setUser(userInfo);
+      
+      // 사용자 정보 가져오기 (에러 발생 시에도 로그인은 성공한 것으로 처리)
+      try {
+        const userInfo = await import('@/lib/api/auth').then(m => m.getCurrentUser());
+        setUser(userInfo);
+      } catch (userErr) {
+        console.error('사용자 정보 조회 실패:', userErr);
+        // 사용자 정보 조회 실패해도 로그인은 성공했으므로 진행
+      }
+      
       router.push('/admin/dashboard');
     } catch (err: any) {
-      setError(err.response?.data?.detail || '로그인에 실패했습니다.');
+      console.error('로그인 실패:', err);
+      setError(err.response?.data?.detail || err.message || '로그인에 실패했습니다.');
     } finally {
       setIsLoading(false);
     }

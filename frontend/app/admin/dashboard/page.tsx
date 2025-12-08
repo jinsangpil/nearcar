@@ -27,36 +27,61 @@ ChartJS.register(
 );
 
 export default function DashboardPage() {
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading, error, isError } = useQuery({
     queryKey: ['dashboard-stats'],
     queryFn: getDashboardStats,
     refetchInterval: 30000, // 30초마다 폴링
+    retry: 1, // 재시도 1회만
+    staleTime: 10000, // 10초간 캐시 유지
   });
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-lg">로딩 중...</div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">로딩 중...</p>
+        </div>
       </div>
     );
   }
 
-  if (error) {
+  if (isError || error) {
     console.error('대시보드 데이터 로딩 오류:', error);
     return (
-      <div className="rounded-md bg-red-50 p-4">
-        <div className="text-sm text-red-800">
-          데이터를 불러오는 중 오류가 발생했습니다.
-          {error instanceof Error && (
-            <div className="mt-2 text-xs text-red-600">{error.message}</div>
-          )}
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">대시보드</h1>
+          <p className="mt-1 text-sm text-gray-500">오늘의 주요 지표를 확인하세요</p>
+        </div>
+        <div className="rounded-md bg-red-50 p-4">
+          <div className="text-sm text-red-800">
+            데이터를 불러오는 중 오류가 발생했습니다.
+            {error instanceof Error && (
+              <div className="mt-2 text-xs text-red-600">{error.message}</div>
+            )}
+            <div className="mt-4">
+              <button
+                onClick={() => window.location.reload()}
+                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 text-sm"
+              >
+                새로고침
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   if (!data) {
-    return null;
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center">
+          <p className="text-gray-600">데이터가 없습니다.</p>
+        </div>
+      </div>
+    );
   }
 
   // 일별 추이 차트 데이터

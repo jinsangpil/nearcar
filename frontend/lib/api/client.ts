@@ -9,6 +9,7 @@ const apiClient: AxiosInstance = axios.create({
     'Content-Type': 'application/json',
   },
   withCredentials: true, // 쿠키 자동 전송
+  timeout: 10000, // 기본 타임아웃 10초
 });
 
 // 요청 인터셉터: 인증 토큰 자동 주입
@@ -37,10 +38,13 @@ apiClient.interceptors.response.use(
       
       // 401 Unauthorized: 인증 실패
       if (status === 401) {
-        // 로그인 페이지로 리다이렉트
+        // 로그인 페이지로 리다이렉트 (중복 리다이렉트 방지)
         if (typeof window !== 'undefined') {
           localStorage.removeItem('access_token');
-          window.location.href = '/login';
+          // 현재 경로가 로그인 페이지가 아닐 때만 리다이렉트
+          if (window.location.pathname !== '/login') {
+            window.location.href = '/login';
+          }
         }
       }
       
@@ -48,6 +52,12 @@ apiClient.interceptors.response.use(
       if (status === 403) {
         // 권한 없음 페이지로 리다이렉트 또는 에러 표시
         console.error('권한이 없습니다.');
+        if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')) {
+          localStorage.removeItem('access_token');
+          if (window.location.pathname !== '/login') {
+            window.location.href = '/login';
+          }
+        }
       }
     }
     

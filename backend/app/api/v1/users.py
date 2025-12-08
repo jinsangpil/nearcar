@@ -14,7 +14,7 @@ from app.schemas.vehicle import StandardResponse
 router = APIRouter(prefix="/users", tags=["사용자"])
 
 
-@router.get("/me", response_model=UserInfo)
+@router.get("/me", response_model=StandardResponse)
 async def get_current_user_info(
     current_user: User = Depends(get_current_user)
 ):
@@ -23,11 +23,17 @@ async def get_current_user_info(
     
     인증이 필요한 엔드포인트 예시입니다.
     """
-    return UserInfo(
+    user_info = UserInfo(
         id=str(current_user.id),
         role=current_user.role,
         name=current_user.name,
         email=current_user.email
+    )
+    
+    return StandardResponse(
+        success=True,
+        data=user_info,
+        error=None
     )
 
 

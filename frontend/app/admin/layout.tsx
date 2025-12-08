@@ -9,37 +9,92 @@ import { getCurrentUser } from '@/lib/api/auth';
 function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { user, setUser } = useAuthStore();
+  const { user, setUser, isAuthenticated } = useAuthStore();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+    let timeoutId: NodeJS.Timeout;
+    
     const checkAuth = async () => {
+      // 이미 인증된 사용자가 있고 토큰이 있으면 재확인 생략
+      const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
+      
+      if (isAuthenticated && user && user.role && (user.role === 'admin' || user.role === 'staff') && token) {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+        return;
+      }
+
+      // 타임아웃 설정 (최대 5초 대기)
+      timeoutId = setTimeout(() => {
+        if (isMounted) {
+          console.error('인증 확인 타임아웃');
+          setIsLoading(false);
+          if (!token) {
+            router.push('/login');
+          }
+        }
+      }, 5000);
+
       try {
-        const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
-        
         if (!token) {
-          router.push('/login');
+          clearTimeout(timeoutId);
+          if (isMounted) {
+            setIsLoading(false);
+            router.push('/login');
+          }
           return;
         }
 
         const userInfo = await getCurrentUser();
+        clearTimeout(timeoutId);
+        
+        if (!isMounted) {
+          return;
+        }
         
         if (userInfo.role !== 'admin' && userInfo.role !== 'staff') {
+          console.error('권한이 없습니다:', userInfo.role);
+          if (typeof window !== 'undefined') {
+            localStorage.removeItem('access_token');
+          }
+          setIsLoading(false);
           router.push('/login');
           return;
         }
 
         setUser(userInfo);
-      } catch (error) {
-        console.error('인증 확인 실패:', error);
-        router.push('/login');
-      } finally {
         setIsLoading(false);
+      } catch (error: any) {
+        clearTimeout(timeoutId);
+        console.error('인증 확인 실패:', error);
+        
+        // 토큰 제거
+        if (typeof window !== 'undefined') {
+          localStorage.removeItem('access_token');
+        }
+        
+        if (isMounted) {
+          setIsLoading(false);
+          // 인터셉터에서 이미 리다이렉트했을 수 있으므로 확인
+          if (window.location.pathname !== '/login') {
+            router.push('/login');
+          }
+        }
       }
     };
 
     checkAuth();
-  }, [router, setUser]);
+    
+    return () => {
+      isMounted = false;
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [router, setUser, isAuthenticated, user]);
 
   if (isLoading) {
     return (

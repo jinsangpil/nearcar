@@ -13,19 +13,41 @@ export interface DashboardStats {
 
 export const getDashboardStats = async (): Promise<DashboardStats> => {
   try {
-    const response = await apiClient.get<StandardResponse<DashboardStats>>('/admin/dashboard/stats');
-    if (!response.data.data) {
-      throw new Error('대시보드 통계 데이터를 불러올 수 없습니다');
+    const response = await apiClient.get<StandardResponse<DashboardStats>>('/admin/dashboard/stats', {
+      timeout: 10000, // 10초 타임아웃
+    });
+    
+    if (!response.data.success || !response.data.data) {
+      throw new Error(response.data.error || '대시보드 통계 데이터를 불러올 수 없습니다');
     }
+    
     return response.data.data;
   } catch (error: any) {
     console.error('대시보드 통계 API 호출 실패:', error);
-    if (error.response) {
-      console.error('응답 상태:', error.response.status);
-      console.error('응답 데이터:', error.response.data);
-      throw new Error(error.response.data?.detail || `API 오류: ${error.response.status}`);
+    
+    // 네트워크 오류
+    if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+      throw new Error('서버 응답 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
     }
-    throw error;
+    
+    // HTTP 오류
+    if (error.response) {
+      const status = error.response.status;
+      const detail = error.response.data?.detail || error.response.data?.error;
+      
+      if (status === 401) {
+        throw new Error('인증이 필요합니다. 다시 로그인해주세요.');
+      } else if (status === 403) {
+        throw new Error('권한이 없습니다.');
+      } else if (status === 500) {
+        throw new Error('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
+      }
+      
+      throw new Error(detail || `API 오류: ${status}`);
+    }
+    
+    // 기타 오류
+    throw error instanceof Error ? error : new Error('알 수 없는 오류가 발생했습니다.');
   }
 };
 
