@@ -439,7 +439,7 @@
         "id": "19",
         "title": "진단 체크리스트 및 레포트 시스템 개발",
         "description": "기사가 현장에서 사용할 체계적인 진단 체크리스트와 레포트 생성 시스템을 개발합니다. 백엔드 핵심 기능으로 최우선 순위로 진행합니다.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           "11",
           "12",
@@ -495,21 +495,22 @@
               3
             ],
             "details": "레포트 뷰어 개발은 다음 작업을 포함합니다:\n1. 웹 기반 레포트 뷰어 프론트엔드 개발 - React 18+ 활용\n2. 섹션별 탭 UI 구현 - 외관, 엔진룸, 하부, 실내, 전장품 섹션 구분\n3. 이미지 갤러리 및 확대 보기 기능 구현 - 이미지 스와이프 및 줌 지원\n4. PDF 다운로드 기능 구현 - 생성된 PDF 파일 직접 다운로드\n5. 모바일/데스크탑 반응형 디자인 적용 - 다양한 화면 크기 최적화\n6. 레포트 공유 기능 구현 - 고유 URL 생성 및 접근 권한 관리\n7. 성능 최적화 - 이미지 지연 로딩, 코드 분할 적용",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "1. 다양한 브라우저 호환성 테스트 (Chrome, Safari, Firefox, Edge)\n2. 모바일/데스크탑 반응형 디자인 테스트\n3. 이미지 갤러리 및 확대 기능 사용성 테스트\n4. 대용량 레포트 로딩 성능 테스트\n5. PDF 다운로드 기능 테스트\n6. 접근성(A11Y) 테스트 - 스크린 리더 호환성 확인",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T12:56:02.771Z"
           }
         ],
         "complexity": 9,
         "recommendedSubtasks": 4,
         "expansionPrompt": "진단 체크리스트 및 레포트 시스템 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 체크리스트 API 개발, 2) 사진 업로드 시스템 구현, 3) PDF 생성 시스템 구현, 4) 레포트 뷰어 개발. 각 하위 작업에 대해 구체적인 구현 단계, 성능 최적화 방안, 테스트 전략을 설명하세요.",
-        "updatedAt": "2025-12-08T12:15:04.810Z"
+        "updatedAt": "2025-12-08T12:56:02.771Z"
       },
       {
         "id": "20",
         "title": "알림 시스템 개발",
         "description": "카카오 알림톡, SMS, 이메일을 통합 관리하는 다채널 알림 시스템을 개발합니다. 백엔드 핵심 기능으로 최우선 순위로 진행합니다.",
-        "status": "in-progress",
+        "status": "done",
         "dependencies": [
           "11",
           "12",
@@ -525,9 +526,10 @@
             "description": "알림 발송 API 엔드포인트를 개발하고 Celery와 Redis를 활용한 비동기 처리 시스템을 구현합니다.",
             "dependencies": [],
             "details": "1. `/api/notifications/send` API 엔드포인트 개발 (수신자, 알림 유형, 데이터 파라미터 처리)\n2. Celery 작업 큐 설정 및 Redis 연동 구성\n3. 알림 발송 Celery Task 구현 (send_notification)\n4. 발송 실패 시 자동 재시도 메커니즘 구현 (최대 3회, Exponential Backoff)\n5. 알림 발송 상태 모니터링 API 개발 (/api/notifications/status/{id})\n6. 슬랙 웹훅 연동을 통한 운영자 알림 기능 구현\n7. 알림 발송 요청 유효성 검증 로직 구현",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "1. 알림 발송 API 단위 테스트\n2. Celery Task 실행 및 재시도 메커니즘 테스트\n3. Redis 연동 테스트\n4. 대량 알림 요청 처리 성능 테스트\n5. 슬랙 웹훅 발송 테스트\n6. 오류 상황에서의 예외 처리 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T12:19:20.578Z"
           },
           {
             "id": 2,
@@ -551,15 +553,16 @@
               2
             ],
             "details": "1. 알림 발송 이력 DB 스키마 설계 및 구현 (발송 시간, 채널, 수신자, 상태 등)\n2. 발송 이력 조회 API 개발 (/api/notifications/history)\n3. 발송 상태 추적 및 업데이트 기능 구현 (성공/실패)\n4. 상태별 자동 알림 트리거 구현:\n   - 신청 완료: 접수 확인 알림\n   - 기사 배정: 기사 정보 알림\n   - 레포트 발송: 레포트 링크 알림\n5. 이벤트 기반 알림 트리거 시스템 구현 (이벤트 발생 시 자동 알림 발송)\n6. 알림 발송 통계 및 대시보드 API 개발 (/api/notifications/stats)",
-            "status": "pending",
+            "status": "done",
             "testStrategy": "1. 발송 이력 저장 및 조회 기능 테스트\n2. 상태별 자동 알림 트리거 테스트\n3. 이벤트 기반 알림 발송 테스트\n4. 발송 상태 추적 정확성 테스트\n5. 통계 API 정확성 테스트\n6. 대량 이력 데이터 조회 성능 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-08T12:24:11.766Z"
           }
         ],
         "complexity": 7,
         "recommendedSubtasks": 3,
         "expansionPrompt": "알림 시스템 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 알림 발송 API 및 Celery 작업 구현, 2) 알림 템플릿 관리 및 채널별 발송 구현, 3) 발송 이력 관리 및 상태별 자동 알림 트리거 구현. 각 하위 작업에 대해 구체적인 구현 단계, 오류 처리 방법, 테스트 전략을 설명하세요.",
-        "updatedAt": "2025-12-07T06:18:12.883Z"
+        "updatedAt": "2025-12-08T12:24:11.766Z"
       },
       {
         "id": "21",
@@ -645,9 +648,9 @@
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-08T12:15:04.811Z",
+      "lastModified": "2025-12-08T12:56:02.772Z",
       "taskCount": 11,
-      "completedCount": 6,
+      "completedCount": 8,
       "tags": [
         "master"
       ]

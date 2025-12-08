@@ -21,6 +21,7 @@ class Notification(Base):
     content = Column(Text, nullable=False)
     status = Column(String(20), nullable=False, default="pending")  # pending, sent, failed
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    sent_at = Column(DateTime(timezone=True), nullable=True)  # 발송 완료 시간
     
     # Relationships
     user = relationship("User", foreign_keys=[user_id])

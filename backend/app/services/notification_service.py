@@ -244,7 +244,8 @@ class NotificationService:
                 "template_id": notification.template_id,
                 "content": notification.content,
                 "status": notification.status,
-                "created_at": notification.created_at.isoformat()
+                "created_at": notification.created_at.isoformat(),
+                "sent_at": notification.sent_at.isoformat() if notification.sent_at else None
             }
             for notification in notifications
         ]

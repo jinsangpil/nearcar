@@ -35,12 +35,23 @@ async def send_notification(
     관리자 권한 필요.
     """
     try:
+        # 유효성 검증
+        if not request.user_id:
+            raise ValueError("수신자 ID는 필수입니다")
+        
+        if request.channel not in ["alimtalk", "sms", "email", "slack"]:
+            raise ValueError(f"지원하지 않는 채널입니다: {request.channel}")
+        
+        if not request.template_id and not getattr(request, 'template_name', None):
+            # 템플릿이 없어도 기본 메시지로 발송 가능하도록 허용
+            pass
+        
         # Celery Task 실행
         task = send_notification_task.delay(
             user_id=request.user_id,
             channel=request.channel,
             template_id=request.template_id,
-            template_name=getattr(request, 'template_name', None),
+            template_name=request.template_name,
             data=request.data or {}
         )
         
@@ -101,6 +112,62 @@ async def get_notification_status(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"알림 상태 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/tasks/{task_id}/status", response_model=StandardResponse)
+async def get_notification_task_status(
+    task_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """
+    알림 발송 Task 상태 조회 API
+    
+    Celery Task의 현재 상태를 조회합니다.
+    """
+    from app.core.celery_app import celery_app
+    
+    try:
+        task = celery_app.AsyncResult(task_id)
+        
+        if task.state == "PENDING":
+            response = {
+                "task_id": task_id,
+                "status": "pending",
+                "message": "작업이 대기 중입니다."
+            }
+        elif task.state == "PROGRESS":
+            response = {
+                "task_id": task_id,
+                "status": "processing",
+                "message": "알림 발송 중입니다...",
+                "progress": task.info.get("progress", 0) if isinstance(task.info, dict) else None
+            }
+        elif task.state == "SUCCESS":
+            response = {
+                "task_id": task_id,
+                "status": "completed",
+                "message": "알림 발송이 완료되었습니다.",
+                "result": task.result
+            }
+        else:  # FAILURE
+            response = {
+                "task_id": task_id,
+                "status": "failed",
+                "message": "알림 발송에 실패했습니다.",
+                "error": str(task.info) if task.info else "알 수 없는 오류"
+            }
+        
+        return StandardResponse(
+            success=True,
+            data=response,
+            error=None
+        )
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Task 상태 조회 중 오류가 발생했습니다: {str(e)}"
         )
 
 

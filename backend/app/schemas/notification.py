@@ -8,10 +8,11 @@ from datetime import datetime
 
 class NotificationSendRequest(BaseModel):
     """알림 발송 요청 스키마"""
-    user_id: str = Field(..., description="수신자 ID")
+    user_id: str = Field(..., min_length=1, description="수신자 ID")
     channel: str = Field(..., description="채널", pattern="^(alimtalk|sms|email|slack)$")
     template_id: Optional[str] = Field(None, description="템플릿 ID")
-    data: Dict[str, Any] = Field(..., description="템플릿 변수 데이터")
+    template_name: Optional[str] = Field(None, description="템플릿 이름 (template_id 대신 사용 가능)")
+    data: Dict[str, Any] = Field(default_factory=dict, description="템플릿 변수 데이터")
     
     class Config:
         json_schema_extra = {
@@ -56,6 +57,7 @@ class NotificationHistoryResponse(BaseModel):
     content: str
     status: str
     created_at: datetime
+    sent_at: Optional[datetime] = None
     
     class Config:
         from_attributes = True

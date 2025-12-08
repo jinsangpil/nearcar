@@ -230,11 +230,13 @@ CREATE TABLE notifications (
     template_id VARCHAR(50),
     content TEXT NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'sent', 'failed')),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    sent_at TIMESTAMP WITH TIME ZONE
 );
 
 COMMENT ON TABLE notifications IS '알림 발송 이력';
 COMMENT ON COLUMN notifications.template_id IS '알림 템플릿 코드';
+COMMENT ON COLUMN notifications.sent_at IS '발송 완료 시간';
 
 -- ============================================
 -- 4. 인덱스 생성
