@@ -318,7 +318,7 @@ export default function UsersPage() {
                 setPagination({ ...pagination, pageIndex: 0 });
               }}
               placeholder="이름, 이메일, 전화번호"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
             />
           </div>
 
@@ -333,7 +333,7 @@ export default function UsersPage() {
                 setStatusFilter(e.target.value);
                 setPagination({ ...pagination, pageIndex: 0 });
               }}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
             >
               <option value="all">전체</option>
               <option value="active">활성</option>
@@ -353,7 +353,7 @@ export default function UsersPage() {
                 setLevelFilter(e.target.value);
                 setPagination({ ...pagination, pageIndex: 0 });
               }}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
             >
               <option value="all">전체</option>
               <option value="1">1등급</option>

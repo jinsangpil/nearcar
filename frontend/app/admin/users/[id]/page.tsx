@@ -189,8 +189,8 @@ export default function UserDetailPage() {
                 type="text"
                 id="name"
                 disabled={!isEditing}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                  !isEditing ? 'bg-gray-50' : ''
+                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                  !isEditing ? 'bg-gray-50' : 'bg-white'
                 }`}
               />
               {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
@@ -205,8 +205,8 @@ export default function UserDetailPage() {
                 type="email"
                 id="email"
                 disabled={!isEditing}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                  !isEditing ? 'bg-gray-50' : ''
+                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                  !isEditing ? 'bg-gray-50' : 'bg-white'
                 }`}
               />
               {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
@@ -221,8 +221,8 @@ export default function UserDetailPage() {
                 type="tel"
                 id="phone"
                 disabled={!isEditing}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                  !isEditing ? 'bg-gray-50' : ''
+                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                  !isEditing ? 'bg-gray-50' : 'bg-white'
                 }`}
               />
               {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
@@ -238,8 +238,8 @@ export default function UserDetailPage() {
                 id="password"
                 disabled={!isEditing}
                 placeholder="변경하지 않으려면 비워두세요"
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                  !isEditing ? 'bg-gray-50' : ''
+                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                  !isEditing ? 'bg-gray-50' : 'bg-white'
                 }`}
               />
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>}
@@ -264,8 +264,8 @@ export default function UserDetailPage() {
                 {...register('status')}
                 id="status"
                 disabled={!isEditing}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                  !isEditing ? 'bg-gray-50' : ''
+                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                  !isEditing ? 'bg-gray-50' : 'bg-white'
                 }`}
               >
                 <option value="active">활성</option>
@@ -293,8 +293,8 @@ export default function UserDetailPage() {
                   min="1"
                   max="5"
                   disabled={!isEditing}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    !isEditing ? 'bg-gray-50' : ''
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                    !isEditing ? 'bg-gray-50' : 'bg-white'
                   }`}
                 />
                 {errors.level && <p className="mt-1 text-sm text-red-600">{errors.level.message}</p>}
@@ -312,8 +312,8 @@ export default function UserDetailPage() {
                   max="100"
                   step="0.1"
                   disabled={!isEditing}
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    !isEditing ? 'bg-gray-50' : ''
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                    !isEditing ? 'bg-gray-50' : 'bg-white'
                   }`}
                 />
                 {errors.commission_rate && (
@@ -331,8 +331,8 @@ export default function UserDetailPage() {
                   id="region_id"
                   disabled={!isEditing}
                   placeholder="UUID 형식"
-                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm ${
-                    !isEditing ? 'bg-gray-50' : ''
+                  className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 ${
+                    !isEditing ? 'bg-gray-50' : 'bg-white'
                   }`}
                 />
                 {errors.region_id && <p className="mt-1 text-sm text-red-600">{errors.region_id.message}</p>}

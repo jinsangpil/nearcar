@@ -172,7 +172,7 @@ export default function NewUserPage() {
                 {...register('name')}
                 type="text"
                 id="name"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
               />
               {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
             </div>
@@ -185,7 +185,7 @@ export default function NewUserPage() {
                 {...register('email')}
                 type="email"
                 id="email"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
               />
               {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
             </div>
@@ -198,7 +198,7 @@ export default function NewUserPage() {
                 {...register('phone')}
                 type="tel"
                 id="phone"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
               />
               {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>}
             </div>
@@ -212,7 +212,7 @@ export default function NewUserPage() {
                 type="password"
                 id="password"
                 placeholder="비워두면 임시 비밀번호가 생성됩니다"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
               />
               {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password.message}</p>}
             </div>
@@ -224,7 +224,7 @@ export default function NewUserPage() {
               <select
                 {...register('status')}
                 id="status"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
               >
                 <option value="active">활성</option>
                 <option value="inactive">비활성</option>
@@ -250,7 +250,7 @@ export default function NewUserPage() {
                   id="level"
                   min="1"
                   max="5"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
                 />
                 {errors.level && <p className="mt-1 text-sm text-red-600">{errors.level.message}</p>}
               </div>
@@ -266,7 +266,7 @@ export default function NewUserPage() {
                   min="0"
                   max="100"
                   step="0.1"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
                 />
                 {errors.commission_rate && (
                   <p className="mt-1 text-sm text-red-600">{errors.commission_rate.message}</p>
@@ -282,7 +282,7 @@ export default function NewUserPage() {
                   type="text"
                   id="region_id"
                   placeholder="UUID 형식"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base py-2.5 px-3 text-gray-900 bg-white"
                 />
                 {errors.region_id && (
                   <p className="mt-1 text-sm text-red-600">{errors.region_id.message}</p>
