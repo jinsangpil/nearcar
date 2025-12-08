@@ -243,3 +243,44 @@ export const deleteUser = async (userId: string): Promise<void> => {
   await apiClient.delete(`/admin/users/${userId}`);
 };
 
+// 유저 생성
+export interface UserCreateRequest {
+  role: string;
+  name: string;
+  email?: string | null;
+  phone: string;
+  password?: string | null;
+  region_id?: string | null;
+  level?: number | null;
+  commission_rate?: number | null;
+  status?: string;
+}
+
+export const createUser = async (data: UserCreateRequest): Promise<UserDetail> => {
+  const response = await apiClient.post<StandardResponse<UserDetail>>('/admin/users', data);
+  if (!response.data.data) {
+    throw new Error('유저 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 유저 수정
+export interface UserUpdateRequest {
+  name?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  password?: string | null;
+  region_id?: string | null;
+  level?: number | null;
+  commission_rate?: number | null;
+  status?: string | null;
+}
+
+export const updateUser = async (userId: string, data: UserUpdateRequest): Promise<UserDetail> => {
+  const response = await apiClient.patch<StandardResponse<UserDetail>>(`/admin/users/${userId}`, data);
+  if (!response.data.data) {
+    throw new Error('유저 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+

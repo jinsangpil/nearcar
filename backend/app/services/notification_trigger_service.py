@@ -132,6 +132,38 @@ class NotificationTriggerService:
             logger.error(f"레포트 제출 알림 트리거 실패: {e}")
     
     @staticmethod
+    def trigger_pdf_generated(
+        inspection_id: str,
+        user_id: str,
+        pdf_url: str
+    ):
+        """
+        PDF 생성 완료 알림 트리거
+        
+        Args:
+            inspection_id: 진단 신청 ID
+            user_id: 고객 사용자 ID
+            pdf_url: 생성된 PDF의 S3 URL
+        """
+        try:
+            logger.info(f"PDF 생성 완료 알림 트리거: inspection_id={inspection_id}, user_id={user_id}")
+            
+            # Celery Task로 비동기 발송
+            send_notification_task.delay(
+                user_id=user_id,
+                channel="alimtalk",  # 기본 채널
+                template_name="pdf_generated",
+                data={
+                    "inspection_id": inspection_id,
+                    "pdf_url": pdf_url,
+                    "report_url": f"/report/view/{inspection_id}"  # 웹 뷰어 URL
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"PDF 생성 완료 알림 트리거 실패: {e}")
+    
+    @staticmethod
     def trigger_report_sent(
         inspection_id: str,
         user_id: str,

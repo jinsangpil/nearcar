@@ -85,6 +85,9 @@ def generate_inspection_report_pdf(
         # 4. DB에 PDF URL 저장 (async 함수를 동기적으로 실행)
         asyncio.run(_update_report_pdf_url(inspection_id, pdf_url))
         
+        # 5. PDF 생성 완료 알림 발송
+        asyncio.run(_send_pdf_generation_notification(inspection_id, pdf_url))
+        
         logger.info(f"PDF 생성 완료: inspection_id={inspection_id}, url={pdf_url}")
         
         return {
@@ -296,10 +299,19 @@ async def _update_report_pdf_url(inspection_id: str, pdf_url: str):
         inspection_id: 진단 신청 ID
         pdf_url: 생성된 PDF의 S3 URL
     """
+    import uuid
+    
+    # UUID 변환
+    try:
+        inspection_uuid = uuid.UUID(inspection_id)
+    except ValueError:
+        logger.error(f"올바른 진단 신청 ID 형식이 아닙니다: {inspection_id}")
+        raise ValueError(f"올바른 진단 신청 ID 형식이 아닙니다: {inspection_id}")
+    
     async with AsyncSessionLocal() as session:
         try:
             result = await session.execute(
-                select(InspectionReport).where(InspectionReport.inspection_id == inspection_id)
+                select(InspectionReport).where(InspectionReport.inspection_id == inspection_uuid)
             )
             report = result.scalar_one_or_none()
             
@@ -313,6 +325,52 @@ async def _update_report_pdf_url(inspection_id: str, pdf_url: str):
             logger.error(f"PDF URL 업데이트 실패: {inspection_id}, 오류: {e}")
             await session.rollback()
             raise
+
+
+async def _send_pdf_generation_notification(inspection_id: str, pdf_url: str):
+    """
+    PDF 생성 완료 알림 발송
+    
+    Args:
+        inspection_id: 진단 신청 ID
+        pdf_url: 생성된 PDF의 S3 URL
+    """
+    import uuid
+    from app.models.inspection import Inspection
+    
+    # UUID 변환
+    try:
+        inspection_uuid = uuid.UUID(inspection_id)
+    except ValueError:
+        logger.error(f"올바른 진단 신청 ID 형식이 아닙니다: {inspection_id}")
+        return
+    
+    async with AsyncSessionLocal() as session:
+        try:
+            # Inspection 조회하여 고객 정보 가져오기
+            result = await session.execute(
+                select(Inspection).where(Inspection.id == inspection_uuid)
+            )
+            inspection = result.scalar_one_or_none()
+            
+            if not inspection:
+                logger.warning(f"Inspection을 찾을 수 없습니다: {inspection_id}")
+                return
+            
+            # 알림 트리거 서비스 호출
+            from app.services.notification_trigger_service import NotificationTriggerService
+            
+            NotificationTriggerService.trigger_pdf_generated(
+                inspection_id=str(inspection_uuid),
+                user_id=str(inspection.user_id),
+                pdf_url=pdf_url
+            )
+            
+            logger.info(f"PDF 생성 완료 알림 발송: inspection_id={inspection_id}")
+            
+        except Exception as e:
+            logger.error(f"PDF 생성 완료 알림 발송 실패: {inspection_id}, 오류: {e}")
+            # 알림 발송 실패는 PDF 생성 자체를 실패로 만들지 않음
 
 
 def _create_default_template(template_path: str):

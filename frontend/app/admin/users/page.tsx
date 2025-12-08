@@ -209,13 +209,7 @@ export default function UsersPage() {
                 href={`/admin/users/${row.original.id}`}
                 className="text-indigo-600 hover:text-indigo-900 text-sm font-medium"
               >
-                상세
-              </Link>
-              <Link
-                href={`/admin/users/${row.original.id}/edit`}
-                className="text-gray-600 hover:text-gray-900 text-sm font-medium"
-              >
-                수정
+                상세/수정
               </Link>
               <button
                 onClick={() => setDeleteModalOpen(row.original.id)}

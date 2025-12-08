@@ -1,8 +1,9 @@
 """
 체크리스트 API 엔드포인트
 """
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
+from typing import Optional
 
 from app.core.database import get_db
 from app.core.dependencies import get_current_user, require_role
@@ -80,6 +81,7 @@ async def save_checklist(
 @router.get("/inspections/{inspection_id}/checklist", response_model=StandardResponse)
 async def get_checklist(
     inspection_id: str,
+    section: Optional[str] = None,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -87,11 +89,13 @@ async def get_checklist(
     체크리스트 조회 API
     
     저장된 체크리스트를 조회합니다.
+    - section 파라미터로 특정 섹션만 필터링 가능 (외관, 엔진룸, 하부, 실내, 전장품)
     """
     try:
         checklist = await ChecklistService.get_checklist(
             db=db,
-            inspection_id=inspection_id
+            inspection_id=inspection_id,
+            section=section
         )
         
         if not checklist:

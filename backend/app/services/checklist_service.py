@@ -105,9 +105,20 @@ class ChecklistService:
         Returns:
             저장된 InspectionReport 정보
         """
+        import uuid
+        
+        # UUID 변환
+        try:
+            inspection_uuid = uuid.UUID(inspection_id)
+        except ValueError:
+            raise ValueError("올바른 진단 신청 ID 형식이 아닙니다")
+        
+        # 체크리스트 데이터 구조 검증
+        ChecklistService._validate_checklist_data(checklist_data)
+        
         # Inspection 조회 및 권한 확인
         inspection_result = await db.execute(
-            select(Inspection).where(Inspection.id == inspection_id)
+            select(Inspection).where(Inspection.id == inspection_uuid)
         )
         inspection = inspection_result.scalar_one_or_none()
         
@@ -119,7 +130,7 @@ class ChecklistService:
         
         # 기존 InspectionReport 확인
         report_result = await db.execute(
-            select(InspectionReport).where(InspectionReport.inspection_id == inspection_id)
+            select(InspectionReport).where(InspectionReport.inspection_id == inspection_uuid)
         )
         report = report_result.scalar_one_or_none()
         
@@ -133,7 +144,7 @@ class ChecklistService:
         else:
             # 생성
             report = InspectionReport(
-                inspection_id=inspection_id,
+                inspection_id=inspection_uuid,
                 checklist_data=checklist_data,
                 images=images or [],
                 inspector_comment=inspector_comment,
@@ -152,7 +163,7 @@ class ChecklistService:
         from app.services.notification_trigger_service import NotificationTriggerService
         
         NotificationTriggerService.trigger_report_submitted(
-            inspection_id=inspection_id,
+            inspection_id=str(inspection_uuid),
             user_id=str(inspection.user_id),
             report_data={
                 "inspector_comment": inspector_comment,
@@ -162,14 +173,56 @@ class ChecklistService:
         
         return {
             "report_id": str(report.id),
-            "inspection_id": str(inspection_id),
+            "inspection_id": str(inspection_uuid),
             "status": report.status
         }
     
     @staticmethod
+    def _validate_checklist_data(checklist_data: Dict[str, Any]) -> None:
+        """
+        체크리스트 데이터 구조 검증
+        
+        Args:
+            checklist_data: 체크리스트 데이터
+        
+        Raises:
+            ValueError: 데이터 구조가 올바르지 않은 경우
+        """
+        if not isinstance(checklist_data, dict):
+            raise ValueError("체크리스트 데이터는 딕셔너리 형식이어야 합니다")
+        
+        # 허용된 섹션 목록
+        valid_sections = ["외관", "엔진룸", "하부", "실내", "전장품"]
+        
+        # 섹션별 검증
+        for section, items in checklist_data.items():
+            if section not in valid_sections:
+                logger.warning(f"알 수 없는 섹션: {section}")
+                continue
+            
+            if not isinstance(items, list):
+                raise ValueError(f"섹션 '{section}'의 데이터는 리스트 형식이어야 합니다")
+            
+            # 각 항목 검증
+            for item in items:
+                if not isinstance(item, dict):
+                    raise ValueError(f"섹션 '{section}'의 항목은 딕셔너리 형식이어야 합니다")
+                
+                # 필수 필드 확인
+                if "id" not in item:
+                    raise ValueError(f"섹션 '{section}'의 항목에 'id' 필드가 없습니다")
+                
+                # 상태 필드 검증 (있는 경우)
+                if "status" in item:
+                    valid_statuses = ["normal", "warning", "defect", "good", "warn", "bad"]
+                    if item["status"] not in valid_statuses:
+                        logger.warning(f"알 수 없는 상태 값: {item['status']}")
+    
+    @staticmethod
     async def get_checklist(
         db: AsyncSession,
-        inspection_id: str
+        inspection_id: str,
+        section: Optional[str] = None
     ) -> Optional[Dict[str, Any]]:
         """
         체크리스트 조회
@@ -177,21 +230,40 @@ class ChecklistService:
         Args:
             db: 데이터베이스 세션
             inspection_id: 진단 신청 ID
+            section: 필터링할 섹션명 (외관, 엔진룸, 하부, 실내, 전장품)
         
         Returns:
             InspectionReport 정보
         """
+        import uuid
+        
+        # UUID 변환
+        try:
+            inspection_uuid = uuid.UUID(inspection_id)
+        except ValueError:
+            raise ValueError("올바른 진단 신청 ID 형식이 아닙니다")
+        
         result = await db.execute(
-            select(InspectionReport).where(InspectionReport.inspection_id == inspection_id)
+            select(InspectionReport).where(InspectionReport.inspection_id == inspection_uuid)
         )
         report = result.scalar_one_or_none()
         
         if not report:
             return None
         
+        # 섹션별 필터링
+        checklist_data = report.checklist_data
+        if section:
+            # 섹션명이 체크리스트 데이터에 있는지 확인
+            if isinstance(checklist_data, dict) and section in checklist_data:
+                checklist_data = {section: checklist_data[section]}
+            else:
+                # 섹션이 없으면 빈 데이터 반환
+                checklist_data = {}
+        
         return {
             "inspection_id": str(report.inspection_id),
-            "checklist_data": report.checklist_data,
+            "checklist_data": checklist_data,
             "images": report.images,
             "inspector_comment": report.inspector_comment,
             "repair_cost_est": report.repair_cost_est,
