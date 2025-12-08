@@ -173,3 +173,73 @@ export const getInspectionReport = async (inspectionId: string): Promise<Inspect
   return response.data.data;
 };
 
+// ==================== 유저 관리 API ====================
+
+// 유저 목록 조회
+export interface UserListItem {
+  id: string;
+  role: string;
+  name: string;
+  email?: string | null;
+  phone: string;
+  region_id?: string | null;
+  level?: number | null;
+  commission_rate?: number | null;
+  status: string;
+  created_at: string;
+  updated_at?: string | null;
+}
+
+export interface UserListParams {
+  role?: string;
+  status?: string;
+  level?: number;
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface UserListResponse {
+  items: UserListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export const getUsers = async (params: UserListParams = {}): Promise<UserListResponse> => {
+  const response = await apiClient.get<StandardResponse<UserListResponse>>('/admin/users', { params });
+  if (!response.data.data) {
+    throw new Error('유저 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 유저 상세 조회
+export interface UserDetail {
+  id: string;
+  role: string;
+  name: string;
+  email?: string | null;
+  phone: string;
+  region_id?: string | null;
+  level?: number | null;
+  commission_rate?: number | null;
+  status: string;
+  created_at: string;
+  updated_at?: string | null;
+}
+
+export const getUserDetail = async (id: string): Promise<UserDetail> => {
+  const response = await apiClient.get<StandardResponse<UserDetail>>(`/admin/users/${id}`);
+  if (!response.data.data) {
+    throw new Error('유저 상세 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 유저 삭제
+export const deleteUser = async (userId: string): Promise<void> => {
+  await apiClient.delete(`/admin/users/${userId}`);
+};
+

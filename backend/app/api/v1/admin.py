@@ -6,15 +6,27 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional
 
 from app.core.database import get_db
-from app.core.dependencies import require_role
+from app.core.dependencies import require_role, require_admin_only, require_admin_or_staff
 from app.schemas.admin import (
     VehicleMasterCreateRequest,
     PricePolicyCreateRequest,
     InspectionAssignRequest,
     SettlementCalculateRequest
 )
+from app.schemas.user import (
+    UserCreateRequest,
+    UserUpdateRequest,
+    UserResponse,
+    UserListResponse,
+    UserLevelUpdateRequest,
+    UserCommissionUpdateRequest,
+    UserRegionUpdateRequest,
+    UserRoleUpdateRequest,
+    UserStatusUpdateRequest
+)
 from app.schemas.vehicle import StandardResponse
 from app.services.admin_service import AdminService
+from app.services.user_service import UserService
 from app.models.user import User
 
 router = APIRouter(prefix="/admin", tags=["운영자"])
@@ -500,5 +512,393 @@ async def calculate_settlements(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"정산 집계 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+# ==================== 유저 관리 API ====================
+
+@router.post("/users", response_model=StandardResponse)
+async def create_user(
+    request: UserCreateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"], require_admin_for_admin_role=True))
+):
+    """
+    유저 생성 API
+    
+    관리자가 새 유저를 생성합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.create_user(
+            db=db,
+            role=request.role,
+            name=request.name,
+            phone=request.phone,
+            email=request.email,
+            password=request.password,
+            region_id=request.region_id,
+            level=request.level,
+            commission_rate=float(request.commission_rate) if request.commission_rate else None,
+            status=request.status
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"유저 생성 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/users/{user_id}", response_model=StandardResponse)
+async def get_user(
+    user_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    유저 상세 조회 API
+    
+    관리자가 유저 상세 정보를 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.get_user(db=db, user_id=user_id)
+        
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="유저를 찾을 수 없습니다"
+            )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"유저 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/users/{user_id}", response_model=StandardResponse)
+async def update_user(
+    user_id: str,
+    request: UserUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    유저 정보 수정 API
+    
+    관리자가 유저 정보를 수정합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.update_user(
+            db=db,
+            user_id=user_id,
+            name=request.name,
+            email=request.email,
+            phone=request.phone,
+            password=request.password,
+            region_id=request.region_id,
+            level=request.level,
+            commission_rate=float(request.commission_rate) if request.commission_rate else None,
+            status=request.status
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"유저 수정 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.delete("/users/{user_id}", response_model=StandardResponse)
+async def delete_user(
+    user_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    유저 삭제 API (Soft Delete)
+    
+    관리자가 유저를 삭제합니다. 실제로는 상태를 inactive로 변경합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.delete_user(db=db, user_id=user_id)
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"유저 삭제 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/users", response_model=StandardResponse)
+async def list_users(
+    role: Optional[str] = Query(None, description="역할 필터"),
+    status: Optional[str] = Query(None, description="상태 필터"),
+    level: Optional[int] = Query(None, description="등급 필터 (기사용)"),
+    search: Optional[str] = Query(None, description="검색어 (이름, 이메일)"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    유저 목록 조회 API
+    
+    필터링, 검색, 페이지네이션을 지원합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        offset = (page - 1) * limit
+        
+        result = await UserService.list_users(
+            db=db,
+            role=role,
+            status=status,
+            level=level,
+            search=search,
+            offset=offset,
+            limit=limit
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"유저 목록 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+# ==================== 유저 등급/역할/상태 관리 API ====================
+
+@router.patch("/users/{user_id}/level", response_model=StandardResponse)
+async def update_user_level(
+    user_id: str,
+    request: UserLevelUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    기사 등급 변경 API
+    
+    기사의 등급을 변경합니다 (1~5).
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.update_user_level(
+            db=db,
+            user_id=user_id,
+            level=request.level
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"등급 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/users/{user_id}/commission", response_model=StandardResponse)
+async def update_user_commission(
+    user_id: str,
+    request: UserCommissionUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    수수료율 변경 API
+    
+    기사의 수수료율을 변경합니다 (0~100%).
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.update_user_commission(
+            db=db,
+            user_id=user_id,
+            commission_rate=float(request.commission_rate)
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"수수료율 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/users/{user_id}/region", response_model=StandardResponse)
+async def update_user_region(
+    user_id: str,
+    request: UserRegionUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    활동 지역 변경 API
+    
+    기사의 활동 지역을 변경합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.update_user_region(
+            db=db,
+            user_id=user_id,
+            region_id=request.region_id
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"활동 지역 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/users/{user_id}/role", response_model=StandardResponse)
+async def update_user_role(
+    user_id: str,
+    request: UserRoleUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only())
+):
+    """
+    역할 변경 API
+    
+    유저의 역할을 변경합니다.
+    - admin 역할 부여는 admin만 가능
+    - 자기 자신의 역할 변경 불가
+    관리자 권한 필요.
+    """
+    try:
+        result = await UserService.update_user_role(
+            db=db,
+            user_id=user_id,
+            new_role=request.role,
+            current_user_id=str(current_user.id)
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"역할 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/users/{user_id}/status", response_model=StandardResponse)
+async def update_user_status(
+    user_id: str,
+    request: UserStatusUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    계정 상태 변경 API
+    
+    유저의 계정 상태를 변경합니다 (active/inactive/suspended).
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await UserService.update_user_status(
+            db=db,
+            user_id=user_id,
+            new_status=request.status
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"상태 변경 중 오류가 발생했습니다: {str(e)}"
         )
 

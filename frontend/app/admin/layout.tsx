@@ -72,6 +72,9 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
                 <Link href="/admin/reports" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
                   레포트 검수
                 </Link>
+                <Link href="/admin/users" className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                  유저 관리
+                </Link>
               </div>
             </div>
             <div className="flex items-center">

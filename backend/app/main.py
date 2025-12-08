@@ -7,6 +7,7 @@ from contextlib import asynccontextmanager
 
 from app.core.config import settings
 from app.core.redis import get_redis, close_redis
+from app.core.middleware import RequestLoggingMiddleware, RateLimitMiddleware
 from app.api.v1 import auth, users, vehicles, quotes, packages, regions, payments, client, inspector, admin, checklists, notifications, uploads, templates, reports
 
 
@@ -34,6 +35,16 @@ app.add_middleware(
     allow_methods=settings.CORS_ALLOW_METHODS,
     allow_headers=settings.CORS_ALLOW_HEADERS,
 )
+
+# Rate Limiting 미들웨어 (분당 100회 제한)
+app.add_middleware(
+    RateLimitMiddleware,
+    calls=100,
+    period=60
+)
+
+# 요청 로깅 미들웨어
+app.add_middleware(RequestLoggingMiddleware)
 
 # 라우터 등록
 app.include_router(auth.router, prefix="/api/v1")

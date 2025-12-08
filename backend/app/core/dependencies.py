@@ -101,12 +101,13 @@ async def get_current_user_optional(
         return None
 
 
-def require_role(allowed_roles: List[str]):
+def require_role(allowed_roles: List[str], require_admin_for_admin_role: bool = False):
     """
     역할 기반 접근 제어 데코레이터 팩토리
     
     Args:
         allowed_roles: 접근을 허용할 역할 리스트 (예: ['admin', 'staff'])
+        require_admin_for_admin_role: admin 역할 관련 작업인 경우 admin만 허용할지 여부
     
     Usage:
         @router.get("/admin/users")
@@ -123,9 +124,45 @@ def require_role(allowed_roles: List[str]):
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail=f"이 작업을 수행할 권한이 없습니다. 필요한 역할: {', '.join(allowed_roles)}"
             )
+        
+        # admin 역할 관련 작업은 admin만 허용
+        if require_admin_for_admin_role and current_user.role != "admin":
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="이 작업은 관리자만 수행할 수 있습니다"
+            )
+        
         return current_user
     
     return role_checker
+
+
+def require_admin_only():
+    """
+    관리자만 접근 허용 데코레이터
+    
+    Usage:
+        @router.post("/admin/users/{id}/role")
+        async def update_role(
+            current_user: User = Depends(require_admin_only())
+        ):
+            ...
+    """
+    return require_role(["admin"])
+
+
+def require_admin_or_staff():
+    """
+    관리자 또는 직원 접근 허용 데코레이터
+    
+    Usage:
+        @router.get("/admin/users")
+        async def get_users(
+            current_user: User = Depends(require_admin_or_staff())
+        ):
+            ...
+    """
+    return require_role(["admin", "staff"])
 
 
 def require_guest_or_user():
