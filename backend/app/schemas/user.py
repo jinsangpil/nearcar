@@ -1,7 +1,7 @@
 """
 유저 관리 관련 스키마
 """
-from pydantic import BaseModel, EmailStr, Field, validator
+from pydantic import BaseModel, EmailStr, Field, field_validator, model_validator
 from typing import Optional, List
 from datetime import datetime
 from decimal import Decimal
@@ -19,32 +19,33 @@ class UserCreateRequest(BaseModel):
     commission_rate: Optional[Decimal] = Field(None, ge=0, le=100, description="수수료율 (0~100%)")
     status: str = Field("active", description="계정 상태 (active, inactive, suspended)")
     
-    @validator('role')
+    @field_validator('role')
+    @classmethod
     def validate_role(cls, v):
         valid_roles = ['client', 'inspector', 'staff', 'admin']
         if v not in valid_roles:
             raise ValueError(f'역할은 {valid_roles} 중 하나여야 합니다')
         return v
     
-    @validator('status')
+    @field_validator('status')
+    @classmethod
     def validate_status(cls, v):
         valid_statuses = ['active', 'inactive', 'suspended']
         if v not in valid_statuses:
             raise ValueError(f'상태는 {valid_statuses} 중 하나여야 합니다')
         return v
     
-    @root_validator
-    def validate_inspector_fields(cls, values):
+    @model_validator(mode='after')
+    def validate_inspector_fields(self):
         """기사 역할인 경우 등급, 수수료율, 활동 지역 필수"""
-        role = values.get('role')
-        if role == 'inspector':
-            if values.get('level') is None:
+        if self.role == 'inspector':
+            if self.level is None:
                 raise ValueError('기사는 등급(level)이 필수입니다')
-            if values.get('commission_rate') is None:
+            if self.commission_rate is None:
                 raise ValueError('기사는 수수료율(commission_rate)이 필수입니다')
-            if values.get('region_id') is None:
+            if self.region_id is None:
                 raise ValueError('기사는 활동 지역(region_id)이 필수입니다')
-        return values
+        return self
     
     class Config:
         json_schema_extra = {
@@ -73,7 +74,8 @@ class UserUpdateRequest(BaseModel):
     commission_rate: Optional[Decimal] = Field(None, ge=0, le=100, description="수수료율 (0~100%)")
     status: Optional[str] = Field(None, description="계정 상태")
     
-    @validator('status')
+    @field_validator('status')
+    @classmethod
     def validate_status(cls, v):
         if v is not None:
             valid_statuses = ['active', 'inactive', 'suspended']
@@ -139,7 +141,8 @@ class UserRoleUpdateRequest(BaseModel):
     """역할 변경 요청 스키마"""
     role: str = Field(..., description="새 역할")
     
-    @validator('role')
+    @field_validator('role')
+    @classmethod
     def validate_role(cls, v):
         valid_roles = ['client', 'inspector', 'staff', 'admin']
         if v not in valid_roles:
@@ -151,7 +154,8 @@ class UserStatusUpdateRequest(BaseModel):
     """계정 상태 변경 요청 스키마"""
     status: str = Field(..., description="새 상태")
     
-    @validator('status')
+    @field_validator('status')
+    @classmethod
     def validate_status(cls, v):
         valid_statuses = ['active', 'inactive', 'suspended']
         if v not in valid_statuses:
