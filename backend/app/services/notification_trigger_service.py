@@ -196,4 +196,77 @@ class NotificationTriggerService:
             
         except Exception as e:
             logger.error(f"결제 완료 알림 트리거 실패: {e}")
+    
+    @staticmethod
+    async def trigger_report_approved(
+        db: AsyncSession,
+        inspection_id: str,
+        user_id: str
+    ):
+        """
+        레포트 승인 알림 트리거
+        
+        Args:
+            db: 데이터베이스 세션
+            inspection_id: 진단 신청 ID
+            user_id: 고객 사용자 ID
+        """
+        try:
+            logger.info(f"레포트 승인 알림 트리거: inspection_id={inspection_id}, user_id={user_id}")
+            
+            # 고객에게 레포트 발송 알림
+            from app.services.inspection_service import InspectionService
+            inspection_detail = await InspectionService.get_inspection_detail(
+                db=db,
+                inspection_id=inspection_id,
+                user_id=user_id
+            )
+            
+            send_notification_task.delay(
+                user_id=user_id,
+                channel="alimtalk",
+                template_name="report_approved",
+                data={
+                    "inspection_id": inspection_id,
+                    "customer_name": inspection_detail.get("customer_name", ""),
+                    "vehicle_info": inspection_detail.get("vehicle_info", ""),
+                    "pdf_url": inspection_detail.get("report_summary", {}).get("pdf_url", "")
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"레포트 승인 알림 트리거 실패: {e}")
+    
+    @staticmethod
+    async def trigger_report_rejected(
+        db: AsyncSession,
+        inspection_id: str,
+        inspector_id: str,
+        feedback: str = ""
+    ):
+        """
+        레포트 반려 알림 트리거
+        
+        Args:
+            db: 데이터베이스 세션
+            inspection_id: 진단 신청 ID
+            inspector_id: 기사 ID
+            feedback: 반려 사유/피드백
+        """
+        try:
+            logger.info(f"레포트 반려 알림 트리거: inspection_id={inspection_id}, inspector_id={inspector_id}")
+            
+            # 기사에게 수정 요청 알림
+            send_notification_task.delay(
+                user_id=inspector_id,
+                channel="sms",
+                template_name="report_rejected",
+                data={
+                    "inspection_id": inspection_id,
+                    "feedback": feedback
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"레포트 반려 알림 트리거 실패: {e}")
 

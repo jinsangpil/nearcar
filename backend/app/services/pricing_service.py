@@ -53,8 +53,15 @@ class PricingService:
             pass
         
         # 1. 차량 마스터 데이터 조회
+        # UUID 문자열을 UUID 객체로 변환 (필요시)
+        from uuid import UUID as UUIDType
+        try:
+            vehicle_master_uuid = UUIDType(vehicle_master_id) if isinstance(vehicle_master_id, str) else vehicle_master_id
+        except (ValueError, AttributeError):
+            vehicle_master_uuid = vehicle_master_id
+        
         vehicle_result = await db.execute(
-            select(VehicleMaster).where(VehicleMaster.id == vehicle_master_id)
+            select(VehicleMaster).where(VehicleMaster.id == vehicle_master_uuid)
         )
         vehicle_master = vehicle_result.scalar_one_or_none()
         
@@ -65,8 +72,14 @@ class PricingService:
             raise ValueError("비활성화된 차량 모델입니다")
         
         # 2. 패키지 기본 가격 조회
+        # UUID 문자열을 UUID 객체로 변환 (필요시)
+        try:
+            package_uuid = UUIDType(package_id) if isinstance(package_id, str) else package_id
+        except (ValueError, AttributeError):
+            package_uuid = package_id
+        
         package_result = await db.execute(
-            select(Package).where(Package.id == package_id)
+            select(Package).where(Package.id == package_uuid)
         )
         package = package_result.scalar_one_or_none()
         
@@ -90,8 +103,14 @@ class PricingService:
         class_surcharge = price_policy.add_amount if price_policy else 0
         
         # 4. 지역별 출장비 조회
+        # UUID 문자열을 UUID 객체로 변환 (필요시)
+        try:
+            region_uuid = UUIDType(region_id) if isinstance(region_id, str) else region_id
+        except (ValueError, AttributeError):
+            region_uuid = region_id
+        
         region_result = await db.execute(
-            select(ServiceRegion).where(ServiceRegion.id == region_id)
+            select(ServiceRegion).where(ServiceRegion.id == region_uuid)
         )
         region = region_result.scalar_one_or_none()
         

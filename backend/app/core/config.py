@@ -96,8 +96,10 @@ class Settings(BaseSettings):
     SLACK_WEBHOOK_URL: Optional[str] = None
     
     class Config:
-        env_file = ".env"
+        env_file = [".env.local", ".env"]
+        env_file_encoding = "utf-8"
         case_sensitive = True
+        extra = "ignore"  # 정의되지 않은 필드 무시
 
 
 # 전역 설정 인스턴스

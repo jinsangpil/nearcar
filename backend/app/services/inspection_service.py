@@ -13,6 +13,7 @@ from app.models.user import User
 from app.models.inspection_report import InspectionReport
 from app.models.package import Package
 from app.models.service_region import ServiceRegion
+from app.models.payment import Payment
 from loguru import logger
 
 
@@ -193,16 +194,57 @@ class InspectionService:
                 "web_view_url": f"/report/view/{inspection_id}" if report.pdf_url else None
             }
         
+        # User 정보 조회 (고객 정보)
+        user_result = await db.execute(
+            select(User).where(User.id == inspection.user_id)
+        )
+        user = user_result.scalar_one_or_none()
+        
+        # Payment 정보 조회
+        payment_info = None
+        payment_result = await db.execute(
+            select(Payment).where(Payment.inspection_id == inspection.id)
+        )
+        payment = payment_result.scalar_one_or_none()
+        if payment:
+            from app.core.security import decrypt_phone
+            payment_info = {
+                "amount": payment.amount,
+                "status": payment.status,
+                "paid_at": payment.paid_at.isoformat() if payment.paid_at else None
+            }
+        
         # 차량 정보 문자열 생성
-        vehicle_info = f"{master.manufacturer} {master.model_group}"
+        vehicle_info_str = f"{master.manufacturer} {master.model_group}"
         if master.model_detail:
-            vehicle_info += f" {master.model_detail}"
-        vehicle_info += f" ({vehicle.plate_number})"
+            vehicle_info_str += f" {master.model_detail}"
+        vehicle_info_str += f" ({vehicle.plate_number})"
         
         return {
+            "id": str(inspection.id),
             "status": inspection.status,
+            "customer": {
+                "name": user.name if user else "알 수 없음",
+                "phone": decrypt_phone(user.phone) if user and user.phone else None,
+                "email": user.email if user else None
+            },
+            "vehicle": {
+                "plate_number": vehicle.plate_number,
+                "model": vehicle_info_str,
+                "year": vehicle.production_year,
+                "mileage": vehicle.mileage
+            },
+            "vehicle_info": vehicle_info_str,
+            "payment": payment_info,
+            "schedule": {
+                "preferred_date": inspection.schedule_date.isoformat(),
+                "preferred_time": inspection.schedule_time.isoformat(),
+                "actual_date": None,  # 실제 일시는 나중에 추가 가능
+                "actual_time": None
+            },
             "inspector": inspector_info,
-            "vehicle_info": vehicle_info,
+            "location_address": inspection.location_address,
+            "created_at": inspection.created_at.isoformat(),
             "report_summary": report_summary
         }
     

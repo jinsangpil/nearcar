@@ -2,7 +2,7 @@
 차량 관련 스키마
 """
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, Any
 from datetime import datetime
 from uuid import UUID
 
@@ -68,7 +68,7 @@ class VehicleLookupResponse(BaseModel):
 class StandardResponse(BaseModel):
     """표준 API 응답 스키마"""
     success: bool = True
-    data: Optional[list] = None
+    data: Optional[Any] = None  # list, dict, 또는 다른 타입 모두 허용
     error: Optional[str] = None
     
     class Config:

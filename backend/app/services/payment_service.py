@@ -5,6 +5,7 @@ from typing import Dict, Any, Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from datetime import datetime
+import uuid
 
 from app.models.payment import Payment
 from app.models.inspection import Inspection
@@ -40,9 +41,14 @@ class PaymentService:
         Returns:
             결제 요청 응답 데이터
         """
-        # 1. Inspection 조회
+        # 1. Inspection 조회 (UUID 변환)
+        try:
+            inspection_uuid = uuid.UUID(inspection_id)
+        except ValueError:
+            raise ValueError("유효하지 않은 진단 신청 ID 형식입니다")
+        
         inspection_result = await db.execute(
-            select(Inspection).where(Inspection.id == inspection_id)
+            select(Inspection).where(Inspection.id == inspection_uuid)
         )
         inspection = inspection_result.scalar_one_or_none()
         
@@ -51,7 +57,7 @@ class PaymentService:
         
         # 2. 이미 결제가 존재하는지 확인
         existing_payment_result = await db.execute(
-            select(Payment).where(Payment.inspection_id == inspection_id)
+            select(Payment).where(Payment.inspection_id == inspection_uuid)
         )
         existing_payment = existing_payment_result.scalar_one_or_none()
         
@@ -73,7 +79,7 @@ class PaymentService:
             payment.status = "pending"
         else:
             payment = Payment(
-                inspection_id=inspection_id,
+                inspection_id=inspection_uuid,  # UUID 객체 사용
                 amount=amount,
                 method="card",  # 기본값, 실제로는 클라이언트에서 선택
                 pg_provider="toss",
@@ -146,9 +152,24 @@ class PaymentService:
         if payment.status == "paid":
             raise ValueError("이미 결제가 완료되었습니다")
         
-        # 2. Inspection 조회
+        # 2. Inspection 조회 (UUID 변환)
+        inspection_id = payment.inspection_id
+        # SQLite에서 UUID가 문자열로 저장될 수 있으므로 변환
+        if inspection_id is None:
+            raise ValueError("결제 정보에 진단 신청 ID가 없습니다")
+        if isinstance(inspection_id, str):
+            try:
+                inspection_id = uuid.UUID(inspection_id)
+            except ValueError:
+                raise ValueError(f"유효하지 않은 진단 신청 ID 형식입니다: {inspection_id}")
+        elif not isinstance(inspection_id, uuid.UUID):
+            try:
+                inspection_id = uuid.UUID(str(inspection_id))
+            except ValueError:
+                raise ValueError(f"유효하지 않은 진단 신청 ID 형식입니다: {inspection_id}")
+        
         inspection_result = await db.execute(
-            select(Inspection).where(Inspection.id == payment.inspection_id)
+            select(Inspection).where(Inspection.id == inspection_id)
         )
         inspection = inspection_result.scalar_one_or_none()
         

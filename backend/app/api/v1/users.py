@@ -9,6 +9,7 @@ from app.core.database import get_db
 from app.core.dependencies import get_current_user, require_role
 from app.models.user import User
 from app.schemas.auth import UserInfo
+from app.schemas.vehicle import StandardResponse
 
 router = APIRouter(prefix="/users", tags=["사용자"])
 
@@ -57,7 +58,7 @@ async def get_all_users(
     ]
 
 
-@router.get("/inspector/list")
+@router.get("/inspector/list", response_model=StandardResponse)
 async def get_inspectors(
     current_user: User = Depends(require_role(['admin', 'staff', 'inspector'])),
     db: AsyncSession = Depends(get_db)
@@ -72,13 +73,20 @@ async def get_inspectors(
     )
     inspectors = result.scalars().all()
     
-    return [
+    inspectors_list = [
         {
             "id": str(inspector.id),
             "name": inspector.name,
+            "phone": inspector.phone if inspector.phone else "",
             "level": inspector.level,
             "commission_rate": float(inspector.commission_rate) if inspector.commission_rate else None
         }
         for inspector in inspectors
     ]
+    
+    return StandardResponse(
+        success=True,
+        data=inspectors_list,
+        error=None
+    )
 

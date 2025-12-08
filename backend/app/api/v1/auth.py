@@ -36,89 +36,100 @@ async def login(
     - 이메일/비밀번호 또는 휴대폰 인증 지원
     - 성공 시 Access Token 발급 및 쿠키에 저장
     """
-    user = None
-    
-    # 이메일/비밀번호 로그인
-    if login_data.email and login_data.password:
-        if not login_data.password:
+    try:
+        user = None
+        
+        # 이메일/비밀번호 로그인
+        if login_data.email and login_data.password:
+            if not login_data.password:
+                raise HTTPException(
+                    status_code=status.HTTP_400_BAD_REQUEST,
+                    detail="비밀번호가 필요합니다"
+                )
+            
+            result = await db.execute(
+                select(User).where(User.email == login_data.email)
+            )
+            user = result.scalar_one_or_none()
+            
+            if not user:
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="이메일 또는 비밀번호가 올바르지 않습니다"
+                )
+            
+            if not user.password_hash:
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="비밀번호가 설정되지 않은 계정입니다"
+                )
+            
+            if not verify_password(login_data.password, user.password_hash):
+                raise HTTPException(
+                    status_code=status.HTTP_401_UNAUTHORIZED,
+                    detail="이메일 또는 비밀번호가 올바르지 않습니다"
+                )
+        
+        # 휴대폰 인증 (비밀번호 없이)
+        elif login_data.phone:
+            encrypted_phone = encrypt_phone(login_data.phone)
+            result = await db.execute(
+                select(User).where(User.phone == encrypted_phone)
+            )
+            user = result.scalar_one_or_none()
+            
+            if not user:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail="등록되지 않은 휴대폰 번호입니다"
+                )
+        
+        else:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail="비밀번호가 필요합니다"
+                detail="이메일/비밀번호 또는 휴대폰 번호를 입력해주세요"
             )
         
-        result = await db.execute(
-            select(User).where(User.email == login_data.email)
+        # 계정 상태 확인
+        if user.status != "active":
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="비활성화된 계정입니다"
+            )
+        
+        # 토큰 생성
+        token_data = {
+            "sub": str(user.id),
+            "role": user.role,
+            "type": "access"
+        }
+        access_token = create_access_token(data=token_data)
+        
+        # 쿠키에 토큰 저장
+        response.set_cookie(
+            key="access_token",
+            value=access_token,
+            max_age=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+            httponly=settings.COOKIE_HTTP_ONLY,
+            secure=settings.COOKIE_SECURE,
+            samesite=settings.COOKIE_SAME_SITE
         )
-        user = result.scalar_one_or_none()
         
-        if not user:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="이메일 또는 비밀번호가 올바르지 않습니다"
-            )
-        
-        if not user.password_hash:
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="비밀번호가 설정되지 않은 계정입니다"
-            )
-        
-        if not verify_password(login_data.password, user.password_hash):
-            raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED,
-                detail="이메일 또는 비밀번호가 올바르지 않습니다"
-            )
-    
-    # 휴대폰 인증 (비밀번호 없이)
-    elif login_data.phone:
-        encrypted_phone = encrypt_phone(login_data.phone)
-        result = await db.execute(
-            select(User).where(User.phone == encrypted_phone)
+        return TokenResponse(
+            access_token=access_token,
+            token_type="bearer",
+            expires_in=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES * 60
         )
-        user = result.scalar_one_or_none()
-        
-        if not user:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="등록되지 않은 휴대폰 번호입니다"
-            )
-    
-    else:
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"로그인 오류: {str(e)}")
+        print(traceback.format_exc())
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="이메일/비밀번호 또는 휴대폰 번호를 입력해주세요"
-            )
-    
-    # 계정 상태 확인
-    if user.status != "active":
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="비활성화된 계정입니다"
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"로그인 중 오류가 발생했습니다: {str(e)}"
         )
-    
-    # 토큰 생성
-    token_data = {
-        "sub": str(user.id),
-        "role": user.role,
-        "type": "access"
-    }
-    access_token = create_access_token(data=token_data)
-    
-    # 쿠키에 토큰 저장
-    response.set_cookie(
-        key="access_token",
-        value=access_token,
-        max_age=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES * 60,
-        httponly=settings.COOKIE_HTTP_ONLY,
-        secure=settings.COOKIE_SECURE,
-        samesite=settings.COOKIE_SAME_SITE
-    )
-    
-    return TokenResponse(
-        access_token=access_token,
-        token_type="bearer",
-        expires_in=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES * 60
-    )
 
 
 @router.post("/guest", response_model=TokenResponse)

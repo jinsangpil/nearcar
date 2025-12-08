@@ -9,6 +9,7 @@ from datetime import date
 from app.models.vehicle_master import VehicleMaster
 from app.models.price_policy import PricePolicy
 from app.models.inspection import Inspection
+from app.models.vehicle import Vehicle
 from app.models.settlement import Settlement
 from app.models.user import User
 from app.models.package import Package
@@ -221,9 +222,16 @@ class AdminService:
             )
             vehicle = vehicle_result.scalar_one_or_none()
             
+            # User 정보 조회 (고객명)
+            user_result = await db.execute(
+                select(User).where(User.id == inspection.user_id)
+            )
+            user = user_result.scalar_one_or_none()
+            
             inspection_list.append({
                 "id": str(inspection.id),
                 "user_id": str(inspection.user_id),
+                "customer_name": user.name if user else "알 수 없음",
                 "inspector_id": str(inspection.inspector_id) if inspection.inspector_id else None,
                 "vehicle_id": str(inspection.vehicle_id),
                 "plate_number": vehicle.plate_number if vehicle else None,
@@ -391,5 +399,95 @@ class AdminService:
             "target_date": target_date.isoformat(),
             "settlements_created": settlements_created,
             "total_inspections": len(inspections)
+        }
+    
+    @staticmethod
+    async def get_dashboard_stats(
+        db: AsyncSession
+    ) -> Dict[str, Any]:
+        """
+        대시보드 통계 조회
+        
+        Args:
+            db: 데이터베이스 세션
+        
+        Returns:
+            대시보드 통계 정보
+        """
+        from datetime import datetime, timedelta
+        
+        # 오늘 날짜
+        today = date.today()
+        
+        # 신규 신청 수 (오늘 생성된 requested 상태)
+        new_inspections_query = select(func.count()).select_from(Inspection).where(
+            and_(
+                Inspection.status == "requested",
+                func.date(Inspection.created_at) == today
+            )
+        )
+        new_inspections_result = await db.execute(new_inspections_query)
+        new_inspections = new_inspections_result.scalar_one() or 0
+        
+        # 미배정 수 (requested 상태)
+        unassigned_query = select(func.count()).select_from(Inspection).where(
+            Inspection.status == "requested"
+        )
+        unassigned_result = await db.execute(unassigned_query)
+        unassigned = unassigned_result.scalar_one() or 0
+        
+        # 진행 중 수 (assigned, in_progress 상태)
+        in_progress_query = select(func.count()).select_from(Inspection).where(
+            Inspection.status.in_(["assigned", "in_progress"])
+        )
+        in_progress_result = await db.execute(in_progress_query)
+        in_progress = in_progress_result.scalar_one() or 0
+        
+        # 완료 수 (sent 상태)
+        completed_query = select(func.count()).select_from(Inspection).where(
+            Inspection.status == "sent"
+        )
+        completed_result = await db.execute(completed_query)
+        completed = completed_result.scalar_one() or 0
+        
+        # 일별 신청 추이 (최근 7일)
+        daily_trend = []
+        for i in range(6, -1, -1):
+            target_date = today - timedelta(days=i)
+            daily_query = select(func.count()).select_from(Inspection).where(
+                func.date(Inspection.created_at) == target_date
+            )
+            daily_result = await db.execute(daily_query)
+            daily_count = daily_result.scalar_one() or 0
+            daily_trend.append({
+                "date": target_date.isoformat(),
+                "count": daily_count
+            })
+        
+        # 주별 신청 추이 (최근 4주)
+        weekly_trend = []
+        for i in range(3, -1, -1):
+            week_start = today - timedelta(days=today.weekday() + 7 * i)
+            week_end = week_start + timedelta(days=6)
+            weekly_query = select(func.count()).select_from(Inspection).where(
+                and_(
+                    func.date(Inspection.created_at) >= week_start,
+                    func.date(Inspection.created_at) <= week_end
+                )
+            )
+            weekly_result = await db.execute(weekly_query)
+            weekly_count = weekly_result.scalar_one() or 0
+            weekly_trend.append({
+                "week": f"{week_start.isoformat()}~{week_end.isoformat()}",
+                "count": weekly_count
+            })
+        
+        return {
+            "new_inspections": new_inspections,
+            "unassigned": unassigned,
+            "in_progress": in_progress,
+            "completed": completed,
+            "daily_trend": daily_trend,
+            "weekly_trend": weekly_trend
         }
 

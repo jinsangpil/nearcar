@@ -40,12 +40,23 @@ async def get_current_user(
             headers={"WWW-Authenticate": "Bearer"},
         )
     
-    # 사용자 ID 추출
-    user_id = payload.get("sub")
-    if user_id is None:
+    # 사용자 ID 추출 및 UUID 변환
+    user_id_str = payload.get("sub")
+    if user_id_str is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="토큰에 사용자 정보가 없습니다",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    
+    # UUID 변환
+    try:
+        import uuid
+        user_id = uuid.UUID(user_id_str)
+    except (ValueError, TypeError):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="유효하지 않은 사용자 ID 형식입니다",
             headers={"WWW-Authenticate": "Bearer"},
         )
     

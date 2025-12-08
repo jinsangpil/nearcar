@@ -20,11 +20,28 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """비밀번호 검증"""
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return pwd_context.verify(plain_password, hashed_password)
+    except Exception:
+        # bcrypt 버전 호환성 문제로 직접 bcrypt 사용
+        try:
+            import bcrypt
+            password_bytes = plain_password.encode('utf-8')
+            if len(password_bytes) > 72:
+                password_bytes = password_bytes[:72]
+            return bcrypt.checkpw(password_bytes, hashed_password.encode('utf-8'))
+        except Exception:
+            return False
 
 
 def get_password_hash(password: str) -> str:
     """비밀번호 해싱"""
+    # bcrypt의 72바이트 제한을 초과하는 비밀번호를 처리
+    if len(password.encode('utf-8')) > 72:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.warning("Password exceeds 72 bytes, truncating for bcrypt.")
+        password = password.encode('utf-8')[:72].decode('utf-8', errors='ignore')
     return pwd_context.hash(password)
 
 
