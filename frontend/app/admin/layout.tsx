@@ -169,6 +169,16 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
                   가격 관리
                 </Link>
                 <Link 
+                  href="/admin/regions" 
+                  className={`${
+                    pathname?.startsWith('/admin/regions')
+                      ? 'border-indigo-500 text-gray-900'
+                      : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  } inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium`}
+                >
+                  서비스 지역 관리
+                </Link>
+                <Link 
                   href="/admin/vehicles" 
                   className={`${
                     pathname?.startsWith('/admin/vehicles')

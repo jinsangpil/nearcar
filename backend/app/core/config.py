@@ -95,6 +95,9 @@ class Settings(BaseSettings):
     # Slack 웹훅 URL (선택적)
     SLACK_WEBHOOK_URL: Optional[str] = None
     
+    # VWorld API 설정 (공공데이터포털)
+    VWORLD_API_KEY: Optional[str] = None  # VWorld API Key
+    
     class Config:
         env_file = [".env.local", ".env"]
         env_file_encoding = "utf-8"

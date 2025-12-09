@@ -18,6 +18,13 @@ from app.schemas.price_policy import (
     PricePolicyUpdateRequest
 )
 from app.services.price_policy_service import PricePolicyService
+from app.schemas.service_region import (
+    ServiceRegionCreateRequest,
+    ServiceRegionUpdateRequest,
+    ServiceRegionResponse,
+    ServiceRegionListResponse
+)
+from app.services.service_region_service import ServiceRegionService
 from app.schemas.vehicle_master import (
     VehicleMasterCreateRequest,
     VehicleMasterUpdateRequest,
@@ -779,6 +786,257 @@ async def delete_price_policy(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"가격 정책 삭제 중 오류가 발생했습니다: {str(e)}"
         )
+
+
+# ==================== 서비스 지역 관리 API ====================
+
+@router.get("/regions", response_model=StandardResponse)
+async def list_service_regions(
+    province: Optional[str] = Query(None, description="상위 지역 필터"),
+    city: Optional[str] = Query(None, description="하위 지역 필터"),
+    is_active: Optional[bool] = Query(None, description="활성 상태 필터"),
+    search: Optional[str] = Query(None, description="검색어 (상위/하위 지역)"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(100, ge=1, le=100, description="페이지 크기"),
+    hierarchy: bool = Query(False, description="계층 구조로 반환"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    서비스 지역 목록 조회 API
+    
+    계층 구조 또는 평면 목록으로 서비스 지역을 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        if hierarchy:
+            result = await ServiceRegionService.list_service_regions_hierarchy(
+                db=db,
+                is_active=is_active
+            )
+        else:
+            result = await ServiceRegionService.list_service_regions(
+                db=db,
+                province=province,
+                city=city,
+                is_active=is_active,
+                search=search,
+                page=page,
+                limit=limit
+            )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"서비스 지역 목록 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/regions/{region_id}", response_model=StandardResponse)
+async def get_service_region(
+    region_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    서비스 지역 상세 조회 API
+    
+    특정 서비스 지역의 상세 정보를 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await ServiceRegionService.get_service_region(
+            db=db,
+            region_id=region_id
+        )
+        
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="서비스 지역을 찾을 수 없습니다"
+            )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"서비스 지역 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.post("/regions", response_model=StandardResponse)
+async def create_service_region(
+    request: ServiceRegionCreateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    서비스 지역 생성 API
+    
+    새 서비스 지역을 생성합니다.
+    Redis 캐시가 자동으로 무효화됩니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await ServiceRegionService.create_service_region(
+            db=db,
+            province=request.province,
+            province_code=request.province_code,
+            city=request.city,
+            city_code=request.city_code,
+            extra_fee=request.extra_fee,
+            is_active=request.is_active
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"서비스 지역 생성 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/regions/{region_id}", response_model=StandardResponse)
+async def update_service_region(
+    region_id: str,
+    request: ServiceRegionUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    서비스 지역 수정 API
+    
+    서비스 지역 정보를 수정합니다.
+    Redis 캐시가 자동으로 무효화됩니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await ServiceRegionService.update_service_region(
+            db=db,
+            region_id=region_id,
+            province=request.province,
+            province_code=request.province_code,
+            city=request.city,
+            city_code=request.city_code,
+            extra_fee=request.extra_fee,
+            is_active=request.is_active
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"서비스 지역 수정 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.delete("/regions/{region_id}", response_model=StandardResponse)
+async def delete_service_region(
+    region_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    서비스 지역 삭제 API
+    
+    서비스 지역을 삭제합니다.
+    활성 신청 건이 있으면 삭제할 수 없습니다.
+    Redis 캐시가 자동으로 무효화됩니다.
+    관리자 권한 필요.
+    """
+    try:
+        result = await ServiceRegionService.delete_service_region(
+            db=db,
+            region_id=region_id
+        )
+        
+        return StandardResponse(
+            success=True,
+            data={"deleted": result},
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"서비스 지역 삭제 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.post("/regions/bulk-update-province", response_model=StandardResponse)
+async def bulk_update_province_regions(
+    province_code: str = Query(..., description="광역시도 코드 (11, 21, 22 등)"),
+    is_active: bool = Query(..., description="활성화 여부"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    광역시도별 서비스 지역 일괄 활성/비활성화 API
+    해당 광역시도의 모든 시군구를 일괄로 활성화 또는 비활성화합니다.
+    시군구가 없으면 자동으로 생성합니다.
+    관리자 권한 필요.
+    """
+    try:
+        result = await ServiceRegionService.bulk_update_province_regions(
+            db=db,
+            province_code=province_code,
+            is_active=is_active
+        )
+        return StandardResponse(success=True, data=result)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"일괄 업데이트 중 오류 발생: {str(e)}")
+
+
+@router.get("/regions/province-status/{province_code}", response_model=StandardResponse)
+async def get_province_status(
+    province_code: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_or_staff)
+):
+    """
+    광역시도별 활성 지역 수 조회 API
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await ServiceRegionService.get_province_status(db=db, province_code=province_code)
+        return StandardResponse(success=True, data=result)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"상태 조회 중 오류 발생: {str(e)}")
 
 
 @router.get("/inspections", response_model=StandardResponse)

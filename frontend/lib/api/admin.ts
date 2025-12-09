@@ -483,6 +483,160 @@ export const deletePricePolicy = async (policyId: string): Promise<void> => {
   await apiClient.delete(`/admin/prices/${policyId}`);
 };
 
+// ==================== 서비스 지역 관리 API ====================
+
+// 서비스 지역 목록 조회
+export interface ServiceRegionListItem {
+  id: string;
+  province: string;
+  province_code?: string | null;
+  city: string;
+  city_code?: string | null;
+  extra_fee: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ServiceRegionListParams {
+  province?: string;
+  city?: string;
+  is_active?: boolean;
+  search?: string;
+  page?: number;
+  limit?: number;
+  hierarchy?: boolean;
+}
+
+export interface ServiceRegionListResponse {
+  items: ServiceRegionListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export interface ServiceRegionHierarchyItem {
+  province: string;
+  cities: ServiceRegionListItem[];
+}
+
+export const getServiceRegions = async (params: ServiceRegionListParams = {}): Promise<ServiceRegionListResponse | ServiceRegionHierarchyItem[]> => {
+  const response = await apiClient.get<StandardResponse<ServiceRegionListResponse | ServiceRegionHierarchyItem[]>>('/admin/regions', { params });
+  if (!response.data.data) {
+    throw new Error('서비스 지역 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 서비스 지역 상세 조회
+export interface ServiceRegionDetail {
+  id: string;
+  province: string;
+  province_code?: string | null;
+  city: string;
+  city_code?: string | null;
+  extra_fee: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export const getServiceRegionDetail = async (id: string): Promise<ServiceRegionDetail> => {
+  const response = await apiClient.get<StandardResponse<ServiceRegionDetail>>(`/admin/regions/${id}`);
+  if (!response.data.data) {
+    throw new Error('서비스 지역 상세 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 서비스 지역 생성
+export interface ServiceRegionCreateRequest {
+  province: string;
+  province_code?: string;
+  city: string;
+  city_code?: string;
+  extra_fee: number;
+  is_active?: boolean;
+}
+
+export const createServiceRegion = async (data: ServiceRegionCreateRequest): Promise<ServiceRegionDetail> => {
+  const response = await apiClient.post<StandardResponse<ServiceRegionDetail>>('/admin/regions', data);
+  if (!response.data.data) {
+    throw new Error('서비스 지역 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 서비스 지역 수정
+export interface ServiceRegionUpdateRequest {
+  province?: string;
+  province_code?: string;
+  city?: string;
+  city_code?: string;
+  extra_fee?: number;
+  is_active?: boolean;
+}
+
+export const updateServiceRegion = async (regionId: string, data: ServiceRegionUpdateRequest): Promise<ServiceRegionDetail> => {
+  const response = await apiClient.patch<StandardResponse<ServiceRegionDetail>>(`/admin/regions/${regionId}`, data);
+  if (!response.data.data) {
+    throw new Error('서비스 지역 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 서비스 지역 삭제
+export const deleteServiceRegion = async (regionId: string): Promise<void> => {
+  await apiClient.delete(`/admin/regions/${regionId}`);
+};
+
+// 광역시도별 일괄 활성/비활성화
+export interface BulkUpdateProvinceRequest {
+  province_code: string;
+  is_active: boolean;
+}
+
+export interface BulkUpdateProvinceResponse {
+  province_code: string;
+  is_active: boolean;
+  total_regions: number;
+  updated_count: number;
+}
+
+export const bulkUpdateProvinceRegions = async (
+  provinceCode: string,
+  isActive: boolean
+): Promise<BulkUpdateProvinceResponse> => {
+  const response = await apiClient.post<StandardResponse<BulkUpdateProvinceResponse>>(
+    `/admin/regions/bulk-update-province?province_code=${provinceCode}&is_active=${isActive}`
+  );
+  if (!response.data.data) {
+    throw new Error('일괄 업데이트에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 광역시도별 상태 조회
+export interface ProvinceStatusResponse {
+  province_code: string;
+  total: number;
+  active_count: number;
+  inactive_count: number;
+  is_fully_active: boolean;
+  is_partially_active: boolean;
+}
+
+export const getProvinceStatus = async (provinceCode: string): Promise<ProvinceStatusResponse> => {
+  const response = await apiClient.get<StandardResponse<ProvinceStatusResponse>>(
+    `/admin/regions/province-status/${provinceCode}`
+  );
+  if (!response.data.data) {
+    throw new Error('상태 조회에 실패했습니다');
+  }
+  return response.data.data;
+};
+
 // ==================== 차량 마스터 관리 API ====================
 
 // 차량 마스터 목록 조회
