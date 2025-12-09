@@ -12,6 +12,12 @@ from app.schemas.admin import (
     InspectionAssignRequest,
     SettlementCalculateRequest
 )
+from app.schemas.price_policy import (
+    PricePolicyResponse,
+    PricePolicyListResponse,
+    PricePolicyUpdateRequest
+)
+from app.services.price_policy_service import PricePolicyService
 from app.schemas.vehicle_master import (
     VehicleMasterCreateRequest,
     VehicleMasterUpdateRequest,
@@ -594,20 +600,92 @@ async def sync_vehicle_models(
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 모델 동기화 중 오류 발생: {str(e)}")
 
 
+@router.get("/prices", response_model=StandardResponse)
+async def list_price_policies(
+    origin: Optional[str] = Query(None, description="국산/수입 필터", pattern="^(domestic|imported)$"),
+    vehicle_class: Optional[str] = Query(None, description="차량 등급 필터", pattern="^(compact|small|mid|large|suv|sports|supercar)$"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(100, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    가격 정책 목록 조회 API
+    
+    국산/수입, 차량 등급별로 필터링하여 가격 정책 목록을 조회합니다.
+    """
+    try:
+        result = await PricePolicyService.list_price_policies(
+            db=db,
+            origin=origin,
+            vehicle_class=vehicle_class,
+            page=page,
+            limit=limit
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"가격 정책 목록 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/prices/{policy_id}", response_model=StandardResponse)
+async def get_price_policy(
+    policy_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    가격 정책 상세 조회 API
+    
+    특정 가격 정책의 상세 정보를 조회합니다.
+    """
+    try:
+        result = await PricePolicyService.get_price_policy(
+            db=db,
+            policy_id=policy_id
+        )
+        
+        if not result:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="가격 정책을 찾을 수 없습니다"
+            )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"가격 정책 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
 @router.post("/prices", response_model=StandardResponse)
-async def create_or_update_price_policy(
+async def create_price_policy(
     request: PricePolicyCreateRequest,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(require_role(["admin", "staff"]))
 ):
     """
-    가격 정책 설정 API
+    가격 정책 생성 API
     
-    차량 등급별 추가 요금 정책을 생성하거나 업데이트합니다.
+    차량 등급별 추가 요금 정책을 생성합니다.
     Redis 캐시가 자동으로 무효화됩니다.
     """
     try:
-        result = await AdminService.create_or_update_price_policy(
+        result = await PricePolicyService.create_price_policy(
             db=db,
             origin=request.origin,
             vehicle_class=request.vehicle_class,
@@ -619,10 +697,87 @@ async def create_or_update_price_policy(
             data=result,
             error=None
         )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"가격 정책 설정 중 오류가 발생했습니다: {str(e)}"
+            detail=f"가격 정책 생성 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/prices/{policy_id}", response_model=StandardResponse)
+async def update_price_policy(
+    policy_id: str,
+    request: PricePolicyUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    가격 정책 수정 API
+    
+    가격 정책의 추가 금액을 수정합니다.
+    Redis 캐시가 자동으로 무효화됩니다.
+    """
+    try:
+        result = await PricePolicyService.update_price_policy(
+            db=db,
+            policy_id=policy_id,
+            add_amount=request.add_amount
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"가격 정책 수정 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.delete("/prices/{policy_id}", response_model=StandardResponse)
+async def delete_price_policy(
+    policy_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    가격 정책 삭제 API
+    
+    가격 정책을 삭제합니다.
+    Redis 캐시가 자동으로 무효화됩니다.
+    """
+    try:
+        result = await PricePolicyService.delete_price_policy(
+            db=db,
+            policy_id=policy_id
+        )
+        
+        return StandardResponse(
+            success=True,
+            data={"deleted": result},
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"가격 정책 삭제 중 오류가 발생했습니다: {str(e)}"
         )
 
 

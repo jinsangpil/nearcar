@@ -397,6 +397,92 @@ export const deletePackage = async (packageId: string): Promise<void> => {
   await apiClient.delete(`/admin/packages/${packageId}`);
 };
 
+// ==================== 가격 정책 관리 API ====================
+
+// 가격 정책 목록 조회
+export interface PricePolicyListItem {
+  id: string;
+  origin: string;
+  vehicle_class: string;
+  add_amount: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface PricePolicyListParams {
+  origin?: string;
+  vehicle_class?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface PricePolicyListResponse {
+  items: PricePolicyListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export const getPricePolicies = async (params: PricePolicyListParams = {}): Promise<PricePolicyListResponse> => {
+  const response = await apiClient.get<StandardResponse<PricePolicyListResponse>>('/admin/prices', { params });
+  if (!response.data.data) {
+    throw new Error('가격 정책 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 가격 정책 상세 조회
+export interface PricePolicyDetail {
+  id: string;
+  origin: string;
+  vehicle_class: string;
+  add_amount: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export const getPricePolicyDetail = async (id: string): Promise<PricePolicyDetail> => {
+  const response = await apiClient.get<StandardResponse<PricePolicyDetail>>(`/admin/prices/${id}`);
+  if (!response.data.data) {
+    throw new Error('가격 정책 상세 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 가격 정책 생성
+export interface PricePolicyCreateRequest {
+  origin: string;
+  vehicle_class: string;
+  add_amount: number;
+}
+
+export const createPricePolicy = async (data: PricePolicyCreateRequest): Promise<PricePolicyDetail> => {
+  const response = await apiClient.post<StandardResponse<PricePolicyDetail>>('/admin/prices', data);
+  if (!response.data.data) {
+    throw new Error('가격 정책 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 가격 정책 수정
+export interface PricePolicyUpdateRequest {
+  add_amount?: number;
+}
+
+export const updatePricePolicy = async (policyId: string, data: PricePolicyUpdateRequest): Promise<PricePolicyDetail> => {
+  const response = await apiClient.patch<StandardResponse<PricePolicyDetail>>(`/admin/prices/${policyId}`, data);
+  if (!response.data.data) {
+    throw new Error('가격 정책 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 가격 정책 삭제
+export const deletePricePolicy = async (policyId: string): Promise<void> => {
+  await apiClient.delete(`/admin/prices/${policyId}`);
+};
+
 // ==================== 차량 마스터 관리 API ====================
 
 // 차량 마스터 목록 조회
