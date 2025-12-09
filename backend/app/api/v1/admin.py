@@ -3,15 +3,36 @@
 """
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from typing import Optional
+from typing import Optional, Dict
 
 from app.core.database import get_db
 from app.core.dependencies import require_role, require_admin_only, require_admin_or_staff
 from app.schemas.admin import (
-    VehicleMasterCreateRequest,
     PricePolicyCreateRequest,
     InspectionAssignRequest,
     SettlementCalculateRequest
+)
+from app.schemas.vehicle_master import (
+    VehicleMasterCreateRequest,
+    VehicleMasterUpdateRequest,
+    VehicleMasterResponse,
+    VehicleMasterListResponse,
+    VehicleMasterSyncRequest,
+    VehicleMasterSyncResponse
+)
+from app.schemas.manufacturer import (
+    ManufacturerCreateRequest,
+    ManufacturerUpdateRequest,
+    ManufacturerResponse,
+    ManufacturerListResponse
+)
+from app.schemas.vehicle_model import (
+    VehicleModelCreateRequest,
+    VehicleModelUpdateRequest,
+    VehicleModelResponse,
+    VehicleModelListResponse,
+    VehicleModelSyncRequest,
+    VehicleModelSyncResponse
 )
 from app.schemas.user import (
     UserCreateRequest,
@@ -34,7 +55,11 @@ from app.schemas.package import (
 from app.services.admin_service import AdminService
 from app.services.user_service import UserService
 from app.services.package_service import PackageService
+from app.services.vehicle_master_service import VehicleMasterService
+from app.services.manufacturer_service import ManufacturerService
+from app.services.vehicle_model_service import VehicleModelService
 from app.models.user import User
+import uuid
 
 router = APIRouter(prefix="/admin", tags=["운영자"])
 
@@ -65,20 +90,20 @@ async def get_dashboard_stats(
         )
 
 
+# ==================== 차량 마스터 관리 API ====================
 @router.post("/vehicles/master", response_model=StandardResponse)
-async def create_or_update_vehicle_master(
+async def create_vehicle_master(
     request: VehicleMasterCreateRequest,
     db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(require_role(["admin", "staff"]))
+    current_user: User = Depends(require_admin_only)
 ):
     """
-    차량 마스터 데이터 관리 API
+    차량 마스터 생성 API
     
-    차량 마스터 데이터를 생성하거나 업데이트합니다.
     관리자 권한 필요.
     """
     try:
-        result = await AdminService.create_or_update_vehicle_master(
+        new_master = await VehicleMasterService.create_vehicle_master(
             db=db,
             origin=request.origin,
             manufacturer=request.manufacturer,
@@ -86,19 +111,487 @@ async def create_or_update_vehicle_master(
             model_detail=request.model_detail,
             vehicle_class=request.vehicle_class,
             start_year=request.start_year,
-            end_year=request.end_year
+            end_year=request.end_year,
+            is_active=request.is_active
         )
-        
-        return StandardResponse(
-            success=True,
-            data=result,
-            error=None
-        )
+        return StandardResponse(success=True, data=new_master)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"차량 마스터 데이터 관리 중 오류가 발생했습니다: {str(e)}"
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 마스터 생성 중 오류 발생: {str(e)}")
+
+
+@router.get("/vehicles/master/{master_id}", response_model=StandardResponse)
+async def get_vehicle_master_detail(
+    master_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_or_staff)
+):
+    """
+    차량 마스터 상세 조회 API
+    
+    관리자/직원 권한 필요.
+    """
+    try:
+        master_uuid = uuid.UUID(master_id)
+        master = await VehicleMasterService.get_vehicle_master(db, master_uuid)
+        if not master:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="차량 마스터를 찾을 수 없습니다.")
+        return StandardResponse(success=True, data=master)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="유효하지 않은 차량 마스터 ID 형식입니다.")
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 마스터 조회 중 오류 발생: {str(e)}")
+
+
+@router.patch("/vehicles/master/{master_id}", response_model=StandardResponse)
+async def update_vehicle_master(
+    master_id: str,
+    request: VehicleMasterUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    차량 마스터 수정 API
+    
+    관리자 권한 필요.
+    """
+    try:
+        master_uuid = uuid.UUID(master_id)
+        updated_master = await VehicleMasterService.update_vehicle_master(
+            db=db,
+            master_id=master_uuid,
+            origin=request.origin,
+            manufacturer=request.manufacturer,
+            model_group=request.model_group,
+            model_detail=request.model_detail,
+            vehicle_class=request.vehicle_class,
+            start_year=request.start_year,
+            end_year=request.end_year,
+            is_active=request.is_active
         )
+        if not updated_master:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="차량 마스터를 찾을 수 없습니다.")
+        return StandardResponse(success=True, data=updated_master)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 마스터 수정 중 오류 발생: {str(e)}")
+
+
+@router.delete("/vehicles/master/{master_id}", response_model=StandardResponse)
+async def delete_vehicle_master(
+    master_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    차량 마스터 삭제 API (soft delete)
+    
+    관리자 권한 필요.
+    """
+    try:
+        master_uuid = uuid.UUID(master_id)
+        success = await VehicleMasterService.delete_vehicle_master(db, master_uuid)
+        if not success:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="차량 마스터를 찾을 수 없습니다.")
+        return StandardResponse(success=True, data={"message": "차량 마스터가 성공적으로 삭제되었습니다."})
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 마스터 삭제 중 오류 발생: {str(e)}")
+
+
+@router.get("/vehicles/master", response_model=StandardResponse)
+async def list_vehicle_masters(
+    origin: Optional[str] = Query(None, description="국산/수입 필터 (domestic, imported)"),
+    manufacturer: Optional[str] = Query(None, description="제조사 필터"),
+    vehicle_class: Optional[str] = Query(None, description="차량 등급 필터"),
+    search: Optional[str] = Query(None, description="검색어 (제조사, 모델명)"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_or_staff)
+):
+    """
+    차량 마스터 목록 조회 API
+    
+    관리자/직원 권한 필요.
+    """
+    try:
+        masters_data = await VehicleMasterService.list_vehicle_masters(
+            db=db,
+            origin=origin,
+            manufacturer=manufacturer,
+            vehicle_class=vehicle_class,
+            search=search,
+            page=page,
+            limit=limit
+        )
+        return StandardResponse(success=True, data=masters_data)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 마스터 목록 조회 중 오류 발생: {str(e)}")
+
+
+@router.post("/vehicles/master/sync", response_model=StandardResponse)
+async def sync_vehicle_masters(
+    request: VehicleMasterSyncRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    차량 마스터 일괄 동기화 API
+    
+    스크래핑 데이터를 일괄 동기화합니다.
+    관리자 권한 필요.
+    """
+    try:
+        sync_data = [item.model_dump() for item in request.data]
+        result = await VehicleMasterService.sync_vehicle_masters(db, sync_data)
+        return StandardResponse(success=True, data=result)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 마스터 동기화 중 오류 발생: {str(e)}")
+
+
+# ==================== 제조사 관리 API ====================
+@router.post("/manufacturers", response_model=StandardResponse)
+async def create_manufacturer(
+    request: ManufacturerCreateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    새 제조사를 생성합니다.
+    관리자 권한 필요.
+    """
+    try:
+        new_manufacturer = await ManufacturerService.create_manufacturer(
+            db=db,
+            name=request.name,
+            origin=request.origin,
+            is_active=request.is_active
+        )
+        return StandardResponse(success=True, data=new_manufacturer)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"제조사 생성 중 오류 발생: {str(e)}")
+
+
+@router.get("/manufacturers/{manufacturer_id}", response_model=StandardResponse)
+async def get_manufacturer_detail(
+    manufacturer_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_or_staff)
+):
+    """
+    특정 제조사 상세 정보를 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        manufacturer_uuid = uuid.UUID(manufacturer_id)
+        manufacturer = await ManufacturerService.get_manufacturer(db, manufacturer_uuid)
+        if not manufacturer:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="제조사를 찾을 수 없습니다.")
+        return StandardResponse(success=True, data=manufacturer)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="유효하지 않은 제조사 ID 형식입니다.")
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"제조사 조회 중 오류 발생: {str(e)}")
+
+
+@router.patch("/manufacturers/{manufacturer_id}", response_model=StandardResponse)
+async def update_manufacturer(
+    manufacturer_id: str,
+    request: ManufacturerUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    제조사 정보를 업데이트합니다.
+    관리자 권한 필요.
+    """
+    try:
+        manufacturer_uuid = uuid.UUID(manufacturer_id)
+        updated_manufacturer = await ManufacturerService.update_manufacturer(
+            db=db,
+            manufacturer_id=manufacturer_uuid,
+            name=request.name,
+            origin=request.origin,
+            is_active=request.is_active
+        )
+        if not updated_manufacturer:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="제조사를 찾을 수 없습니다.")
+        return StandardResponse(success=True, data=updated_manufacturer)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"제조사 업데이트 중 오류 발생: {str(e)}")
+
+
+@router.delete("/manufacturers/{manufacturer_id}", response_model=StandardResponse)
+async def delete_manufacturer(
+    manufacturer_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    제조사를 삭제합니다 (soft delete).
+    관리자 권한 필요.
+    """
+    try:
+        manufacturer_uuid = uuid.UUID(manufacturer_id)
+        success = await ManufacturerService.delete_manufacturer(db, manufacturer_uuid)
+        if not success:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="제조사를 찾을 수 없습니다.")
+        return StandardResponse(success=True, data={"message": "제조사가 성공적으로 삭제되었습니다."})
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"제조사 삭제 중 오류 발생: {str(e)}")
+
+
+@router.get("/manufacturers", response_model=StandardResponse)
+async def list_manufacturers(
+    origin: Optional[str] = Query(None, description="국산/수입 필터 (domestic, imported)"),
+    search: Optional[str] = Query(None, description="제조사명 검색"),
+    is_active: Optional[bool] = Query(None, description="활성화 여부 필터"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_or_staff)
+):
+    """
+    제조사 목록을 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        manufacturers_data = await ManufacturerService.list_manufacturers(
+            db=db,
+            origin=origin,
+            search=search,
+            is_active=is_active,
+            page=page,
+            limit=limit
+        )
+        return StandardResponse(success=True, data=manufacturers_data)
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"제조사 목록 조회 중 오류 발생: {str(e)}")
+
+
+# ==================== 차량 모델 관리 API ====================
+@router.post("/vehicle-models", response_model=StandardResponse)
+async def create_vehicle_model(
+    request: VehicleModelCreateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    새 차량 모델을 생성합니다.
+    관리자 권한 필요.
+    """
+    try:
+        new_model = await VehicleModelService.create_vehicle_model(
+            db=db,
+            manufacturer_id=request.manufacturer_id,
+            model_group=request.model_group,
+            model_detail=request.model_detail,
+            vehicle_class=request.vehicle_class,
+            start_year=request.start_year,
+            end_year=request.end_year,
+            is_active=request.is_active
+        )
+        # 제조사 정보 포함하여 응답
+        manufacturer = await ManufacturerService.get_manufacturer(db, request.manufacturer_id)
+        response_data = {
+            "id": new_model.id,
+            "manufacturer_id": new_model.manufacturer_id,
+            "manufacturer_name": manufacturer.name if manufacturer else None,
+            "manufacturer_origin": manufacturer.origin if manufacturer else None,
+            "model_group": new_model.model_group,
+            "model_detail": new_model.model_detail,
+            "vehicle_class": new_model.vehicle_class,
+            "start_year": new_model.start_year,
+            "end_year": new_model.end_year,
+            "is_active": new_model.is_active,
+            "created_at": new_model.created_at,
+            "updated_at": new_model.updated_at,
+        }
+        return StandardResponse(success=True, data=response_data)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 모델 생성 중 오류 발생: {str(e)}")
+
+
+@router.get("/vehicle-models/{model_id}", response_model=StandardResponse)
+async def get_vehicle_model_detail(
+    model_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_or_staff)
+):
+    """
+    특정 차량 모델 상세 정보를 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        model_uuid = uuid.UUID(model_id)
+        model = await VehicleModelService.get_vehicle_model(db, model_uuid)
+        if not model:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="차량 모델을 찾을 수 없습니다.")
+        
+        # 제조사 정보 포함
+        manufacturer = await ManufacturerService.get_manufacturer(db, model.manufacturer_id)
+        response_data = {
+            "id": model.id,
+            "manufacturer_id": model.manufacturer_id,
+            "manufacturer_name": manufacturer.name if manufacturer else None,
+            "manufacturer_origin": manufacturer.origin if manufacturer else None,
+            "model_group": model.model_group,
+            "model_detail": model.model_detail,
+            "vehicle_class": model.vehicle_class,
+            "start_year": model.start_year,
+            "end_year": model.end_year,
+            "is_active": model.is_active,
+            "created_at": model.created_at,
+            "updated_at": model.updated_at,
+        }
+        return StandardResponse(success=True, data=response_data)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="유효하지 않은 차량 모델 ID 형식입니다.")
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 모델 조회 중 오류 발생: {str(e)}")
+
+
+@router.patch("/vehicle-models/{model_id}", response_model=StandardResponse)
+async def update_vehicle_model(
+    model_id: str,
+    request: VehicleModelUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    차량 모델 정보를 업데이트합니다.
+    관리자 권한 필요.
+    """
+    try:
+        model_uuid = uuid.UUID(model_id)
+        updated_model = await VehicleModelService.update_vehicle_model(
+            db=db,
+            model_id=model_uuid,
+            manufacturer_id=request.manufacturer_id,
+            model_group=request.model_group,
+            model_detail=request.model_detail,
+            vehicle_class=request.vehicle_class,
+            start_year=request.start_year,
+            end_year=request.end_year,
+            is_active=request.is_active
+        )
+        if not updated_model:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="차량 모델을 찾을 수 없습니다.")
+        
+        # 제조사 정보 포함
+        manufacturer = await ManufacturerService.get_manufacturer(db, updated_model.manufacturer_id)
+        response_data = {
+            "id": updated_model.id,
+            "manufacturer_id": updated_model.manufacturer_id,
+            "manufacturer_name": manufacturer.name if manufacturer else None,
+            "manufacturer_origin": manufacturer.origin if manufacturer else None,
+            "model_group": updated_model.model_group,
+            "model_detail": updated_model.model_detail,
+            "vehicle_class": updated_model.vehicle_class,
+            "start_year": updated_model.start_year,
+            "end_year": updated_model.end_year,
+            "is_active": updated_model.is_active,
+            "created_at": updated_model.created_at,
+            "updated_at": updated_model.updated_at,
+        }
+        return StandardResponse(success=True, data=response_data)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 모델 업데이트 중 오류 발생: {str(e)}")
+
+
+@router.delete("/vehicle-models/{model_id}", response_model=StandardResponse)
+async def delete_vehicle_model(
+    model_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    차량 모델을 삭제합니다 (soft delete).
+    관리자 권한 필요.
+    """
+    try:
+        model_uuid = uuid.UUID(model_id)
+        success = await VehicleModelService.delete_vehicle_model(db, model_uuid)
+        if not success:
+            raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="차량 모델을 찾을 수 없습니다.")
+        return StandardResponse(success=True, data={"message": "차량 모델이 성공적으로 삭제되었습니다."})
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 모델 삭제 중 오류 발생: {str(e)}")
+
+
+@router.get("/vehicle-models", response_model=StandardResponse)
+async def list_vehicle_models(
+    manufacturer_id: Optional[str] = Query(None, description="제조사 ID 필터"),
+    origin: Optional[str] = Query(None, description="국산/수입 필터 (domestic, imported)"),
+    vehicle_class: Optional[str] = Query(None, description="차량 등급 필터"),
+    model_group: Optional[str] = Query(None, description="모델 그룹 필터"),
+    model_detail: Optional[str] = Query(None, description="모델 상세 필터"),
+    search: Optional[str] = Query(None, description="검색어 (제조사명, 모델명)"),
+    is_active: Optional[bool] = Query(None, description="활성화 여부 필터"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_or_staff)
+):
+    """
+    차량 모델 목록을 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        manufacturer_uuid = uuid.UUID(manufacturer_id) if manufacturer_id else None
+        models_data = await VehicleModelService.list_vehicle_models(
+            db=db,
+            manufacturer_id=manufacturer_uuid,
+            origin=origin,
+            vehicle_class=vehicle_class,
+            model_group=model_group,
+            model_detail=model_detail,
+            search=search,
+            is_active=is_active,
+            page=page,
+            limit=limit
+        )
+        return StandardResponse(success=True, data=models_data)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 모델 목록 조회 중 오류 발생: {str(e)}")
+
+
+@router.post("/vehicle-models/sync", response_model=StandardResponse)
+async def sync_vehicle_models(
+    request: VehicleModelSyncRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    차량 모델 데이터를 일괄 동기화합니다.
+    관리자 권한 필요.
+    """
+    try:
+        sync_data = [item.model_dump() for item in request.items]
+        result = await VehicleModelService.sync_vehicle_models(db, sync_data)
+        return StandardResponse(success=True, data=result)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"차량 모델 동기화 중 오류 발생: {str(e)}")
 
 
 @router.post("/prices", response_model=StandardResponse)

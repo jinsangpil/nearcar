@@ -1,0 +1,5522 @@
+[
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "ST1",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "i30",
+    "model_detail": "i30 (PD)",
+    "vehicle_class": "small",
+    "start_year": 2016,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "i30",
+    "model_detail": "더 뉴 i30",
+    "vehicle_class": "small",
+    "start_year": 2015,
+    "end_year": 2016,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "i30",
+    "model_detail": "i30(신형)",
+    "vehicle_class": "small",
+    "start_year": 2011,
+    "end_year": 2015,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "i30",
+    "model_detail": null,
+    "vehicle_class": "small",
+    "start_year": 2007,
+    "end_year": 2011,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "i40",
+    "model_detail": "더 뉴 i40 살룬",
+    "vehicle_class": "small",
+    "start_year": 2015,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "i40",
+    "model_detail": "i40 살룬",
+    "vehicle_class": "small",
+    "start_year": 2012,
+    "end_year": 2015,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "i40",
+    "model_detail": null,
+    "vehicle_class": "small",
+    "start_year": 2011,
+    "end_year": 2015,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "그랜저 (GN7)",
+    "vehicle_class": "large",
+    "start_year": 2022,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "그랜저 하이브리드 (GN7)",
+    "vehicle_class": "large",
+    "start_year": 2022,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "더 뉴 그랜저",
+    "vehicle_class": "large",
+    "start_year": 2019,
+    "end_year": 2022,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "더 뉴 그랜저 하이브리드",
+    "vehicle_class": "large",
+    "start_year": 2019,
+    "end_year": 2022,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "그랜저 IG 하이브리드",
+    "vehicle_class": "large",
+    "start_year": 2017,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "그랜저 IG",
+    "vehicle_class": "large",
+    "start_year": 2016,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "그랜저 HG 하이브리드",
+    "vehicle_class": "large",
+    "start_year": 2013,
+    "end_year": 2017,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "그랜저 HG",
+    "vehicle_class": "large",
+    "start_year": 2011,
+    "end_year": 2016,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "더 럭셔리 그랜저",
+    "vehicle_class": "large",
+    "start_year": 2009,
+    "end_year": 2011,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "넥쏘",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2018,
+    "end_year": 2025,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "대형트럭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "라비타",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "마이티",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "맥스크루즈",
+    "model_detail": "더 뉴 맥스크루즈",
+    "vehicle_class": "small",
+    "start_year": 2015,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "메가트럭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "베뉴",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "베라크루즈",
+    "model_detail": null,
+    "vehicle_class": "small",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "베르나",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "벨로스터",
+    "model_detail": "벨로스터-N",
+    "vehicle_class": "mid",
+    "start_year": 2018,
+    "end_year": 2022,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "벨로스터",
+    "model_detail": "벨로스터 (JS)",
+    "vehicle_class": "mid",
+    "start_year": 2018,
+    "end_year": 2022,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "벨로스터",
+    "model_detail": "더 뉴 벨로스터",
+    "vehicle_class": "mid",
+    "start_year": 2015,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "벨로스터",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2011,
+    "end_year": 2014,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "산타모",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "스타렉스",
+    "model_detail": "더 뉴 그랜드 스타렉스",
+    "vehicle_class": "mid",
+    "start_year": 2017,
+    "end_year": 2021,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "스타렉스",
+    "model_detail": "그랜드 스타렉스",
+    "vehicle_class": "mid",
+    "start_year": 2007,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "스타리아",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2021,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "디 올 뉴 싼타페",
+    "vehicle_class": "suv",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "디 올 뉴 싼타페 하이브리드",
+    "vehicle_class": "suv",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "더 뉴 싼타페 하이브리드",
+    "vehicle_class": "suv",
+    "start_year": 2021,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "더 뉴 싼타페",
+    "vehicle_class": "suv",
+    "start_year": 2020,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "싼타페 TM",
+    "vehicle_class": "suv",
+    "start_year": 2018,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "싼타페 더 프라임",
+    "vehicle_class": "suv",
+    "start_year": 2015,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "싼타페 DM",
+    "vehicle_class": "suv",
+    "start_year": 2012,
+    "end_year": 2015,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "싼타페",
+    "model_detail": "싼타페 CM",
+    "vehicle_class": "suv",
+    "start_year": 2005,
+    "end_year": 2012,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 디 엣지",
+    "vehicle_class": "mid",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 디 엣지 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 DN8 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 DN8",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 뉴 라이즈 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2017,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 뉴 라이즈",
+    "vehicle_class": "mid",
+    "start_year": 2017,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "LF 쏘나타 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2014,
+    "end_year": 2017,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "LF 쏘나타",
+    "vehicle_class": "mid",
+    "start_year": 2014,
+    "end_year": 2017,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 더 브릴리언트",
+    "vehicle_class": "mid",
+    "start_year": 2012,
+    "end_year": 2014,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "쏘나타 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2011,
+    "end_year": 2014,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏘나타",
+    "model_detail": "YF 쏘나타",
+    "vehicle_class": "mid",
+    "start_year": 2009,
+    "end_year": 2012,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "쏠라티",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2015,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "더 뉴 아반떼 N",
+    "vehicle_class": "compact",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "더 뉴 아반떼 (CN7)",
+    "vehicle_class": "compact",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "더 뉴 아반떼 하이브리드 (CN7)",
+    "vehicle_class": "compact",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "아반떼 N",
+    "vehicle_class": "compact",
+    "start_year": 2021,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "아반떼 (CN7)",
+    "vehicle_class": "compact",
+    "start_year": 2020,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "아반떼 하이브리드 (CN7)",
+    "vehicle_class": "compact",
+    "start_year": 2020,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "더 뉴 아반떼 AD",
+    "vehicle_class": "compact",
+    "start_year": 2018,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "아반떼 AD",
+    "vehicle_class": "compact",
+    "start_year": 2015,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "더 뉴 아반떼",
+    "vehicle_class": "compact",
+    "start_year": 2013,
+    "end_year": 2015,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "아반떼 MD",
+    "vehicle_class": "compact",
+    "start_year": 2010,
+    "end_year": 2013,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "아반떼 HD",
+    "vehicle_class": "compact",
+    "start_year": 2006,
+    "end_year": 2010,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아슬란",
+    "model_detail": null,
+    "vehicle_class": "large",
+    "start_year": 2014,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "아이오닉 6",
+    "vehicle_class": "mid",
+    "start_year": 2022,
+    "end_year": 2025,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "아이오닉 5",
+    "vehicle_class": "mid",
+    "start_year": 2021,
+    "end_year": 2024,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "더 뉴 아이오닉 일렉트릭",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "더 뉴 아이오닉 플러그인 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "더 뉴 아이오닉 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "아이오닉 플러그인 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2017,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "아이오닉 일렉트릭",
+    "vehicle_class": "mid",
+    "start_year": 2016,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아이오닉",
+    "model_detail": "아이오닉 하이브리드",
+    "vehicle_class": "mid",
+    "start_year": 2016,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "에어로버스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "에쿠스",
+    "model_detail": "에쿠스(신형)",
+    "vehicle_class": "mid",
+    "start_year": 2009,
+    "end_year": 2015,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "엑센트",
+    "model_detail": "엑센트(신형)",
+    "vehicle_class": "compact",
+    "start_year": 2010,
+    "end_year": 2019,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "유니버스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "제네시스",
+    "model_detail": "제네시스 DH",
+    "vehicle_class": "large",
+    "start_year": 2013,
+    "end_year": 2016,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "제네시스",
+    "model_detail": "더 뉴 제네시스 쿠페",
+    "vehicle_class": "large",
+    "start_year": 2011,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "제네시스",
+    "model_detail": null,
+    "vehicle_class": "large",
+    "start_year": 2008,
+    "end_year": 2013,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "카운티",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "캐스퍼",
+    "model_detail": "더 뉴 캐스퍼",
+    "vehicle_class": "mid",
+    "start_year": 2024,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "캐스퍼",
+    "model_detail": "캐스퍼 일렉트릭",
+    "vehicle_class": "mid",
+    "start_year": 2024,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "캐스퍼",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2021,
+    "end_year": 2024,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "코나 일렉트릭 (SX2)",
+    "vehicle_class": "suv",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "코나 (SX2)",
+    "vehicle_class": "suv",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "코나 하이브리드 (SX2)",
+    "vehicle_class": "suv",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "코나 N",
+    "vehicle_class": "suv",
+    "start_year": 2021,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "더 뉴 코나",
+    "vehicle_class": "suv",
+    "start_year": 2020,
+    "end_year": 2022,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "더 뉴 코나 하이브리드",
+    "vehicle_class": "suv",
+    "start_year": 2020,
+    "end_year": 2022,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "코나 하이브리드",
+    "vehicle_class": "suv",
+    "start_year": 2019,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": "코나 일렉트릭",
+    "vehicle_class": "suv",
+    "start_year": 2018,
+    "end_year": 2021,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "코나",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2017,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "클릭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "테라칸",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투스카니",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "더 뉴 투싼",
+    "vehicle_class": "suv",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "더 뉴 투싼 하이브리드",
+    "vehicle_class": "suv",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "투싼 (4세대)",
+    "vehicle_class": "suv",
+    "start_year": 2020,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "투싼 하이브리드 (4세대)",
+    "vehicle_class": "suv",
+    "start_year": 2020,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "올 뉴 투싼 TL",
+    "vehicle_class": "suv",
+    "start_year": 2018,
+    "end_year": 2020,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "올 뉴 투싼",
+    "vehicle_class": "suv",
+    "start_year": 2015,
+    "end_year": 2018,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "뉴 투싼 ix",
+    "vehicle_class": "suv",
+    "start_year": 2013,
+    "end_year": 2015,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "투싼",
+    "model_detail": "투싼 ix",
+    "vehicle_class": "suv",
+    "start_year": 2009,
+    "end_year": 2013,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "트라제 XG",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "파비스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "팰리세이드",
+    "model_detail": "디 올 뉴 팰리세이드",
+    "vehicle_class": "suv",
+    "start_year": 2024,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "팰리세이드",
+    "model_detail": "디 올 뉴 팰리세이드 하이브리드",
+    "vehicle_class": "suv",
+    "start_year": 2024,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "팰리세이드",
+    "model_detail": "더 뉴 팰리세이드",
+    "vehicle_class": "suv",
+    "start_year": 2022,
+    "end_year": 2024,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "팰리세이드",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2018,
+    "end_year": 2022,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "포레스트",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "포터",
+    "model_detail": "포터2 LPi 2.5 터보 특장",
+    "vehicle_class": "mid",
+    "start_year": 2024,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "포터",
+    "model_detail": "포터2 LPi 2.5 터보 카고",
+    "vehicle_class": "mid",
+    "start_year": 2023,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "포터",
+    "model_detail": "포터2 일렉트릭",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "포터",
+    "model_detail": "포터2 CRDi 특장",
+    "vehicle_class": "mid",
+    "start_year": 2010,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "포터",
+    "model_detail": "포터2 CRDi 카고",
+    "vehicle_class": "mid",
+    "start_year": 2004,
+    "end_year": 2023,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "EQ900",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "G70",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "G80",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "G90",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "GV60",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "GV70",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "GV80",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "EV3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "EV4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "EV5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "EV6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "EV9",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K9",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "PV5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "니로",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "레이",
+    "model_detail": null,
+    "vehicle_class": "compact",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "로체",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "모닝",
+    "model_detail": null,
+    "vehicle_class": "compact",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "모하비",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "봉고III",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "봉고III 트럭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "셀토스",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "스토닉",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "스팅어",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "스포티지",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "쎄라토",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "쏘렌토",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "쏘울",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "오피러스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "카니발",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "카렌스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "타스만",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "포르테",
+    "model_detail": null,
+    "vehicle_class": "small",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "프라이드",
+    "model_detail": null,
+    "vehicle_class": "compact",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "G2X",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "다마스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "라보",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "라세티",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "마티즈",
+    "model_detail": null,
+    "vehicle_class": "compact",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "말리부",
+    "model_detail": null,
+    "vehicle_class": "small",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "베리타스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "볼트 EUV",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "볼트 EV",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "볼트(Volt)",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "스파크",
+    "model_detail": null,
+    "vehicle_class": "compact",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "아베오",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "알페온",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "올란도",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "윈스톰",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "이쿼녹스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "임팔라",
+    "model_detail": null,
+    "vehicle_class": "large",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "젠트라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "카마로",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "캡티바",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "콜로라도",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "콜벳",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "크루즈",
+    "model_detail": null,
+    "vehicle_class": "small",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "타호",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "토스카",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "트래버스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "트랙스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쉐보레",
+    "model_group": "트레일블레이저",
+    "model_detail": null,
+    "vehicle_class": "compact",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "QM3",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "QM5",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "QM6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "SM3",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "SM5",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "SM6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "SM7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "XM3",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "그랑 콜레오스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "마스터",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "세닉 E-테크 일렉트릭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "아르카나",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "조에",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "캡처",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "클리오",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "르노삼성",
+    "model_group": "트위지",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "렉스턴",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "로디우스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "무쏘",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "액티언",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "체어맨",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "카이런",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "코란도",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "토레스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "쌍용",
+    "model_group": "티볼리",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "A-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "AMG GT",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "B-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "C-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "CL-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "CLA-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "CLE-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "CLK-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "CLS-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "E-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "EQA-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "EQB-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "EQC-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "EQE-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "EQG-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "EQS-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "G-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "GL-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "GLA-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "GLB-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "GLC-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "GLE-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "GLK-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "GLS-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "M-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "S-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "SL-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "SLC-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "SLK-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "SLS AMG",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "V-클래스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "스프린터",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "1M",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "1시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "2시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "3시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "4시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "5시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "6시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "7시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "8시리즈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "M2",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "M3",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "M4",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "M5",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "M6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "M8",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X1",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X2",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X3M",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X4M",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X5M",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X6M",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "X7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "XM",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "Z4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "i3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "i4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "i5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "i7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "i8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "iX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "iX1",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "iX2",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "iX3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "그란투리스모 (GT)",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A1",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A6 e-트론",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q2",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q4 e-트론",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q6 e-트론",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "Q8 e-트론",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "R8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "RS3",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "RS4",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "RS5",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "RS6",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "RS7",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "RSQ8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "S3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "S4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "S5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "S6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "S7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "S8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "SQ5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "SQ7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "SQ8",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "TT",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "TTRS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "TTS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "e-트론",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "e-트론 GT",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "CC",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "EOS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "ID",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "T-Roc",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "골프",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "기타",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "보라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "비틀",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "시로코",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "아테온",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "아틀라스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "제타",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "투아렉",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "티구안",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "파사트",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "페이톤",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "폭스바겐",
+    "model_group": "폴로",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "로드스터",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "컨트리맨",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "쿠퍼",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "쿠퍼 일렉트릭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "쿠퍼 컨버터블",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "쿠페",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "클럽맨",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "미니",
+    "model_group": "페이스맨",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "C30",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "C40",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "EX30",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "EX40",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "S40",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "S60",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "S80",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "S90",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "V40",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "V50",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "V60",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "V90",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "XC40",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "XC60",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "XC70",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "볼보",
+    "model_group": "XC90",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "718",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "911",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "마칸",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "박스터",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "카이맨",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "카이엔",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "타이칸",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포르쉐",
+    "model_group": "파나메라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "CT200h",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "ES",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "GS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "IS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "LC",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "LM",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "LS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "LX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "NX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "RC",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "RX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "RZ",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "SC",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "렉서스",
+    "model_group": "UX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "86",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "FJ 크루져",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "RAV4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "bB",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "랜드크루저",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "벤자",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "솔라라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "수프라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "시에나",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "아발론",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "알파드",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "캠리",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "코롤라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "크라운",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "툰드라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "프리우스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "도요타",
+    "model_group": "하이랜더",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "EX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "FX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "G",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "JX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "M",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "Q",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "Q30",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "Q50",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "Q60",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "Q70",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "QX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "QX30",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "QX50",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "QX60",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "QX70",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "인피니티",
+    "model_group": "QX80",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "CR-V",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "CR-Z",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "Fit",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "HR-V",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "S660",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "레전드",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "리지라인",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "스트림",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "시빅",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "어코드",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "오딧세이",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "인사이트",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "크로스투어",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "혼다",
+    "model_group": "파일럿",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "350Z",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "370Z",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "GT-R",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "NV",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "로그",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "리프",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "마이크라",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "마치",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "맥시마",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "무라노",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "알티마",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "엑스트레일",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "쥬크",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "캐시카이",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "큐브",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "패스파인더",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "닛산",
+    "model_group": "휘가로",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "테슬라",
+    "model_group": "모델 3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "테슬라",
+    "model_group": "모델 S",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "테슬라",
+    "model_group": "모델 X",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "테슬라",
+    "model_group": "모델 Y",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "테슬라",
+    "model_group": "사이버트럭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "F150",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "F250",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "F350",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "S-MAX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "레인저",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "머스탱",
+    "model_detail": null,
+    "vehicle_class": "sports",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "몬데오",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "브롱코",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "윈드스타",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "이스케이프",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "익스페디션",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "익스플로러",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "쿠가",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "토러스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "트랜짓",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "포커스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "퓨전",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "포드",
+    "model_group": "프리스타일",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "글래디에이터",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "랭글러",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "레니게이드",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "어벤저",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "체로키",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "커맨더",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "컴패스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "지프",
+    "model_group": "패트리어트",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "ATS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "ATS-V",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "BLS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "CT4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "CT5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "CT5-V",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "CT6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "CTS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "CTS-V",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "DTS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "SRX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "STS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "XT4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "XT5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "XT6",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "리릭",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "캐딜락",
+    "model_group": "에스컬레이드",
+    "model_detail": null,
+    "vehicle_class": "compact",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "LS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "MKC",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "MKS",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "MKT",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "MKX",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "MKZ",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "네비게이터",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "노틸러스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "에비에이터",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "컨티넨탈",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "코세어",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "링컨",
+    "model_group": "타운카",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "MC20",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "그란스포츠",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "그란카브리오",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "그란투리스모",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "그레칼레",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "기블리",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "르반떼",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "마세라티",
+    "model_group": "콰트로포르테",
+    "model_detail": null,
+    "vehicle_class": "small",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "E-PACE",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "F-PACE",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "F-TYPE",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "I-PACE",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "S-TYPE",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "X-TYPE",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "XE",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "XF",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "XJ",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "XJR",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "XK",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "재규어",
+    "model_group": "XKR",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "디스커버리",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "디스커버리 스포츠",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "디펜더",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "레인지로버",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "레인지로버 벨라",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "레인지로버 스포츠",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "레인지로버 이보크",
+    "model_detail": null,
+    "vehicle_class": "suv",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "랜드로버",
+    "model_group": "프리랜더",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "2008",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "206",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "207",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "208",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "3008",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "307",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "308",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "407",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "408",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "5008",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "508",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "607",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "푸조",
+    "model_group": "RCZ",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "C3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "C4 스페이스투어러",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "C4 칵투스",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "C4 피카소",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "C5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "DS3",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "DS4",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "DS5",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "시트로엥",
+    "model_group": "DS7",
+    "model_detail": null,
+    "vehicle_class": "mid",
+    "start_year": 2000,
+    "end_year": null,
+    "is_active": true
+  }
+]

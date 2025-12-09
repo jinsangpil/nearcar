@@ -397,3 +397,383 @@ export const deletePackage = async (packageId: string): Promise<void> => {
   await apiClient.delete(`/admin/packages/${packageId}`);
 };
 
+// ==================== 차량 마스터 관리 API ====================
+
+// 차량 마스터 목록 조회
+export interface VehicleMasterListItem {
+  id: string;
+  origin: string;
+  manufacturer: string;
+  model_group: string;
+  model_detail?: string | null;
+  vehicle_class: string;
+  start_year: number;
+  end_year?: number | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string | null;
+}
+
+export interface VehicleMasterListParams {
+  origin?: string;
+  manufacturer?: string;
+  vehicle_class?: string;
+  search?: string;
+  page?: number;
+  limit?: number;
+}
+
+export interface VehicleMasterListResponse {
+  items: VehicleMasterListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export const getVehicleMasters = async (params: VehicleMasterListParams = {}): Promise<VehicleMasterListResponse> => {
+  const response = await apiClient.get<StandardResponse<VehicleMasterListResponse>>('/admin/vehicles/master', { params });
+  if (!response.data.data) {
+    throw new Error('차량 마스터 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 차량 마스터 상세 조회
+export interface VehicleMasterDetail {
+  id: string;
+  origin: string;
+  manufacturer: string;
+  model_group: string;
+  model_detail?: string | null;
+  vehicle_class: string;
+  start_year: number;
+  end_year?: number | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string | null;
+}
+
+export const getVehicleMasterDetail = async (id: string): Promise<VehicleMasterDetail> => {
+  const response = await apiClient.get<StandardResponse<VehicleMasterDetail>>(`/admin/vehicles/master/${id}`);
+  if (!response.data.data) {
+    throw new Error('차량 마스터 상세 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+// 차량 마스터 생성
+export interface VehicleMasterCreateRequest {
+  origin: string;
+  manufacturer: string;
+  model_group: string;
+  model_detail?: string | null;
+  vehicle_class: string;
+  start_year: number;
+  end_year?: number | null;
+  is_active?: boolean;
+}
+
+export const createVehicleMaster = async (data: VehicleMasterCreateRequest): Promise<VehicleMasterDetail> => {
+  const response = await apiClient.post<StandardResponse<VehicleMasterDetail>>('/admin/vehicles/master', data);
+  if (!response.data.data) {
+    throw new Error('차량 마스터 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 차량 마스터 수정
+export interface VehicleMasterUpdateRequest {
+  origin?: string | null;
+  manufacturer?: string | null;
+  model_group?: string | null;
+  model_detail?: string | null;
+  vehicle_class?: string | null;
+  start_year?: number | null;
+  end_year?: number | null;
+  is_active?: boolean | null;
+}
+
+export const updateVehicleMaster = async (masterId: string, data: VehicleMasterUpdateRequest): Promise<VehicleMasterDetail> => {
+  const response = await apiClient.patch<StandardResponse<VehicleMasterDetail>>(`/admin/vehicles/master/${masterId}`, data);
+  if (!response.data.data) {
+    throw new Error('차량 마스터 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// 차량 마스터 삭제
+export const deleteVehicleMaster = async (masterId: string): Promise<void> => {
+  await apiClient.delete(`/admin/vehicles/master/${masterId}`);
+};
+
+// 차량 마스터 동기화
+export interface VehicleMasterSyncRequest {
+  data: VehicleMasterCreateRequest[];
+}
+
+export interface VehicleMasterSyncResponse {
+  created: number;
+  updated: number;
+  failed: number;
+  errors: string[];
+}
+
+export const syncVehicleMasters = async (data: VehicleMasterSyncRequest): Promise<VehicleMasterSyncResponse> => {
+  const response = await apiClient.post<StandardResponse<VehicleMasterSyncResponse>>('/admin/vehicles/master/sync', data);
+  if (!response.data.data) {
+    throw new Error('차량 마스터 동기화에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// ==================== 제조사 관리 API ====================
+export interface ManufacturerListItem {
+  id: string;
+  name: string;
+  origin: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface ManufacturerListParams {
+  origin?: string;
+  search?: string;
+  is_active?: boolean;
+  page?: number;
+  limit?: number;
+}
+
+export interface ManufacturerListResponse {
+  items: ManufacturerListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export interface ManufacturerDetail {
+  id: string;
+  name: string;
+  origin: string;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface ManufacturerCreateRequest {
+  name: string;
+  origin: 'domestic' | 'imported';
+  is_active?: boolean;
+}
+
+export interface ManufacturerUpdateRequest {
+  name?: string;
+  origin?: 'domestic' | 'imported';
+  is_active?: boolean;
+}
+
+export const getManufacturers = async (
+  params: ManufacturerListParams = {}
+): Promise<ManufacturerListResponse> => {
+  const response = await apiClient.get<StandardResponse<ManufacturerListResponse>>(
+    '/admin/manufacturers',
+    { params }
+  );
+  if (!response.data.data) {
+    throw new Error('제조사 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+export const getManufacturerDetail = async (id: string): Promise<ManufacturerDetail> => {
+  const response = await apiClient.get<StandardResponse<ManufacturerDetail>>(
+    `/admin/manufacturers/${id}`
+  );
+  if (!response.data.data) {
+    throw new Error('제조사 상세 정보를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+export const createManufacturer = async (
+  data: ManufacturerCreateRequest
+): Promise<ManufacturerDetail> => {
+  const response = await apiClient.post<StandardResponse<ManufacturerDetail>>(
+    '/admin/manufacturers',
+    data
+  );
+  if (!response.data.data) {
+    throw new Error('제조사 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+export const updateManufacturer = async (
+  id: string,
+  data: ManufacturerUpdateRequest
+): Promise<ManufacturerDetail> => {
+  const response = await apiClient.patch<StandardResponse<ManufacturerDetail>>(
+    `/admin/manufacturers/${id}`,
+    data
+  );
+  if (!response.data.data) {
+    throw new Error('제조사 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+export const deleteManufacturer = async (id: string): Promise<void> => {
+  await apiClient.delete(`/admin/manufacturers/${id}`);
+};
+
+// ==================== 차량 모델 관리 API ====================
+export interface VehicleModelListItem {
+  id: string;
+  manufacturer_id: string;
+  manufacturer_name?: string;
+  manufacturer_origin?: string;
+  model_group: string;
+  model_detail?: string;
+  vehicle_class: string;
+  start_year: number;
+  end_year?: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface VehicleModelListParams {
+  manufacturer_id?: string;
+  origin?: string;
+  vehicle_class?: string;
+  model_group?: string;
+  model_detail?: string;
+  search?: string;
+  is_active?: boolean;
+  page?: number;
+  limit?: number;
+}
+
+export interface VehicleModelListResponse {
+  items: VehicleModelListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export interface VehicleModelDetail {
+  id: string;
+  manufacturer_id: string;
+  manufacturer_name?: string;
+  manufacturer_origin?: string;
+  model_group: string;
+  model_detail?: string;
+  vehicle_class: string;
+  start_year: number;
+  end_year?: number;
+  is_active: boolean;
+  created_at: string;
+  updated_at?: string;
+}
+
+export interface VehicleModelCreateRequest {
+  manufacturer_id: string;
+  model_group: string;
+  model_detail?: string;
+  vehicle_class: 'compact' | 'small' | 'mid' | 'large' | 'suv' | 'sports' | 'supercar';
+  start_year: number;
+  end_year?: number;
+  is_active?: boolean;
+}
+
+export interface VehicleModelUpdateRequest {
+  manufacturer_id?: string;
+  model_group?: string;
+  model_detail?: string;
+  vehicle_class?: 'compact' | 'small' | 'mid' | 'large' | 'suv' | 'sports' | 'supercar';
+  start_year?: number;
+  end_year?: number;
+  is_active?: boolean;
+}
+
+export interface VehicleModelSyncRequest {
+  items: VehicleModelCreateRequest[];
+}
+
+export interface VehicleModelSyncResponse {
+  created: number;
+  updated: number;
+  failed: number;
+  errors: string[];
+}
+
+export const getVehicleModels = async (
+  params: VehicleModelListParams = {}
+): Promise<VehicleModelListResponse> => {
+  const response = await apiClient.get<StandardResponse<VehicleModelListResponse>>(
+    '/admin/vehicle-models',
+    { params }
+  );
+  if (!response.data.data) {
+    throw new Error('차량 모델 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+export const getVehicleModelDetail = async (id: string): Promise<VehicleModelDetail> => {
+  const response = await apiClient.get<StandardResponse<VehicleModelDetail>>(
+    `/admin/vehicle-models/${id}`
+  );
+  if (!response.data.data) {
+    throw new Error('차량 모델 상세 정보를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+export const createVehicleModel = async (
+  data: VehicleModelCreateRequest
+): Promise<VehicleModelDetail> => {
+  const response = await apiClient.post<StandardResponse<VehicleModelDetail>>(
+    '/admin/vehicle-models',
+    data
+  );
+  if (!response.data.data) {
+    throw new Error('차량 모델 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+export const updateVehicleModel = async (
+  id: string,
+  data: VehicleModelUpdateRequest
+): Promise<VehicleModelDetail> => {
+  const response = await apiClient.patch<StandardResponse<VehicleModelDetail>>(
+    `/admin/vehicle-models/${id}`,
+    data
+  );
+  if (!response.data.data) {
+    throw new Error('차량 모델 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+export const deleteVehicleModel = async (id: string): Promise<void> => {
+  await apiClient.delete(`/admin/vehicle-models/${id}`);
+};
+
+export const syncVehicleModels = async (
+  data: VehicleModelSyncRequest
+): Promise<VehicleModelSyncResponse> => {
+  const response = await apiClient.post<StandardResponse<VehicleModelSyncResponse>>(
+    '/admin/vehicle-models/sync',
+    data
+  );
+  if (!response.data.data) {
+    throw new Error('차량 모델 동기화에 실패했습니다');
+  }
+  return response.data.data;
+};
+

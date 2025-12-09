@@ -1,6 +1,8 @@
 # Database models
 from app.models.user import User
 from app.models.vehicle_master import VehicleMaster
+from app.models.manufacturer import Manufacturer
+from app.models.vehicle_model import VehicleModel
 from app.models.price_policy import PricePolicy
 from app.models.package import Package
 from app.models.service_region import ServiceRegion
@@ -13,7 +15,7 @@ from app.models.notification import Notification
 from app.models.notification_template import NotificationTemplate
 
 __all__ = [
-    "User", "VehicleMaster", "PricePolicy", "Package", "ServiceRegion",
+    "User", "VehicleMaster", "Manufacturer", "VehicleModel", "PricePolicy", "Package", "ServiceRegion",
     "Payment", "Inspection", "Vehicle", "InspectionReport", "Settlement", "Notification",
     "NotificationTemplate"
 ]

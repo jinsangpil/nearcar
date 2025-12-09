@@ -1,0 +1,153 @@
+[
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "아반떼",
+    "model_detail": "더 뉴 아반떼",
+    "vehicle_class": "compact",
+    "start_year": 2020,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "소나타",
+    "model_detail": "더 뉴 소나타",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "현대",
+    "model_group": "그랜저",
+    "model_detail": "더 뉴 그랜저 IG",
+    "vehicle_class": "large",
+    "start_year": 2020,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K3",
+    "model_detail": "더 뉴 K3",
+    "vehicle_class": "compact",
+    "start_year": 2021,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K5",
+    "model_detail": "더 뉴 K5",
+    "vehicle_class": "mid",
+    "start_year": 2020,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "기아",
+    "model_group": "K8",
+    "model_detail": "K8",
+    "vehicle_class": "large",
+    "start_year": 2021,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "G70",
+    "model_detail": "G70",
+    "vehicle_class": "mid",
+    "start_year": 2017,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "domestic",
+    "manufacturer": "제네시스",
+    "model_group": "G80",
+    "model_detail": "G80",
+    "vehicle_class": "large",
+    "start_year": 2020,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "3시리즈",
+    "model_detail": "320i",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "BMW",
+    "model_group": "5시리즈",
+    "model_detail": "520i",
+    "vehicle_class": "large",
+    "start_year": 2020,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "C클래스",
+    "model_detail": "C200",
+    "vehicle_class": "mid",
+    "start_year": 2021,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "벤츠",
+    "model_group": "E클래스",
+    "model_detail": "E300",
+    "vehicle_class": "large",
+    "start_year": 2020,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "아우디",
+    "model_group": "A4",
+    "model_detail": "A4",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "테슬라",
+    "model_group": "모델 3",
+    "model_detail": "모델 3",
+    "vehicle_class": "mid",
+    "start_year": 2019,
+    "end_year": null,
+    "is_active": true
+  },
+  {
+    "origin": "imported",
+    "manufacturer": "테슬라",
+    "model_group": "모델 Y",
+    "model_detail": "모델 Y",
+    "vehicle_class": "suv",
+    "start_year": 2020,
+    "end_year": null,
+    "is_active": true
+  }
+]
+
