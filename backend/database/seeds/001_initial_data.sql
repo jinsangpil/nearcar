@@ -32,7 +32,7 @@ INSERT INTO service_regions (province, city, extra_fee, is_active) VALUES
 ('서울', '성북구', 0, true),
 ('서울', '중랑구', 0, true),
 ('서울', '동대문구', 0, true),
-('서울', '종로구', 0, true),
+
 
 -- 경기
 ('경기', '수원시', 5000, true),
