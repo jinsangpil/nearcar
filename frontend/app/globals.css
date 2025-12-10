@@ -26,3 +26,13 @@ body {
   }
 }
 
+/* react-datepicker 커스텀 스타일 */
+.react-datepicker-custom {
+  font-family: inherit;
+}
+
+.react-datepicker__input-container input {
+  width: 100%;
+  cursor: pointer;
+}
+

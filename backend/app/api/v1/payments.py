@@ -1,8 +1,10 @@
 """
 결제 관련 API 엔드포인트
 """
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
+from typing import Optional
+from datetime import date
 
 from sqlalchemy import select
 
@@ -15,8 +17,13 @@ from app.schemas.payment import (
     PaymentConfirmResponse,
     PaymentStatusResponse,
     PaymentCancelRequest,
-    PaymentCancelResponse
+    PaymentCancelResponse,
+    PaymentStatisticsResponse,
+    PaymentMonitoringResponse,
+    PaymentStatusUpdateRequest
 )
+from fastapi import Query
+from datetime import date
 from app.schemas.vehicle import StandardResponse
 from app.services.payment_service import PaymentService
 from app.models.user import User
@@ -204,5 +211,187 @@ async def cancel_payment(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"결제 취소 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.put("/{payment_id}/status", response_model=StandardResponse)
+async def update_payment_status(
+    payment_id: str,
+    request: PaymentStatusUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    결제 상태 변경 API
+    
+    관리자 전용 결제 상태 변경 기능입니다.
+    - 결제 상태 수동 변경
+    - Inspection 상태 자동 업데이트 옵션
+    - 상태 변경 이벤트 발생 시 알림 트리거
+    """
+    try:
+        payment_service = PaymentService()
+        result = await payment_service.update_payment_status(
+            db=db,
+            payment_id=payment_id,
+            new_status=request.new_status,
+            update_inspection=request.update_inspection
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"결제 상태 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/statistics", response_model=StandardResponse)
+async def get_payment_statistics(
+    start_date: Optional[date] = Query(None, description="시작일 (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="종료일 (YYYY-MM-DD)"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    결제 통계 조회 API
+    
+    관리자 전용 결제 통계 조회 기능입니다.
+    - 상태별 통계
+    - 결제 수단별 통계
+    - 일별 결제 추이
+    - 평균 결제 금액
+    """
+    try:
+        result = await PaymentService.get_payment_statistics(
+            db=db,
+            start_date=start_date,
+            end_date=end_date
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"결제 통계 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/monitoring", response_model=StandardResponse)
+async def get_payment_monitoring(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    결제 모니터링 정보 조회 API
+    
+    관리자 전용 결제 모니터링 정보 조회 기능입니다.
+    - 오늘/어제 결제 통계
+    - 전일 대비 증감률
+    - 대기 중인 결제 수
+    - 최근 24시간 실패한 결제 수
+    """
+    try:
+        result = await PaymentService.get_payment_monitoring(db=db)
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"결제 모니터링 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.post("/{payment_id}/recover", response_model=StandardResponse)
+async def recover_payment_error(
+    payment_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    결제 오류 자동 복구 API
+    
+    관리자 전용 결제 오류 복구 기능입니다.
+    - 결제 상태 불일치 감지 및 동기화
+    - 네트워크 오류 시 재시도
+    - 자동 복구 메커니즘 실행
+    """
+    try:
+        payment_service = PaymentService()
+        result = await payment_service.recover_payment_error(
+            db=db,
+            payment_id=payment_id,
+            retry_count=0,
+            max_retries=3
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"결제 오류 복구 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.post("/{payment_id}/rollback", response_model=StandardResponse)
+async def rollback_payment(
+    payment_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    결제 프로세스 롤백 API
+    
+    관리자 전용 결제 롤백 기능입니다.
+    - 결제 프로세스 중단 시 자동 롤백
+    - Payment 및 Inspection 상태 복구
+    """
+    try:
+        payment_service = PaymentService()
+        result = await payment_service.rollback_payment(
+            db=db,
+            payment_id=payment_id
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"결제 롤백 중 오류가 발생했습니다: {str(e)}"
         )
 

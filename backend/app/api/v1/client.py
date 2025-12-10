@@ -11,8 +11,15 @@ from app.schemas.inspection import (
     InspectionCreateResponse,
     InspectionDetailResponse
 )
+from app.schemas.payment import (
+    PaymentRequestRequest,
+    PaymentRequestResponse,
+    PaymentConfirmRequest,
+    PaymentConfirmResponse
+)
 from app.schemas.vehicle import StandardResponse
 from app.services.inspection_service import InspectionService
+from app.services.payment_service import PaymentService
 from app.models.user import User
 
 router = APIRouter(prefix="/client", tags=["고객"])
@@ -149,4 +156,85 @@ async def lookup_vehicle_by_plate(
         },
         error=None
     )
+
+
+@router.post("/payments/request", response_model=StandardResponse)
+async def request_payment(
+    request: PaymentRequestRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    결제 요청 API (KCP)
+    
+    진단 신청에 대한 결제를 요청합니다.
+    - 서버에서 최종 금액 재계산 및 검증
+    - KCP 거래등록 API 호출
+    - 결제창 호출을 위한 정보 반환
+    """
+    try:
+        payment_service = PaymentService()
+        result = await payment_service.request_payment(
+            db=db,
+            inspection_id=request.inspection_id,
+            amount=request.amount,
+            customer_info=request.customer_info
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"결제 요청 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.post("/payments/confirm", response_model=StandardResponse)
+async def confirm_payment(
+    request: PaymentConfirmRequest,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    결제 확인 API (KCP)
+    
+    KCP 결제창에서 결제 완료 후 호출됩니다.
+    - 결제 정보 검증
+    - Payment 레코드 업데이트
+    - Inspection 상태 업데이트
+    """
+    try:
+        payment_service = PaymentService()
+        result = await payment_service.confirm_payment(
+            db=db,
+            order_id=request.order_id,
+            tno=request.tno,
+            res_cd=request.res_cd,
+            res_msg=request.res_msg,
+            amount=request.amount
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"결제 확인 중 오류가 발생했습니다: {str(e)}"
+        )
 

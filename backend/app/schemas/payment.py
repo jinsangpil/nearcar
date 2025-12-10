@@ -26,36 +26,40 @@ class PaymentRequestRequest(BaseModel):
 
 
 class PaymentRequestResponse(BaseModel):
-    """결제 요청 응답 스키마"""
+    """결제 요청 응답 스키마 (KCP)"""
     order_id: str = Field(..., description="주문 ID")
-    payment_key: Optional[str] = Field(None, description="결제 키 (토스페이먼츠)")
-    success_url: str = Field(..., description="성공 리다이렉트 URL")
-    fail_url: str = Field(..., description="실패 리다이렉트 URL")
+    approval_key: Optional[str] = Field(None, description="KCP 승인 키")
+    pay_url: str = Field(..., description="KCP 결제창 URL")
     amount: int = Field(..., description="결제 금액")
     
     class Config:
         json_schema_extra = {
             "example": {
                 "order_id": "inspection-uuid-1234567890",
-                "payment_key": None,
-                "success_url": "http://localhost:3000/payments/success?orderId=...",
-                "fail_url": "http://localhost:3000/payments/fail?orderId=...",
+                "approval_key": "approval_key_here",
+                "pay_url": "https://stg-spl.kcp.co.kr/...",
                 "amount": 100000
             }
         }
 
 
 class PaymentConfirmRequest(BaseModel):
-    """결제 승인 요청 스키마"""
-    payment_key: str = Field(..., description="결제 키")
+    """결제 확인 요청 스키마 (KCP)"""
     order_id: str = Field(..., description="주문 ID")
-    amount: int = Field(..., description="결제 금액", gt=0)
+    approval_key: Optional[str] = Field(None, description="KCP 승인 키")
+    tno: Optional[str] = Field(None, description="KCP 거래번호")
+    res_cd: Optional[str] = Field(None, description="결과 코드 (0000: 성공)")
+    res_msg: Optional[str] = Field(None, description="결과 메시지")
+    amount: Optional[int] = Field(None, description="결제 금액 (검증용)", gt=0)
     
     class Config:
         json_schema_extra = {
             "example": {
-                "payment_key": "tgen_xxxxxxxxxxxxx",
                 "order_id": "inspection-uuid-1234567890",
+                "approval_key": "approval_key_here",
+                "tno": "KCP1234567890",
+                "res_cd": "0000",
+                "res_msg": "정상처리",
                 "amount": 100000
             }
         }
@@ -126,6 +130,39 @@ class PaymentCancelResponse(BaseModel):
                 "status": "cancelled",
                 "cancelled_amount": 100000,
                 "cancel_reason": "고객 요청"
+            }
+        }
+
+
+class PaymentStatisticsResponse(BaseModel):
+    """결제 통계 응답 스키마"""
+    period: dict
+    summary: dict
+    by_status: dict
+    by_method: dict
+    daily_trend: list
+
+
+class PaymentMonitoringResponse(BaseModel):
+    """결제 모니터링 응답 스키마"""
+    today: dict
+    yesterday: dict
+    change_rate: dict
+    pending_count: int
+    failed_count_24h: int
+    updated_at: str
+
+
+class PaymentStatusUpdateRequest(BaseModel):
+    """결제 상태 변경 요청 스키마"""
+    new_status: str = Field(..., description="새 상태 (pending, paid, failed, cancelled, refunded)")
+    update_inspection: bool = Field(True, description="Inspection 상태도 자동 업데이트할지 여부")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "new_status": "paid",
+                "update_inspection": True
             }
         }
 

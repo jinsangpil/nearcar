@@ -2,8 +2,11 @@
 운영자 API 엔드포인트
 """
 from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from typing import Optional, Dict
+from datetime import date
+from io import BytesIO
 
 from app.core.database import get_db
 from app.core.dependencies import require_role, require_admin_only, require_admin_or_staff
@@ -12,6 +15,14 @@ from app.schemas.admin import (
     InspectionAssignRequest,
     SettlementCalculateRequest
 )
+from app.schemas.settlement import (
+    SettlementListResponse,
+    SettlementDetailResponse,
+    SettlementSummaryResponse,
+    SettlementStatusUpdateRequest,
+    SettlementBulkUpdateRequest
+)
+from app.services.settlement_service import SettlementService
 from app.schemas.price_policy import (
     PricePolicyResponse,
     PricePolicyListResponse,
@@ -1996,5 +2007,405 @@ async def list_packages(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"패키지 목록 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+# ============================================
+# 정산 관리 API
+# ============================================
+
+@router.get("/settlements", response_model=StandardResponse)
+async def list_settlements(
+    inspector_id: Optional[str] = Query(None, description="기사 ID (필터링)"),
+    status: Optional[str] = Query(None, description="정산 상태 (pending, completed)"),
+    start_date: Optional[date] = Query(None, description="시작일 (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="종료일 (YYYY-MM-DD)"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    page_size: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    sort_by: str = Query("settle_date", description="정렬 기준 (settle_date, settle_amount, created_at)"),
+    sort_order: str = Query("desc", description="정렬 순서 (asc, desc)"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    정산 내역 목록 조회 API
+    
+    필터링, 정렬, 페이지네이션을 지원합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await SettlementService.get_settlements(
+            db=db,
+            inspector_id=inspector_id,
+            status=status,
+            start_date=start_date,
+            end_date=end_date,
+            page=page,
+            page_size=page_size,
+            sort_by=sort_by,
+            sort_order=sort_order
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"정산 내역 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/settlements/{settlement_id}", response_model=StandardResponse)
+async def get_settlement_detail(
+    settlement_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    정산 상세 내역 조회 API
+    
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await SettlementService.get_settlement_detail(
+            db=db,
+            settlement_id=settlement_id
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"정산 상세 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/settlements/inspector/{inspector_id}", response_model=StandardResponse)
+async def get_inspector_settlements(
+    inspector_id: str,
+    status: Optional[str] = Query(None, description="정산 상태 (pending, completed)"),
+    start_date: Optional[date] = Query(None, description="시작일 (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="종료일 (YYYY-MM-DD)"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    page_size: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    기사별 정산 내역 조회 API
+    
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await SettlementService.get_settlements(
+            db=db,
+            inspector_id=inspector_id,
+            status=status,
+            start_date=start_date,
+            end_date=end_date,
+            page=page,
+            page_size=page_size
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"기사별 정산 내역 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/settlements/summary", response_model=StandardResponse)
+async def get_settlement_summary(
+    start_date: Optional[date] = Query(None, description="시작일 (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="종료일 (YYYY-MM-DD)"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    정산 요약 정보 조회 API
+    
+    일/주/월 단위 정산 예정액 및 기사별 정산 현황을 조회합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await SettlementService.get_settlement_summary(
+            db=db,
+            start_date=start_date,
+            end_date=end_date
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"정산 요약 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.post("/settlements/calculate", response_model=StandardResponse)
+async def calculate_settlements(
+    request: SettlementCalculateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    정산 집계 실행 API (수동)
+    
+    지정된 날짜에 완료된 진단 건에 대한 정산을 집계합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await AdminService.calculate_settlements(
+            db=db,
+            target_date=request.target_date
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"정산 집계 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.patch("/settlements/{settlement_id}/status", response_model=StandardResponse)
+async def update_settlement_status(
+    settlement_id: str,
+    request: SettlementStatusUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    정산 상태 변경 API
+    
+    정산 상태를 변경합니다 (pending → completed).
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await SettlementService.update_settlement_status(
+            db=db,
+            settlement_id=settlement_id,
+            status=request.status
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"정산 상태 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.post("/settlements/bulk-update", response_model=StandardResponse)
+async def bulk_update_settlement_status(
+    request: SettlementBulkUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    정산 일괄 상태 변경 API
+    
+    여러 정산 건의 상태를 일괄 변경합니다.
+    관리자/직원 권한 필요.
+    """
+    try:
+        result = await SettlementService.bulk_update_settlement_status(
+            db=db,
+            settlement_ids=request.settlement_ids,
+            status=request.status
+        )
+        
+        return StandardResponse(
+            success=True,
+            data=result,
+            error=None
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"정산 일괄 상태 변경 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/settlements/export")
+async def export_settlements(
+    inspector_id: Optional[str] = Query(None, description="기사 ID (필터링)"),
+    status: Optional[str] = Query(None, description="정산 상태 (pending, completed)"),
+    start_date: Optional[date] = Query(None, description="시작일 (YYYY-MM-DD)"),
+    end_date: Optional[date] = Query(None, description="종료일 (YYYY-MM-DD)"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    정산 내역 엑셀 다운로드 API
+    
+    정산 내역을 엑셀 파일로 다운로드합니다 (세무처리용).
+    관리자/직원 권한 필요.
+    """
+    try:
+        # openpyxl import (조건부)
+        try:
+            from openpyxl import Workbook
+            from openpyxl.styles import Font, Alignment, PatternFill
+            from openpyxl.utils import get_column_letter
+        except ImportError:
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="엑셀 다운로드 기능을 사용할 수 없습니다. openpyxl 라이브러리 설치가 필요합니다."
+            )
+        
+        # 정산 내역 조회 (대량 데이터)
+        result = await SettlementService.get_settlements(
+            db=db,
+            inspector_id=inspector_id,
+            status=status,
+            start_date=start_date,
+            end_date=end_date,
+            page=1,
+            page_size=10000  # 대량 데이터 조회
+        )
+        
+        settlements = result["settlements"]
+        
+        # 엑셀 워크북 생성
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "정산 내역"
+        
+        # 헤더 스타일
+        header_fill = PatternFill(start_color="366092", end_color="366092", fill_type="solid")
+        header_font = Font(bold=True, color="FFFFFF")
+        header_alignment = Alignment(horizontal="center", vertical="center")
+        
+        # 헤더 작성
+        headers = [
+            "No",
+            "정산 ID",
+            "기사명",
+            "진단 ID",
+            "고객 결제금액",
+            "수수료율",
+            "정산액",
+            "정산 상태",
+            "정산일",
+            "생성일",
+        ]
+        
+        for col_num, header in enumerate(headers, 1):
+            cell = ws.cell(row=1, column=col_num, value=header)
+            cell.fill = header_fill
+            cell.font = header_font
+            cell.alignment = header_alignment
+        
+        # 데이터 작성
+        for row_num, settlement in enumerate(settlements, 2):
+            ws.cell(row=row_num, column=1, value=row_num - 1)  # No
+            ws.cell(row=row_num, column=2, value=settlement["id"])  # 정산 ID
+            ws.cell(row=row_num, column=3, value=settlement.get("inspector_name") or "-")  # 기사명
+            ws.cell(row=row_num, column=4, value=settlement["inspection_id"])  # 진단 ID
+            ws.cell(row=row_num, column=5, value=settlement["total_sales"])  # 고객 결제금액
+            ws.cell(row=row_num, column=6, value=f"{settlement['fee_rate'] * 100:.1f}%")  # 수수료율
+            ws.cell(row=row_num, column=7, value=settlement["settle_amount"])  # 정산액
+            ws.cell(row=row_num, column=8, value="정산완료" if settlement["status"] == "completed" else "미정산")  # 정산 상태
+            ws.cell(row=row_num, column=9, value=settlement["settle_date"])  # 정산일
+            ws.cell(row=row_num, column=10, value=settlement["created_at"])  # 생성일
+        
+        # 컬럼 너비 자동 조정
+        column_widths = [6, 36, 15, 36, 15, 12, 15, 12, 12, 20]
+        for col_num, width in enumerate(column_widths, 1):
+            ws.column_dimensions[get_column_letter(col_num)].width = width
+        
+        # 숫자 형식 적용 (금액 컬럼)
+        for row_num in range(2, len(settlements) + 2):
+            # 고객 결제금액 (컬럼 E)
+            ws.cell(row=row_num, column=5).number_format = '#,##0'
+            # 정산액 (컬럼 G)
+            ws.cell(row=row_num, column=7).number_format = '#,##0'
+        
+        # 메모리 버퍼에 엑셀 파일 저장
+        output = BytesIO()
+        wb.save(output)
+        output.seek(0)
+        
+        # 파일명 생성
+        from datetime import datetime
+        date_str = datetime.now().strftime('%Y%m%d')
+        filename = f"정산내역_{date_str}.xlsx"
+        if start_date and end_date:
+            filename = f"정산내역_{start_date.strftime('%Y%m%d')}_{end_date.strftime('%Y%m%d')}.xlsx"
+        
+        # StreamingResponse로 반환
+        return StreamingResponse(
+            output,
+            media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            headers={
+                "Content-Disposition": f'attachment; filename="{filename}"',
+            },
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"정산 내역 다운로드 중 오류가 발생했습니다: {str(e)}"
         )
 

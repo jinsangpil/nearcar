@@ -230,6 +230,38 @@ class NotificationTriggerService:
             logger.error(f"결제 완료 알림 트리거 실패: {e}")
     
     @staticmethod
+    def trigger_payment_cancelled(
+        inspection_id: str,
+        user_id: str,
+        payment_data: Dict[str, Any]
+    ):
+        """
+        결제 취소 알림 트리거
+        
+        Args:
+            inspection_id: 진단 신청 ID
+            user_id: 고객 사용자 ID
+            payment_data: 결제 데이터 (취소 금액, 취소 사유 등)
+        """
+        try:
+            logger.info(f"결제 취소 알림 트리거: inspection_id={inspection_id}, user_id={user_id}")
+            
+            # 결제 취소 알림
+            send_notification_task.delay(
+                user_id=user_id,
+                channel="alimtalk",
+                template_name="payment_cancelled",
+                data={
+                    "inspection_id": inspection_id,
+                    "cancel_amount": payment_data.get("amount", 0),
+                    "cancel_reason": payment_data.get("cancel_reason", "")
+                }
+            )
+            
+        except Exception as e:
+            logger.error(f"결제 취소 알림 트리거 실패: {e}")
+    
+    @staticmethod
     async def trigger_report_approved(
         db: AsyncSession,
         inspection_id: str,

@@ -2,6 +2,7 @@
 Celery 애플리케이션 설정
 """
 from celery import Celery
+from celery.schedules import crontab
 from app.core.config import settings
 
 # Celery 앱 생성
@@ -11,7 +12,8 @@ celery_app = Celery(
     backend=settings.redis_url,
     include=[
         "app.tasks.pdf_tasks",
-        "app.tasks.notification_tasks"
+        "app.tasks.notification_tasks",
+        "app.tasks.settlement_tasks"
     ]
 )
 
@@ -34,5 +36,12 @@ celery_app.conf.update(
     task_max_retries=3,
     # 결과 만료 시간
     result_expires=3600,  # 1시간
+    # Celery Beat 스케줄 설정
+    beat_schedule={
+        'calculate-settlements-daily': {
+            'task': 'calculate_settlements_daily',
+            'schedule': crontab(hour=0, minute=0),  # 매일 자정 (00:00)에 실행
+        },
+    },
 )
 

@@ -152,17 +152,18 @@
         "dependencies": [
           "13"
         ],
-        "status": "pending",
+        "status": "done",
         "subtasks": [
           {
             "id": 1,
             "title": "차량 정보 입력 화면 개발",
             "description": "고객이 차량 정보를 입력할 수 있는 첫 번째 단계 UI를 개발합니다. 차량번호 조회 및 제조사/모델 선택 기능을 구현합니다.",
             "dependencies": [],
-            "details": "Next.js 14+ App Router와 TypeScript를 사용하여 차량 정보 입력 화면을 개발합니다. 차량번호 입력 필드와 조회 버튼을 구현하고, 제조사/모델 계층형 선택 UI(Cascading Dropdown)를 TailwindCSS로 스타일링합니다. Zustand 스토어를 생성하여 차량 정보 상태를 관리하고, TanStack Query를 사용해 차량번호 조회 API를 연동합니다. 입력된 데이터는 sessionStorage에 저장하여 새로고침 시에도 유지되도록 구현합니다. 모바일 환경에 최적화된 반응형 디자인을 적용합니다.",
-            "status": "pending",
+            "details": "Next.js 14+ App Router와 TypeScript를 사용하여 차량 정보 입력 화면을 개발합니다. 차량번호 입력 필드와 조회 버튼을 구현하고, 제조사/모델 계층형 선택 UI(Cascading Dropdown)를 TailwindCSS로 스타일링합니다. Zustand 스토어를 생성하여 차량 정보 상태를 관리하고, TanStack Query를 사용해 차량번호 조회 API를 연동합니다. 입력된 데이터는 sessionStorage에 저장하여 새로고침 시에도 유지되도록 구현합니다. 모바일 환경에 최적화된 반응형 디자인을 적용합니다.\n<info added on 2025-12-10T01:33:04.670Z>\n개발 완료 내역:\n\n1. API 클라이언트 함수 추가 (frontend/lib/api/vehicles.ts)\n   - getManufacturers: 제조사 목록 조회\n   - getModelGroups: 모델 그룹 목록 조회\n   - getVehicleModels: 차량 모델 목록 조회\n   - getVehicleModelDetail: 차량 모델 상세 정보 조회\n   - lookupVehicleByPlate: 차량번호 조회 (국토교통부 API 연동 예정)\n\n2. Zustand 스토어 생성 (frontend/stores/inspectionStore.ts)\n   - 고객 신청 플로우 전체 상태 관리\n   - sessionStorage를 사용한 데이터 영속화\n   - 차량 정보, 견적 정보, 일정 정보, 본인 인증 정보 관리\n\n3. 차량 정보 입력 화면 개발 (frontend/app/apply/vehicle/page.tsx)\n   - 차량번호 입력 및 조회 기능 (추후 국토교통부 API 연동 예정)\n   - 국산/수입 선택 (버튼 형태)\n   - 제조사/모델 그룹/모델 계층형 선택 (Cascading Dropdown)\n   - 연식 및 주행거리 입력\n   - 진행 단계 표시 (Step Indicator)\n   - 모바일 최적화 반응형 디자인\n   - TanStack Query를 사용한 데이터 페칭\n   - sessionStorage에 자동 저장\n\n구현된 기능:\n- 계층형 드롭다운 (제조사 → 모델 그룹 → 모델)\n- 선택된 모델의 상세 정보 자동 로드\n- 폼 유효성 검사\n- 로딩 상태 표시\n- 에러 처리\n</info added on 2025-12-10T01:33:04.670Z>",
+            "status": "done",
             "testStrategy": "Jest와 React Testing Library를 사용한 컴포넌트 단위 테스트, 차량번호 유효성 검사 테스트, API 연동 테스트, 모바일/데스크톱 환경에서의 반응형 디자인 테스트, 사용자 입력 시나리오 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T01:33:10.580Z"
           },
           {
             "id": 2,
@@ -171,10 +172,11 @@
             "dependencies": [
               1
             ],
-            "details": "지역 선택(시/도 → 시/구/군) 계층형 드롭다운을 구현하고, 패키지 선택을 위한 라디오 버튼 그룹을 TailwindCSS로 스타일링합니다. 선택된 옵션에 따라 실시간으로 견적을 계산하고 표시하는 기능을 구현합니다. Zustand 스토어에 견적 관련 상태를 추가하고, TanStack Query를 사용해 지역 및 패키지 데이터를 불러옵니다. 이전 단계로 돌아갈 수 있는 네비게이션 버튼과 다음 단계로 진행하는 버튼을 구현합니다. 모든 입력 데이터는 sessionStorage에 저장합니다.",
-            "status": "pending",
+            "details": "지역 선택(시/도 → 시/구/군) 계층형 드롭다운을 구현하고, 패키지 선택을 위한 라디오 버튼 그룹을 TailwindCSS로 스타일링합니다. 선택된 옵션에 따라 실시간으로 견적을 계산하고 표시하는 기능을 구현합니다. Zustand 스토어에 견적 관련 상태를 추가하고, TanStack Query를 사용해 지역 및 패키지 데이터를 불러옵니다. 이전 단계로 돌아갈 수 있는 네비게이션 버튼과 다음 단계로 진행하는 버튼을 구현합니다. 모든 입력 데이터는 sessionStorage에 저장합니다.\n<info added on 2025-12-10T01:35:49.208Z>\n개발 완료 내역:\n\n1. API 클라이언트 함수 추가 (frontend/lib/api/quotes.ts)\n   - getPackages: 패키지 목록 조회 (활성화된 패키지만 필터링)\n   - getRegions: 서비스 지역 목록 조회 (계층형 구조)\n   - calculateQuote: 견적 계산 API 호출\n\n2. 견적 및 옵션 선택 화면 구현 (frontend/app/apply/quote/page.tsx)\n   - 지역 선택: 시/도 → 시/구/군 계층형 드롭다운\n   - 패키지 선택: 라디오 버튼 그룹으로 패키지 선택\n   - 실시간 견적 계산: 선택된 옵션 변경 시 자동으로 견적 계산\n   - 견적 요약 표시: 기본 가격, 차종 할증, 지역 출장비, 총액 표시\n   - 진행 단계 표시 업데이트\n   - 이전/다음 단계 네비게이션 버튼 (견적 계산 완료 시에만 다음 버튼 활성화)\n   - 모바일 최적화 반응형 디자인\n   - TanStack Query를 사용한 데이터 페칭\n   - sessionStorage에 자동 저장\n   - 로딩 상태 및 에러 처리\n\nTODO: 견적 계산 API에서 vehicle_master_id를 요구하지만 현재는 model_id를 임시로 사용 중이므로, vehicle_master_id를 올바르게 매핑하는 로직 추가 필요\n</info added on 2025-12-10T01:35:49.208Z>",
+            "status": "done",
             "testStrategy": "지역 선택 UI 동작 테스트, 패키지 선택 시 견적 계산 정확성 테스트, 상태 관리 로직 테스트, 네비게이션 기능 테스트, 모바일 환경에서의 UI 테스트, 데이터 저장 및 불러오기 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T01:35:49.632Z"
           },
           {
             "id": 3,
@@ -183,10 +185,11 @@
             "dependencies": [
               2
             ],
-            "details": "react-datepicker 3.8.0+ 라이브러리를 사용하여 캘린더 UI를 구현하고, 30분 단위로 시간 슬롯을 선택할 수 있는 기능을 개발합니다. TanStack Query를 사용해 서버에서 예약 가능한 날짜와 시간 정보를 불러오고, 이미 예약된 시간은 비활성화 처리합니다. Zustand 스토어에 선택된 일정 정보를 저장하고, sessionStorage에도 데이터를 유지합니다. 모바일 환경에서 사용하기 편리하도록 터치 친화적인 UI로 구현하고, 날짜 선택 후 시간 슬롯이 자동으로 표시되도록 UX를 최적화합니다.",
-            "status": "pending",
+            "details": "react-datepicker 3.8.0+ 라이브러리를 사용하여 캘린더 UI를 구현하고, 30분 단위로 시간 슬롯을 선택할 수 있는 기능을 개발합니다. TanStack Query를 사용해 서버에서 예약 가능한 날짜와 시간 정보를 불러오고, 이미 예약된 시간은 비활성화 처리합니다. Zustand 스토어에 선택된 일정 정보를 저장하고, sessionStorage에도 데이터를 유지합니다. 모바일 환경에서 사용하기 편리하도록 터치 친화적인 UI로 구현하고, 날짜 선택 후 시간 슬롯이 자동으로 표시되도록 UX를 최적화합니다.\n<info added on 2025-12-10T01:42:01.106Z>\n개발 완료 내역:\n\n1. react-datepicker 라이브러리 설치 완료\n   - react-datepicker 3.8.0+ 및 타입 정의 설치\n\n2. 일정 선택 화면 개발 완료 (frontend/app/apply/schedule/page.tsx)\n   - react-datepicker를 사용한 캘린더 UI 구현\n   - 과거 날짜 비활성화 (오늘 이전 날짜 선택 불가)\n   - 30분 단위 시간 슬롯 선택 (09:00 ~ 18:00, 총 18개 슬롯)\n   - 날짜 선택 후 시간 슬롯 자동 표시\n   - 선택된 날짜/시간 요약 표시\n   - 진행 단계 표시 업데이트\n   - 이전/다음 단계 네비게이션 버튼\n   - 모바일 최적화 반응형 디자인 (그리드 레이아웃)\n   - 터치 친화적인 시간 슬롯 버튼 (최소 44x44px)\n   - sessionStorage에 자동 저장\n   - date-fns를 사용한 날짜 포맷팅 (한국어 로케일)\n\n3. CSS 스타일 추가 (frontend/app/globals.css)\n   - react-datepicker 커스텀 스타일 추가\n\nTODO (추후 구현 필요):\n- TanStack Query를 사용한 예약 가능 시간 조회 API 연동 (현재는 모든 시간 활성화)\n- 이미 예약된 시간 비활성화 처리\n- 날짜별 예약 가능 시간 동적 조회\n- Zustand 스토어 연동\n</info added on 2025-12-10T01:42:01.106Z>",
+            "status": "done",
             "testStrategy": "캘린더 컴포넌트 렌더링 테스트, 날짜 및 시간 선택 기능 테스트, 예약 불가능 시간 비활성화 테스트, 모바일 환경에서의 터치 인터랙션 테스트, 상태 저장 및 불러오기 테스트, 다양한 브라우저 호환성 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T01:42:01.486Z"
           },
           {
             "id": 4,
@@ -195,10 +198,11 @@
             "dependencies": [
               3
             ],
-            "details": "휴대폰 번호 입력 필드와 인증번호 요청 버튼을 구현하고, 인증번호 입력 및 확인 기능을 개발합니다. TanStack Query를 사용해 인증번호 발송 및 확인 API를 연동합니다. 개인정보 수집 동의 약관을 표시하고 체크박스로 동의를 받는 UI를 구현합니다. 필수 동의 항목이 체크되지 않으면 다음 단계로 진행할 수 없도록 유효성 검사를 적용합니다. Zustand 스토어에 인증 상태와 개인정보를 저장하고, 보안을 위해 sessionStorage에는 최소한의 정보만 저장합니다. 인증 완료 후 자동으로 다음 단계로 넘어가는 UX를 구현합니다.",
-            "status": "pending",
+            "details": "휴대폰 번호 입력 필드와 인증번호 요청 버튼을 구현하고, 인증번호 입력 및 확인 기능을 개발합니다. TanStack Query를 사용해 인증번호 발송 및 확인 API를 연동합니다. 개인정보 수집 동의 약관을 표시하고 체크박스로 동의를 받는 UI를 구현합니다. 필수 동의 항목이 체크되지 않으면 다음 단계로 진행할 수 없도록 유효성 검사를 적용합니다. Zustand 스토어에 인증 상태와 개인정보를 저장하고, 보안을 위해 sessionStorage에는 최소한의 정보만 저장합니다. 인증 완료 후 자동으로 다음 단계로 넘어가는 UX를 구현합니다.\n<info added on 2025-12-10T03:33:14.811Z>\n본인 인증 화면 개발 완료 (KCP 본인인증 연동 준비):\n\n1. API 클라이언트 함수 추가 완료 (frontend/lib/api/verification.ts)\n   - requestVerification: 본인인증 요청 (KCP 본인인증 시작)\n   - confirmVerification: 본인인증 확인 (KCP 본인인증 결과 확인)\n   - sendVerificationCode: SMS 인증번호 발송 (대체 방식)\n\n2. 본인 인증 화면 개발 완료 (frontend/app/apply/auth/page.tsx)\n   - 휴대폰 번호 입력 필드 (자동 하이픈 포맷팅)\n   - KCP 본인인증 팝업 연동 준비 (팝업 창 열기 및 메시지 리스너)\n   - SMS 인증번호 발송 및 확인 (대체 방식)\n   - 인증번호 입력 필드 (6자리)\n   - 인증 타이머 (3분, MM:SS 형식)\n   - 본인인증 완료 상태 표시\n   - 개인정보 수집 동의 체크박스 (필수/선택)\n   - 마케팅 정보 수신 동의 체크박스 (선택)\n   - 약관 보기 버튼 (추후 모달 구현 예정)\n   - 진행 단계 표시 업데이트\n   - 이전/다음 단계 네비게이션 버튼\n   - 모바일 최적화 반응형 디자인\n   - TanStack Query를 사용한 API 연동\n   - sessionStorage에 최소한의 정보만 저장 (보안 고려)\n   - 인증 완료 후 자동으로 다음 단계로 진행 가능\n\n구현된 기능:\n- 휴대폰 번호 유효성 검사 및 자동 포맷팅\n- KCP 본인인증 팝업 연동 구조\n- SMS 인증번호 발송 및 확인 (대체 방식)\n- 인증 타이머 관리\n- 개인정보 동의 체크박스\n- 유효성 검사 (인증 완료 및 필수 동의 확인)\n\nKCP 본인인증 연동 참고사항:\n- KCP 개발자 센터: https://developer.kcp.co.kr/page/api\n- 서비스 인증서 발급 필요 (site_cd, kcp_cert_info)\n- 팝업 또는 리다이렉트 방식 지원\n- 본인인증 완료 후 콜백 처리 필요\n- 보안: 서비스 인증서는 서버에서 안전하게 관리\n\nTODO (백엔드 구현 필요):\n- /client/verification/request API 구현 (KCP 본인인증 요청)\n- /client/verification/confirm API 구현 (KCP 본인인증 결과 확인)\n- /client/verification/send-code API 구현 (SMS 인증번호 발송, 대체 방식)\n- KCP 본인인증 API 연동 (서비스 인증서 설정)\n- 본인인증 결과 검증 및 저장\n</info added on 2025-12-10T03:33:14.811Z>",
+            "status": "done",
             "testStrategy": "휴대폰 번호 유효성 검사 테스트, 인증번호 요청 및 확인 기능 테스트, 개인정보 동의 체크박스 동작 테스트, 유효성 검사 로직 테스트, 인증 상태 관리 테스트, 보안 관련 테스트(민감 정보 처리), 에러 상태 처리 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T03:33:15.290Z"
           },
           {
             "id": 5,
@@ -207,15 +211,17 @@
             "dependencies": [
               4
             ],
-            "details": "이전 단계에서 선택한 옵션과 견적 정보를 종합하여 최종 금액을 표시하는 UI를 구현합니다. 토스페이먼츠 SDK를 연동하여 결제 기능을 개발하고, 결제 성공/실패 시 적절한 피드백을 제공합니다. TanStack Query를 사용해 결제 요청 및 확인 API를 연동합니다. 결제 진행 중 로딩 상태를 표시하고, 결제 완료 후 완료 페이지로 리다이렉트하는 기능을 구현합니다. Zustand 스토어에 결제 정보를 저장하고, 결제 완료 후에는 sessionStorage의 임시 데이터를 정리합니다. 모바일 환경에서 결제 프로세스가 원활하게 진행되도록 최적화합니다.",
-            "status": "pending",
+            "details": "이전 단계에서 선택한 옵션과 견적 정보를 종합하여 최종 금액을 표시하는 UI를 구현합니다. 토스페이먼츠 SDK를 연동하여 결제 기능을 개발하고, 결제 성공/실패 시 적절한 피드백을 제공합니다. TanStack Query를 사용해 결제 요청 및 확인 API를 연동합니다. 결제 진행 중 로딩 상태를 표시하고, 결제 완료 후 완료 페이지로 리다이렉트하는 기능을 구현합니다. Zustand 스토어에 결제 정보를 저장하고, 결제 완료 후에는 sessionStorage의 임시 데이터를 정리합니다. 모바일 환경에서 결제 프로세스가 원활하게 진행되도록 최적화합니다.\n<info added on 2025-12-10T04:09:52.109Z>\nKCP 표준결제 서비스 연동을 참고하여 결제 화면 개발을 완료했습니다.\n\n구현 내용:\n\n1. API 클라이언트 개발\n- frontend/lib/api/payments.ts: KCP 결제 요청/확인 API 클라이언트\n- frontend/lib/api/inspections.ts: 진단 신청 생성 API 클라이언트\n\n2. 결제 화면 구현 (frontend/app/apply/payment/page.tsx)\n- 최종 금액 확인 및 주문 요약 표시\n- 진단 신청 생성 → 결제 요청 → KCP 결제창 호출 플로우\n- KCP 결제창 호출: form submit 방식 (Mobile/PC 구분)\n- 진행 단계 표시 및 로딩 상태 관리\n\n3. 결제 콜백 처리 (frontend/app/apply/payment/callback/page.tsx)\n- KCP 결제창에서 전달된 파라미터 처리\n- 결제 결과 확인 (res_cd === '0000' 성공)\n- 결제 확인 API 호출 및 성공/실패 페이지 리다이렉트\n\n4. 결제 완료/실패 페이지\n- frontend/app/apply/payment/success/page.tsx: 결제 성공 페이지\n- frontend/app/apply/payment/fail/page.tsx: 결제 실패 페이지\n\nKCP 연동 특징:\n- Mobile 버전: 거래등록 필수 → PayUrl로 form submit\n- PC 버전: PayUrl/jsp/encodingFilter/encodingFilter.jsp로 form submit\n- 결제창 호출: form submit 방식 (새 창에서 열림)\n- 콜백 처리: Ret_URL로 리다이렉트 후 파라미터 확인\n\n주의사항:\n- 백엔드에서 KCP 거래등록 API 연동 필요 (/client/payments/request 엔드포인트)\n- KCP 서비스 인증서 및 개인키 설정 필요\n- 결제 확인 API에서 KCP 승인 요청 처리 필요\n</info added on 2025-12-10T04:09:52.109Z>",
+            "status": "done",
             "testStrategy": "최종 금액 계산 정확성 테스트, 토스페이먼츠 SDK 연동 테스트, 결제 성공/실패 시나리오 테스트, 로딩 상태 표시 테스트, 결제 완료 후 리다이렉트 테스트, 모바일 환경에서의 결제 프로세스 테스트, 에러 처리 및 복구 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T04:09:52.629Z"
           }
         ],
         "complexity": 8,
         "recommendedSubtasks": 5,
-        "expansionPrompt": "고객 신청 프론트엔드 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 차량 정보 입력 화면 개발, 2) 견적 및 옵션 선택 화면 개발, 3) 일정 선택 화면 개발, 4) 본인 인증 화면 개발, 5) 결제 화면 개발. 각 하위 작업에 대해 구체적인 구현 단계, 사용할 컴포넌트, 상태 관리 방법, 테스트 방법을 설명하세요."
+        "expansionPrompt": "고객 신청 프론트엔드 개발 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 차량 정보 입력 화면 개발, 2) 견적 및 옵션 선택 화면 개발, 3) 일정 선택 화면 개발, 4) 본인 인증 화면 개발, 5) 결제 화면 개발. 각 하위 작업에 대해 구체적인 구현 단계, 사용할 컴포넌트, 상태 관리 방법, 테스트 방법을 설명하세요.",
+        "updatedAt": "2025-12-10T04:09:52.629Z"
       },
       {
         "id": "15",
@@ -254,10 +260,11 @@
             "title": "결제 요청 및 콜백 처리 API 개발",
             "description": "토스페이먼츠 API를 활용하여 결제 요청 및 콜백 처리 API를 개발합니다.",
             "dependencies": [],
-            "details": "1. 토스페이먼츠 SDK 1.4.0+ 설치 및 환경 설정\n2. 결제 요청 API (/api/payments/request) 구현\n   - 신청 ID, 금액, 고객 정보 검증\n   - 토스페이먼츠 결제 요청 생성\n   - 결제 페이지 URL 또는 위젯 초기화 정보 반환\n3. 결제 콜백 처리 API (/api/payments/callback) 구현\n   - 성공/실패 콜백 URL 설정\n   - 결제 정보 검증 (위변조 방지)\n   - payments 테이블에 결제 정보 저장\n   - inspections 테이블 상태 업데이트\n4. 결제 정보 암호화 처리 및 보안 강화\n5. 결제 로그 기록 시스템 구현",
-            "status": "pending",
+            "details": "1. 토스페이먼츠 SDK 1.4.0+ 설치 및 환경 설정\n2. 결제 요청 API (/api/payments/request) 구현\n   - 신청 ID, 금액, 고객 정보 검증\n   - 토스페이먼츠 결제 요청 생성\n   - 결제 페이지 URL 또는 위젯 초기화 정보 반환\n3. 결제 콜백 처리 API (/api/payments/callback) 구현\n   - 성공/실패 콜백 URL 설정\n   - 결제 정보 검증 (위변조 방지)\n   - payments 테이블에 결제 정보 저장\n   - inspections 테이블 상태 업데이트\n4. 결제 정보 암호화 처리 및 보안 강화\n5. 결제 로그 기록 시스템 구현\n<info added on 2025-12-10T07:09:46.932Z>\nKCP 결제 요청 및 콜백 처리 API 개발 완료\n\n구현 내용:\n\n1. KCP 결제 서비스 클래스 생성 (backend/app/services/kcp_payment_service.py)\n   - KcpPaymentService: NHN KCP 표준결제 서비스 연동 클래스\n   - register_trade: KCP 거래등록 API 호출 (결제 요청)\n   - verify_payment: KCP 결제 결과 검증\n   - verify_amount: 금액 검증 로직\n   - TODO: KCP 암호화 모듈 연동 필요 (enc_data, enc_info 생성)\n\n2. 설정 추가 (backend/app/core/config.py)\n   - KCP_SITE_CD: 사이트 코드 (테스트: T0000)\n   - KCP_CERT_INFO: 서비스 인증서 정보\n   - KCP_API_URL: 테스트 환경 API URL\n   - KCP_PRODUCTION_API_URL: 운영 환경 API URL\n   - kcp_api_url 프로퍼티: 환경에 따라 API URL 반환\n\n3. PaymentService 수정 (backend/app/services/payment_service.py)\n   - TossPaymentService → KcpPaymentService로 변경\n   - request_payment: KCP 거래등록 API 호출로 변경\n   - confirm_payment: KCP 결제 결과 검증으로 변경 (res_cd, tno 파라미터 사용)\n   - 결제 로그 기록 추가 (성공/실패)\n\n4. 스키마 수정 (backend/app/schemas/payment.py)\n   - PaymentRequestResponse: KCP 형식으로 변경 (approval_key, pay_url)\n   - PaymentConfirmRequest: KCP 형식으로 변경 (order_id, tno, res_cd, res_msg)\n\n5. 고객 API 엔드포인트 추가 (backend/app/api/v1/client.py)\n   - POST /client/payments/request: 결제 요청 API (KCP 거래등록)\n   - POST /client/payments/confirm: 결제 확인 API (KCP 콜백 처리)\n\n6. 결제 로그 기록 시스템\n   - 결제 요청/확인 성공/실패 시 loguru를 사용한 로그 기록\n   - 로그 내용: payment_id, inspection_id, order_id, transaction_id, amount, method, error\n\nKCP 연동 특징:\n- 거래등록 API: https://stg-spl.kcp.co.kr/gw/enc/v1/payment (테스트)\n- 결제창 호출: PayUrl로 form submit 방식\n- 콜백 처리: Ret_URL로 리다이렉트 후 res_cd, tno 등 파라미터 확인\n- 금액 검증: 서버에서 재계산한 금액과 클라이언트 금액 비교\n\n주의사항:\n- KCP 암호화 모듈 연동 필요 (enc_data, enc_info 생성)\n- KCP 서비스 인증서 및 개인키 설정 필요\n- 실제 연동 시 KCP에서 제공하는 암호화 모듈 사용 필요\n</info added on 2025-12-10T07:09:46.932Z>",
+            "status": "done",
             "testStrategy": "1. 테스트 모드에서 결제 요청 API 기능 검증\n2. 콜백 URL 호출 시나리오 테스트\n3. 결제 정보 저장 및 검증 테스트\n4. 금액 위변조 시도 시 거부 테스트\n5. 결제 로그 기록 검증",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T07:09:47.451Z"
           },
           {
             "id": 2,
@@ -266,10 +273,11 @@
             "dependencies": [
               1
             ],
-            "details": "1. 결제 상태 조회 API (/api/payments/{payment_id}) 구현\n   - 현재 결제 상태 조회 기능\n   - 결제 이력 조회 기능\n2. 결제 금액 검증 로직 구현\n   - 서버에서 최종 금액 재계산 로직\n   - 클라이언트 요청 금액과 서버 계산 금액 비교 검증\n3. 결제 상태 변경 시 inspections 테이블 상태 자동 업데이트 기능\n4. 결제 상태 변경 이벤트 발생 시 알림 시스템 연동\n5. 결제 상태별 통계 및 모니터링 기능 구현",
-            "status": "pending",
+            "details": "1. 결제 상태 조회 API (/api/payments/{payment_id}) 구현\n   - 현재 결제 상태 조회 기능\n   - 결제 이력 조회 기능\n2. 결제 금액 검증 로직 구현\n   - 서버에서 최종 금액 재계산 로직\n   - 클라이언트 요청 금액과 서버 계산 금액 비교 검증\n3. 결제 상태 변경 시 inspections 테이블 상태 자동 업데이트 기능\n4. 결제 상태 변경 이벤트 발생 시 알림 시스템 연동\n5. 결제 상태별 통계 및 모니터링 기능 구현\n<info added on 2025-12-10T07:33:50.324Z>\n구현 완료 내역:\n\n1. 결제 금액 검증 로직 강화 (backend/app/services/payment_service.py)\n   - 기본 금액 일치 검증 유지\n   - 금액 범위 검증 추가 (최소 1,000원, 최대 10,000,000원)\n   - 금액 불일치 시 상세 로그 기록\n   - 결제 확인 시 추가 금액 검증 로직\n\n2. 결제 상태 변경 자동 업데이트 로직 (backend/app/services/payment_service.py)\n   - update_payment_status 메서드 추가\n   - 결제 완료 시 Inspection 상태를 'requested'로 자동 업데이트\n   - 결제 취소/환불 시 Inspection 상태를 'cancelled'로 자동 업데이트\n   - 상태 변경 이벤트 발생 시 알림 트리거\n   - 상태 변경 로그 기록\n\n3. 결제 통계 및 모니터링 기능 (backend/app/services/payment_service.py)\n   - get_payment_statistics: 결제 통계 조회 (상태별, 결제 수단별, 일별 추이, 평균 금액)\n   - get_payment_monitoring: 결제 모니터링 정보 조회 (오늘/어제 통계, 전일 대비 증감률, 대기 중 결제 수, 최근 24시간 실패 건수)\n\n4. API 엔드포인트 추가 (backend/app/api/v1/payments.py)\n   - PUT /payments/{payment_id}/status: 결제 상태 변경 API (관리자 전용)\n   - GET /payments/statistics: 결제 통계 조회 API (관리자 전용)\n   - GET /payments/monitoring: 결제 모니터링 정보 조회 API (관리자 전용)\n\n5. 스키마 추가 (backend/app/schemas/payment.py)\n   - PaymentStatisticsResponse: 결제 통계 응답 스키마\n   - PaymentMonitoringResponse: 결제 모니터링 응답 스키마\n   - PaymentStatusUpdateRequest: 결제 상태 변경 요청 스키마\n</info added on 2025-12-10T07:33:50.324Z>",
+            "status": "done",
             "testStrategy": "1. 결제 상태 조회 API 기능 테스트\n2. 금액 계산 및 검증 로직 정확성 테스트\n3. 상태 변경 시 inspections 테이블 업데이트 검증\n4. 알림 시스템 연동 테스트\n5. 다양한 상태 전환 시나리오 테스트",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T07:33:50.870Z"
           },
           {
             "id": 3,
@@ -279,16 +287,17 @@
               1,
               2
             ],
-            "details": "1. 결제 취소 API (/api/payments/{payment_id}/cancel) 구현\n   - 관리자 권한 검증\n   - 토스페이먼츠 취소 API 연동\n   - 취소 사유 및 금액 처리\n   - 부분 취소/전체 취소 기능\n2. 결제 오류 자동 복구 메커니즘 구현\n   - 네트워크 오류 시 재시도 로직\n   - 결제 상태 불일치 감지 및 동기화\n   - 결제 프로세스 중단 시 자동 롤백\n3. 결제 관련 예외 처리 및 로깅 시스템 강화\n4. 결제 취소 이력 관리 및 환불 정책 구현",
-            "status": "pending",
+            "details": "1. 결제 취소 API (/api/payments/{payment_id}/cancel) 구현\n   - 관리자 권한 검증\n   - 토스페이먼츠 취소 API 연동\n   - 취소 사유 및 금액 처리\n   - 부분 취소/전체 취소 기능\n2. 결제 오류 자동 복구 메커니즘 구현\n   - 네트워크 오류 시 재시도 로직\n   - 결제 상태 불일치 감지 및 동기화\n   - 결제 프로세스 중단 시 자동 롤백\n3. 결제 관련 예외 처리 및 로깅 시스템 강화\n4. 결제 취소 이력 관리 및 환불 정책 구현\n<info added on 2025-12-10T08:38:01.543Z>\n구현 완료 내역:\n\n1. KCP 취소 API 구현 (backend/app/services/kcp_payment_service.py)\n   - cancel_payment: KCP 거래취소 API 호출 메서드 추가\n   - 자동 재시도 로직 포함 (최대 3회, 지수 백오프)\n   - 재시도 가능한 오류 판별 로직 (_is_retryable_error)\n   - sync_payment_status: 결제 상태 동기화 메서드 추가 (상태 불일치 감지)\n\n2. 결제 취소 기능 완성 (backend/app/services/payment_service.py)\n   - cancel_payment 메서드 완성 (KCP 취소 API 연동)\n   - 전체 취소 및 부분 취소 지원\n   - 취소 시 Inspection 상태 자동 업데이트 (cancelled)\n   - 취소 이력 로그 기록\n   - 취소 알림 트리거\n   - 오류 발생 시 롤백 처리\n\n3. 결제 오류 자동 복구 메커니즘 (backend/app/services/payment_service.py)\n   - recover_payment_error: 결제 오류 자동 복구 메서드\n     - 결제 상태 불일치 감지 및 동기화\n     - KCP 결제 상태 조회 및 DB 상태 업데이트\n     - 자동 재시도 로직 (지수 백오프)\n   - rollback_payment: 결제 프로세스 롤백 메서드\n     - 결제 프로세스 중단 시 자동 롤백\n     - Payment 및 Inspection 상태 복구\n     - 롤백 로그 기록\n\n4. 알림 시스템 연동 (backend/app/services/notification_trigger_service.py)\n   - trigger_payment_cancelled: 결제 취소 알림 트리거 메서드 추가\n   - 취소 완료 시 고객에게 알림 발송\n\n5. API 엔드포인트 추가 (backend/app/api/v1/payments.py)\n   - POST /payments/{payment_id}/recover: 결제 오류 자동 복구 API (관리자 전용)\n   - POST /payments/{payment_id}/rollback: 결제 프로세스 롤백 API (관리자 전용)\n\n재시도 로직 상세:\n- 최대 재시도 횟수: 3회\n- 재시도 간격: 지수 백오프 (2^retry_count 초)\n- 재시도 가능한 오류: 일시적 오류, 네트워크 오류, 타임아웃\n\n롤백 메커니즘 상세:\n- 결제 취소 실패 시 Payment 상태를 원래대로 복구\n- DB 트랜잭션 롤백 처리\n- Inspection 상태 자동 복구\n</info added on 2025-12-10T08:38:01.543Z>",
+            "status": "done",
             "testStrategy": "1. 결제 취소 API 기능 테스트\n2. 부분 취소/전체 취소 시나리오 테스트\n3. 네트워크 오류 시 복구 메커니즘 테스트\n4. 결제 상태 불일치 시 동기화 테스트\n5. 동시 결제 취소 요청 처리 테스트\n6. 취소 이력 관리 및 로깅 검증",
-            "parentId": "undefined"
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T08:38:02.029Z"
           }
         ],
         "complexity": 8,
         "recommendedSubtasks": 3,
         "expansionPrompt": "결제 시스템 연동 작업을 다음과 같은 하위 작업으로 분할하세요: 1) 결제 요청 및 콜백 처리 API 개발, 2) 결제 상태 관리 및 검증 로직 구현, 3) 결제 취소 및 오류 복구 메커니즘 구현. 각 하위 작업에 대해 구체적인 구현 단계, 보안 고려사항, 테스트 전략을 설명하세요.",
-        "updatedAt": "2025-12-07T05:38:29.025Z"
+        "updatedAt": "2025-12-10T08:38:02.029Z"
       },
       {
         "id": "17",
@@ -693,34 +702,137 @@
         "description": "관리자가 서비스 지역(특별시/광역시/도 단위, 시/구 단위)과 지역별 추가 요금을 관리할 수 있는 시스템을 개발합니다.",
         "details": "FastAPI와 Next.js를 사용하여 어드민 서비스 지역 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n1. 서비스 지역 CRUD API\n   - GET /admin/regions - 서비스 지역 목록 조회 (계층 구조)\n   - POST /admin/regions - 서비스 지역 생성\n   - GET /admin/regions/{id} - 서비스 지역 상세 조회\n   - PATCH /admin/regions/{id} - 서비스 지역 수정 (지역명, 추가 요금)\n   - DELETE /admin/regions/{id} - 서비스 지역 삭제\n\n2. 계층 구조 관리\n   - 상위 지역 (특별시, 광역시, 도 단위): province 필드\n   - 하위 지역 (시, 구 단위): city 필드\n   - 계층 구조 조회 API (부모-자식 관계)\n\n3. 지역별 추가 요금 관리\n   - extra_fee 필드로 지역별 출장비 관리\n   - 지역별 추가 요금 변경 시 기존 신청 건에 영향 없도록 버전 관리\n\n**프론트엔드 화면 개발:**\n1. 서비스 지역 목록 화면 (/admin/regions)\n   - 계층형 트리 뷰 (도/시 → 시/구)\n   - 지역별 추가 요금 표시\n   - 검색 및 필터링 기능\n\n2. 서비스 지역 상세/수정 화면 (/admin/regions/[id])\n   - 기본 정보: 상위 지역, 하위 지역, 추가 요금\n   - 지역명 수정\n   - 추가 요금 수정\n\n3. 서비스 지역 생성 화면 (/admin/regions/new)\n   - 상위 지역 선택 (드롭다운)\n   - 하위 지역 입력\n   - 추가 요금 입력\n\n**구현 사항:**\n- 계층 구조 데이터 정합성 검증\n- 지역별 추가 요금 변경 시 견적 재계산 로직 고려\n- 지역 삭제 시 활성 신청 건 체크\n- Redis 캐시 무효화 로직",
         "testStrategy": "1. 서비스 지역 CRUD API 단위 테스트\n2. 계층 구조 데이터 정합성 테스트\n3. 지역별 추가 요금 변경 시 견적 재계산 테스트\n4. 지역 삭제 시 활성 신청 건 체크 테스트\n5. 프론트엔드 트리 뷰 렌더링 테스트\n6. 통합 테스트 (생성 → 수정 → 삭제 플로우)",
-        "status": "pending",
+        "status": "done",
         "dependencies": [
           "15",
           "17"
         ],
         "priority": "high",
-        "subtasks": []
+        "subtasks": [],
+        "updatedAt": "2025-12-10T00:31:24.555Z"
       },
       {
         "id": "26",
         "title": "어드민 정산 관리 시스템 개발",
-        "description": "관리자가 기사별 정산 내역을 조회하고 관리하며, 정산 집계 및 엑셀 다운로드 기능을 제공하는 시스템을 개발합니다.",
-        "details": "FastAPI와 Next.js를 사용하여 어드민 정산 관리 시스템을 개발합니다:\n\n**백엔드 API 개발:**\n1. 정산 내역 조회 API\n   - GET /admin/settlements - 정산 내역 목록 조회\n     - 필터링: 기사 ID, 정산 상태, 기간\n     - 정렬: 정산일, 금액\n     - 페이지네이션\n   - GET /admin/settlements/{id} - 정산 상세 내역 조회\n   - GET /admin/settlements/inspector/{inspector_id} - 기사별 정산 내역 조회\n\n2. 정산 집계 API\n   - POST /admin/settlements/calculate - 정산 집계 실행 (수동)\n   - GET /admin/settlements/summary - 정산 요약 정보 조회\n     - 일/주/월 단위 정산 예정액 산출\n     - 기사별 진단 건수 / 누적금액\n     - 기사별 정산액, 정산 상태(미정산/정산완료)\n\n3. 정산 상태 관리 API\n   - PATCH /admin/settlements/{id}/status - 정산 상태 변경 (미정산 → 정산완료)\n   - POST /admin/settlements/bulk-update - 일괄 정산 상태 변경\n\n4. 정산 엑셀 다운로드 API\n   - GET /admin/settlements/export - 정산 내역 엑셀 다운로드 (세무처리용)\n     - 기간별 필터링 지원\n     - 기사별 필터링 지원\n\n5. 정산 자동화 (Celery Task)\n   - 진단 완료 즉시 정산 테이블 기록 (settlements 테이블)\n   - 매일 0시 정산 집계 실행 (Celery Beat)\n   - 기사 수수료 계산 로직\n     - 시스템 기본 수수료율 또는 기사별 수수료율 적용\n     - 예: 고객 결제금액의 70% → 기사 몫\n\n**프론트엔드 화면 개발:**\n1. 정산 목록 화면 (/admin/settlements)\n   - 정산 내역 테이블 (기사명, 진단 건수, 총 금액, 정산액, 정산 상태, 정산일)\n   - 필터링: 기사, 정산 상태, 기간\n   - 검색 기능\n   - 페이지네이션\n\n2. 정산 상세 화면 (/admin/settlements/[id])\n   - 기사 정보\n   - 진단 건별 상세 내역 (진단 ID, 고객 결제금액, 수수료율, 정산액)\n   - 정산 상태 변경 기능\n   - 정산 완료 처리 버튼\n\n3. 정산 집계 화면 (/admin/settlements/summary)\n   - 일/주/월 단위 정산 예정액 차트\n   - 기사별 정산 현황 테이블\n   - 정산 집계 실행 버튼 (수동)\n\n4. 정산 엑셀 다운로드 기능\n   - 기간 선택\n   - 기사 선택 (옵션)\n   - 엑셀 다운로드 버튼\n\n**구현 사항:**\n- 정산 계산 로직: 고객 결제금액 × 수수료율 = 기사 정산액\n- 정산 상태: pending(미정산), completed(정산완료)\n- 정산 집계 시 중복 계산 방지 로직\n- 엑셀 파일 생성 (openpyxl 또는 pandas 활용)\n- 정산 변경 이력 추적",
-        "testStrategy": "1. 정산 내역 조회 API 단위 테스트\n2. 정산 계산 로직 정확성 테스트 (다양한 수수료율 시나리오)\n3. 정산 집계 로직 테스트 (일/주/월 단위)\n4. Celery Task 정산 자동화 테스트\n5. 정산 엑셀 다운로드 기능 테스트\n6. 정산 상태 변경 테스트\n7. 통합 테스트 (진단 완료 → 정산 기록 → 집계 → 엑셀 다운로드 플로우)\n8. 대량 데이터 처리 성능 테스트",
-        "status": "pending",
+        "description": "관리자가 기사별 정산 내역을 조회하고 관리하며, 정산 집계 및 엑셀 다운로드 기능을 제공하는 시스템을 개발합니다. 백엔드 API 및 서비스 구현이 완료되었으며, 프론트엔드 화면 개발과 엑셀 다운로드 기능 구현이 진행 중입니다.",
+        "status": "done",
         "dependencies": [
           "16",
           "17"
         ],
         "priority": "high",
-        "subtasks": []
+        "details": "FastAPI와 Next.js를 사용하여 어드민 정산 관리 시스템을 개발합니다:\n\n**백엔드 API 개발 (완료):**\n1. 정산 스키마 생성 (`backend/app/schemas/settlement.py`)\n   - SettlementResponse, SettlementListResponse, SettlementDetailResponse\n   - SettlementSummaryResponse, SettlementStatusUpdateRequest, SettlementBulkUpdateRequest\n\n2. 정산 서비스 구현 (`backend/app/services/settlement_service.py`)\n   - get_settlements: 정산 내역 목록 조회 (필터링, 정렬, 페이지네이션)\n   - get_settlement_detail: 정산 상세 내역 조회\n   - get_settlement_summary: 정산 요약 정보 조회 (일/주/월 단위, 기사별)\n   - update_settlement_status: 정산 상태 변경\n   - bulk_update_settlement_status: 정산 일괄 상태 변경\n\n3. 정산 API 엔드포인트 추가 (`backend/app/api/v1/admin.py`)\n   - GET /admin/settlements - 정산 내역 목록 조회\n   - GET /admin/settlements/{id} - 정산 상세 내역 조회\n   - GET /admin/settlements/inspector/{inspector_id} - 기사별 정산 내역 조회\n   - GET /admin/settlements/summary - 정산 요약 정보 조회\n   - POST /admin/settlements/calculate - 정산 집계 실행 (기존 AdminService 활용)\n   - PATCH /admin/settlements/{id}/status - 정산 상태 변경\n   - POST /admin/settlements/bulk-update - 정산 일괄 상태 변경\n   - GET /admin/settlements/export - 정산 내역 엑셀 다운로드 (TODO: 엑셀 파일 생성)\n\n4. 프론트엔드 API 클라이언트 생성 (`frontend/lib/api/settlements.ts`)\n   - 모든 정산 관련 API 함수 구현\n\n**프론트엔드 화면 개발 (진행 예정):**\n1. 정산 목록 화면 (/admin/settlements)\n   - 정산 내역 테이블 (기사명, 진단 건수, 총 금액, 정산액, 정산 상태, 정산일)\n   - 필터링: 기사, 정산 상태, 기간\n   - 검색 기능\n   - 페이지네이션\n\n2. 정산 상세 화면 (/admin/settlements/[id])\n   - 기사 정보\n   - 진단 건별 상세 내역 (진단 ID, 고객 결제금액, 수수료율, 정산액)\n   - 정산 상태 변경 기능\n   - 정산 완료 처리 버튼\n\n3. 정산 집계 화면 (/admin/settlements/summary)\n   - 일/주/월 단위 정산 예정액 차트\n   - 기사별 정산 현황 테이블\n   - 정산 집계 실행 버튼 (수동)\n\n4. 정산 엑셀 다운로드 기능\n   - 기간 선택\n   - 기사 선택 (옵션)\n   - 엑셀 다운로드 버튼\n\n**추가 구현 필요 사항:**\n- 엑셀 다운로드 기능 구현 (openpyxl 또는 pandas 활용)\n- Celery Task 정산 자동화 구현\n  - 진단 완료 즉시 정산 테이블 기록 (settlements 테이블)\n  - 매일 0시 정산 집계 실행 (Celery Beat)\n  - 기사 수수료 계산 로직\n\n**구현 사항:**\n- 정산 계산 로직: 고객 결제금액 × 수수료율 = 기사 정산액\n- 정산 상태: pending(미정산), completed(정산완료)\n- 정산 집계 시 중복 계산 방지 로직\n- 정산 변경 이력 추적",
+        "testStrategy": "1. 정산 내역 조회 API 단위 테스트\n2. 정산 계산 로직 정확성 테스트 (다양한 수수료율 시나리오)\n3. 정산 집계 로직 테스트 (일/주/월 단위)\n4. Celery Task 정산 자동화 테스트\n5. 정산 엑셀 다운로드 기능 테스트\n6. 정산 상태 변경 테스트\n7. 통합 테스트 (진단 완료 → 정산 기록 → 집계 → 엑셀 다운로드 플로우)\n8. 대량 데이터 처리 성능 테스트\n9. 프론트엔드 화면 E2E 테스트",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "정산 스키마 및 서비스 구현",
+            "description": "백엔드 정산 스키마와 서비스 로직을 구현합니다.",
+            "dependencies": [],
+            "details": "SettlementResponse, SettlementListResponse, SettlementDetailResponse, SettlementSummaryResponse, SettlementStatusUpdateRequest, SettlementBulkUpdateRequest 스키마 생성 및 settlement_service.py에 get_settlements, get_settlement_detail, get_settlement_summary, update_settlement_status, bulk_update_settlement_status 함수 구현 완료",
+            "status": "done",
+            "testStrategy": "정산 서비스 함수별 단위 테스트 작성",
+            "parentId": "undefined"
+          },
+          {
+            "id": 2,
+            "title": "정산 API 엔드포인트 구현",
+            "description": "백엔드 정산 관련 API 엔드포인트를 구현합니다.",
+            "dependencies": [
+              1
+            ],
+            "details": "admin.py에 GET /admin/settlements, GET /admin/settlements/{id}, GET /admin/settlements/inspector/{inspector_id}, GET /admin/settlements/summary, POST /admin/settlements/calculate, PATCH /admin/settlements/{id}/status, POST /admin/settlements/bulk-update, GET /admin/settlements/export 엔드포인트 구현 완료",
+            "status": "done",
+            "testStrategy": "API 엔드포인트별 통합 테스트 작성",
+            "parentId": "undefined"
+          },
+          {
+            "id": 3,
+            "title": "프론트엔드 API 클라이언트 구현",
+            "description": "프론트엔드에서 정산 API를 호출하는 클라이언트 함수를 구현합니다.",
+            "dependencies": [
+              2
+            ],
+            "details": "frontend/lib/api/settlements.ts에 모든 정산 관련 API 함수 구현 완료",
+            "status": "done",
+            "testStrategy": "API 클라이언트 함수 단위 테스트",
+            "parentId": "undefined"
+          },
+          {
+            "id": 4,
+            "title": "정산 목록 화면 개발",
+            "description": "정산 내역 목록을 조회하고 필터링할 수 있는 화면을 개발합니다.",
+            "dependencies": [
+              3
+            ],
+            "details": "/admin/settlements 페이지 개발: 정산 내역 테이블 (기사명, 진단 건수, 총 금액, 정산액, 정산 상태, 정산일), 필터링 (기사, 정산 상태, 기간), 검색 기능, 페이지네이션 구현\n<info added on 2025-12-10T05:59:24.749Z>\n정산 목록 화면 개발 완료:\n\n구현 내용:\n\n1. 정산 목록 화면 (frontend/app/admin/settlements/page.tsx)\n   - TanStack Table을 사용한 데이터 테이블 구현\n   - 컬럼: No, 기사명, 진단 ID, 총 금액, 정산액, 정산 상태, 정산일, 관리\n   - 정산 상태 배지 (미정산/정산완료)\n   - 진단 ID 클릭 시 신청 상세 페이지로 이동\n\n2. 필터링 기능\n   - 기사 선택 필터 (드롭다운)\n   - 정산 상태 필터 (전체/미정산/정산완료)\n   - 기간 필터 (시작일/종료일)\n\n3. 통계 요약 카드\n   - 전체 정산 건수\n   - 미정산 건수\n   - 미정산 총액\n\n4. 페이지네이션\n   - TanStack Table의 페이지네이션 기능 활용\n   - 서버 사이드 페이지네이션 (manualPagination: true)\n   - 총 건수 및 현재 페이지 범위 표시\n\n5. 정렬 기능\n   - 정산일, 정산액, 생성일 기준 정렬\n   - 서버 사이드 정렬 (manualSorting: true)\n\n6. 로컬 스토리지 저장\n   - 필터/정렬/페이지네이션 설정을 로컬 스토리지에 저장\n   - 페이지 새로고침 시 설정 복원\n\n7. 유틸리티 함수 추가 (frontend/lib/utils/index.ts)\n   - formatNumberWithCommas: 숫자 천 단위 콤마 포맷팅\n\n8. 어드민 레이아웃 메뉴 추가\n   - 정산 관리 메뉴 항목 추가\n</info added on 2025-12-10T05:59:24.749Z>",
+            "status": "done",
+            "testStrategy": "정산 목록 화면 E2E 테스트, 필터링 및 페이지네이션 동작 테스트",
+            "updatedAt": "2025-12-10T05:59:25.152Z",
+            "parentId": "undefined"
+          },
+          {
+            "id": 5,
+            "title": "정산 상세 화면 개발",
+            "description": "정산 상세 내역을 조회하고 상태를 변경할 수 있는 화면을 개발합니다.",
+            "dependencies": [
+              3
+            ],
+            "details": "/admin/settlements/[id] 페이지 개발: 기사 정보, 진단 건별 상세 내역 (진단 ID, 고객 결제금액, 수수료율, 정산액), 정산 상태 변경 기능, 정산 완료 처리 버튼 구현\n<info added on 2025-12-10T06:15:22.768Z>\n구현 완료\n\n정산 상세 화면 (frontend/app/admin/settlements/[id]/page.tsx):\n- 정산 정보 섹션: 정산 ID, 정산 상태, 정산일, 생성일\n- 기사 정보 섹션: 기사명, 전화번호, 수수료율, 기사 상세 링크\n- 진단 건 상세 내역 섹션: 진단 ID (신청 상세 페이지 링크), 차량번호, 연식, 위치, 희망 일시, 진단 상태, 정산 계산 내역 (고객 결제금액, 적용 수수료율, 정산액)\n\n정산 상태 변경 기능:\n- 미정산 상태일 때만 정산 완료 처리 버튼 표시\n- 상태 변경 확인 모달\n- pending → completed 상태 변경 처리\n- 상태 변경 후 목록 및 상세 데이터 자동 갱신\n\nUI/UX:\n- 반응형 그리드 레이아웃 (2열)\n- 정산 상태 배지 표시\n- 금액 천 단위 콤마 포맷팅\n- 링크 네비게이션 (기사 정보, 진단 상세)\n- 목록으로 돌아가기 버튼\n\n에러 처리:\n- 로딩 상태 표시\n- 에러 상태 표시\n- 상태 변경 실패 시 에러 메시지 표시\n</info added on 2025-12-10T06:15:22.768Z>",
+            "status": "done",
+            "testStrategy": "정산 상세 화면 E2E 테스트, 상태 변경 기능 테스트",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T06:15:23.145Z"
+          },
+          {
+            "id": 6,
+            "title": "정산 집계 화면 개발",
+            "description": "정산 집계 정보를 시각화하고 수동 집계를 실행할 수 있는 화면을 개발합니다.",
+            "dependencies": [
+              3
+            ],
+            "details": "/admin/settlements/summary 페이지 개발: 일/주/월 단위 정산 예정액 차트, 기사별 정산 현황 테이블, 정산 집계 실행 버튼 (수동) 구현\n<info added on 2025-12-10T06:25:54.209Z>\n정산 집계 화면 개발 완료:\n\n**구현 내용:**\n\n1. **정산 집계 화면** (`frontend/app/admin/settlements/summary/page.tsx`)\n   - 기간 선택 필터 (시작일/종료일)\n   - 정산 집계 실행 버튼 (수동)\n\n2. **주요 지표 카드**\n   - 미정산 건수\n   - 정산완료 건수\n   - 미정산 총액\n   - 정산완료 총액\n\n3. **차트 시각화** (Chart.js 사용)\n   - 일별 정산 추이 (Line Chart)\n   - 주별 정산 추이 (Bar Chart)\n   - 월별 정산 추이 (Bar Chart)\n   - 차트 툴팁에 천 단위 콤마 포맷팅 적용\n\n4. **기사별 정산 현황 테이블**\n   - TanStack Table 사용\n   - 컬럼: 기사명, 진단 건수, 총 매출, 총 정산액, 미정산액, 정산완료액\n   - 정렬 기능 지원\n   - 금액 천 단위 콤마 포맷팅\n\n5. **정산 집계 실행 모달**\n   - 정산 기준일 선택 (날짜 입력)\n   - 집계 실행 확인 모달\n   - 집계 결과 알림 (생성된 정산 건수, 전체 진단 건수)\n\n6. **데이터 갱신**\n   - 집계 실행 후 자동으로 요약 정보 및 목록 데이터 갱신\n   - TanStack Query의 invalidateQueries 활용\n</info added on 2025-12-10T06:25:54.209Z>",
+            "status": "done",
+            "testStrategy": "정산 집계 화면 E2E 테스트, 차트 렌더링 테스트",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T06:25:54.595Z"
+          },
+          {
+            "id": 7,
+            "title": "엑셀 다운로드 기능 구현",
+            "description": "정산 내역을 엑셀 파일로 다운로드하는 기능을 구현합니다.",
+            "dependencies": [
+              2,
+              4
+            ],
+            "details": "백엔드: openpyxl 또는 pandas를 활용하여 GET /admin/settlements/export 엔드포인트에서 엑셀 파일 생성 및 반환 구현. 프론트엔드: 기간 선택, 기사 선택 (옵션), 엑셀 다운로드 버튼 UI 구현\n<info added on 2025-12-10T06:34:35.870Z>\n엑셀 다운로드 기능 구현 완료.\n\n백엔드 구현:\n- requirements.txt에 openpyxl>=3.1.2 추가\n- /admin/settlements/export API 구현: openpyxl로 엑셀 파일 생성, StreamingResponse로 다운로드 반환\n- 헤더 스타일링 적용 (파란색 배경, 흰색 글씨, 굵게)\n- 컬럼 구성: No, 정산 ID, 기사명, 진단 ID, 고객 결제금액, 수수료율, 정산액, 정산 상태, 정산일, 생성일\n- 금액 컬럼 천 단위 콤마 형식 적용, 컬럼 너비 자동 조정\n- 파일명 형식: 정산내역_YYYYMMDD.xlsx 또는 정산내역_YYYYMMDD_YYYYMMDD.xlsx (기간 지정 시)\n- 필터링 지원: 기사 ID, 정산 상태, 시작일, 종료일\n- 최대 10,000건까지 조회 가능\n\n프론트엔드 구현:\n- /admin/settlements 페이지 상단에 엑셀 다운로드 버튼 추가\n- 현재 적용된 필터 조건을 엑셀 다운로드에 반영\n- 다운로드 중 상태 표시 구현\n- Blob을 사용한 파일 다운로드 처리\n- exportSettlements API 클라이언트 함수 활용 (responseType: blob)\n</info added on 2025-12-10T06:34:35.870Z>",
+            "status": "done",
+            "testStrategy": "엑셀 파일 생성 및 다운로드 기능 테스트, 파일 내용 정확성 검증",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T06:34:36.414Z"
+          },
+          {
+            "id": 8,
+            "title": "Celery Task 정산 자동화 구현",
+            "description": "정산 자동화를 위한 Celery Task를 구현합니다.",
+            "dependencies": [
+              1
+            ],
+            "details": "진단 완료 즉시 정산 테이블 기록 (settlements 테이블), 매일 0시 정산 집계 실행 (Celery Beat), 기사 수수료 계산 로직 (시스템 기본 수수료율 또는 기사별 수수료율 적용) 구현\n<info added on 2025-12-10T06:57:39.237Z>\nCelery Task 정산 자동화 구현 완료:\n\n구현 내용:\n\n1. 정산 집계 Celery Task 생성 (backend/app/tasks/settlement_tasks.py)\n   - calculate_settlements_for_date: 특정 날짜에 대한 정산 집계 Task (날짜 문자열 YYYY-MM-DD 형식 입력, AdminService.calculate_settlements 호출, 최대 3회 재시도, 재시도 간격 5분)\n   - calculate_settlements_daily: 매일 자동 실행되는 일일 정산 집계 Task (어제 날짜 완료 진단 건 대상, calculate_settlements_for_date 호출, 최대 3회 재시도, 재시도 간격 5분)\n\n2. Celery Beat 스케줄링 설정 (backend/app/core/celery_app.py)\n   - calculate_settlements_daily Task 매일 자정(00:00) 자동 실행\n   - crontab 사용 정확한 스케줄링\n   - settlement_tasks 모듈 Celery 앱 등록\n\n3. Task 기본 클래스\n   - SettlementCalculationTask: 정산 집계 Task 기본 클래스, 성공/실패 시 로깅 처리\n\n4. 비동기 처리\n   - AsyncSessionLocal 사용 비동기 데이터베이스 작업 처리\n   - asyncio.run 사용 동기 함수에서 비동기 함수 실행\n\n사용 방법:\n- Celery Worker 실행: celery -A app.core.celery_app worker --loglevel=info\n- Celery Beat 실행: celery -A app.core.celery_app beat --loglevel=info\n- 수동 실행: API POST /admin/settlements/calculate 또는 직접 호출 calculate_settlements_for_date.delay('2024-01-01')\n\n자동화 흐름: 매일 자정 Celery Beat가 calculate_settlements_daily Task 실행 → 어제 날짜 완료 진단 건 조회 및 정산 집계 → 결과 로그 기록 → 실패 시 최대 3회 자동 재시도\n</info added on 2025-12-10T06:57:39.237Z>",
+            "status": "done",
+            "testStrategy": "Celery Task 단위 테스트, 정산 자동화 통합 테스트",
+            "parentId": "undefined",
+            "updatedAt": "2025-12-10T06:57:39.691Z"
+          }
+        ],
+        "updatedAt": "2025-12-10T06:57:39.691Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-09T06:44:58.103Z",
+      "lastModified": "2025-12-10T08:38:02.029Z",
       "taskCount": 16,
-      "completedCount": 12,
+      "completedCount": 15,
       "tags": [
         "master"
       ]

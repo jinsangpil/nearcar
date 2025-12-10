@@ -63,19 +63,19 @@ class Settings(BaseSettings):
     COOKIE_HTTP_ONLY: bool = True
     COOKIE_SAME_SITE: str = "lax"
     
-    # 토스페이먼츠 설정
-    TOSS_CLIENT_KEY: str = ""
-    TOSS_SECRET_KEY: str = ""
-    TOSS_API_URL: str = "https://api.tosspayments.com/v1"  # 프로덕션
-    TOSS_TEST_API_URL: str = "https://api.tosspayments.com/v1"  # 테스트/프로덕션 동일
+    # KCP 결제 설정
+    KCP_SITE_CD: str = "T0000"  # 테스트 사이트 코드 (운영 시 발급받은 코드로 변경)
+    KCP_CERT_INFO: str = ""  # 서비스 인증서 정보 (서버에서 안전하게 관리)
+    KCP_API_URL: str = "https://stg-spl.kcp.co.kr/gw/enc/v1/payment"  # 테스트 환경
+    KCP_PRODUCTION_API_URL: str = "https://spl.kcp.co.kr/gw/enc/v1/payment"  # 운영 환경
     FRONTEND_URL: str = "http://localhost:3000"  # 프론트엔드 URL
     
     @property
-    def toss_api_url(self) -> str:
-        """토스페이먼츠 API URL 반환"""
+    def kcp_api_url(self) -> str:
+        """KCP API URL 반환"""
         if self.ENVIRONMENT == "production":
-            return self.TOSS_API_URL
-        return self.TOSS_TEST_API_URL
+            return self.KCP_PRODUCTION_API_URL
+        return self.KCP_API_URL
     
     # AWS S3 설정 (선택적)
     AWS_ACCESS_KEY_ID: Optional[str] = None
