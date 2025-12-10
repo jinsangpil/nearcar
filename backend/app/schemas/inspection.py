@@ -139,3 +139,15 @@ class AssignmentRejectRequest(BaseModel):
             }
         }
 
+
+class InspectionStatusUpdateRequest(BaseModel):
+    """작업 상태 변경 요청 스키마"""
+    new_status: str = Field(..., description="새 상태 (scheduled, in_progress, report_submitted)")
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "new_status": "in_progress"
+            }
+        }
+

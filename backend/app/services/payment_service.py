@@ -215,7 +215,7 @@ class PaymentService:
             # 금액 검증 (강화된 검증 로직)
             if amount:
                 # 정확한 금액 일치 검증
-                if payment.amount != amount:
+        if payment.amount != amount:
                     logger.error(
                         f"결제 금액 불일치: "
                         f"payment_id={str(payment.id)}, "
@@ -225,8 +225,8 @@ class PaymentService:
                     )
                     payment.status = "failed"
                     await db.commit()
-                    raise ValueError(f"결제 금액이 일치하지 않습니다. 예상 금액: {payment.amount}원")
-                
+            raise ValueError(f"결제 금액이 일치하지 않습니다. 예상 금액: {payment.amount}원")
+        
                 # 금액 범위 검증
                 if amount < 1000 or amount > 10000000:
                     logger.error(

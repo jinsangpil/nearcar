@@ -236,5 +236,5 @@ async def confirm_payment(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"결제 확인 중 오류가 발생했습니다: {str(e)}"
-        )
+    )
 
