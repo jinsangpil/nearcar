@@ -13,10 +13,12 @@ from app.models.inspection_report import InspectionReport
 from app.models.settlement import Settlement
 from app.models.notification import Notification
 from app.models.notification_template import NotificationTemplate
+from app.models.review import Review
+from app.models.faq import FAQ
 
 __all__ = [
     "User", "VehicleMaster", "Manufacturer", "VehicleModel", "PricePolicy", "Package", "ServiceRegion",
     "Payment", "Inspection", "Vehicle", "InspectionReport", "Settlement", "Notification",
-    "NotificationTemplate"
+    "NotificationTemplate", "Review", "FAQ"
 ]
 

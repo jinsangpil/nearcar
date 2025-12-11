@@ -83,6 +83,19 @@ from app.services.vehicle_master_service import VehicleMasterService
 from app.services.manufacturer_service import ManufacturerService
 from app.services.vehicle_model_service import VehicleModelService
 from app.models.user import User
+from app.schemas.review import (
+    ReviewResponse,
+    ReviewListResponse,
+    ReviewUpdateRequest
+)
+from app.services.review_service import ReviewService
+from app.schemas.faq import (
+    FAQCreateRequest,
+    FAQUpdateRequest,
+    FAQResponse,
+    FAQListResponse
+)
+from app.services.faq_service import FAQService
 import uuid
 
 router = APIRouter(prefix="/admin", tags=["운영자"])
@@ -2409,3 +2422,170 @@ async def export_settlements(
             detail=f"정산 내역 다운로드 중 오류가 발생했습니다: {str(e)}"
         )
 
+
+# ============================================
+# 리뷰 관리 API
+# ============================================
+
+@router.get("/reviews", response_model=StandardResponse)
+async def list_reviews(
+    rating: Optional[int] = Query(None, description="별점 필터 (1-5)"),
+    is_hidden: Optional[bool] = Query(None, description="숨김 여부 필터"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    리뷰 목록 조회 API
+    """
+    try:
+        offset = (page - 1) * limit
+        result = await ReviewService.get_reviews(
+            db=db,
+            skip=offset,
+            limit=limit,
+            rating=rating,
+            is_hidden=is_hidden
+        )
+        
+        return StandardResponse(
+            success=True,
+            data={
+                "items": [ReviewResponse.model_validate(item) for item in result["items"]],
+                "total": result["total"],
+                "page": page,
+                "limit": limit,
+                "total_pages": (result["total"] + limit - 1) // limit
+            }
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"리뷰 목록 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+@router.patch("/reviews/{review_id}/visibility", response_model=StandardResponse)
+async def update_review_visibility(
+    review_id: str,
+    request: ReviewUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    리뷰 숨김 상태 변경 API
+    """
+    try:
+        review_uuid = uuid.UUID(review_id)
+        if request.is_hidden is None:
+             raise ValueError("is_hidden 필드가 필요합니다.")
+             
+        review = await ReviewService.update_visibility(
+            db=db,
+            review_id=review_uuid,
+            is_hidden=request.is_hidden
+        )
+        
+        if not review:
+            raise HTTPException(status_code=404, detail="리뷰를 찾을 수 없습니다.")
+            
+        return StandardResponse(success=True, data=ReviewResponse.model_validate(review))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"리뷰 상태 변경 중 오류: {str(e)}")
+
+
+# ============================================
+# FAQ 관리 API
+# ============================================
+
+@router.get("/faqs", response_model=StandardResponse)
+async def list_faqs(
+    category: Optional[str] = Query(None, description="카테고리 필터"),
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_role(["admin", "staff"]))
+):
+    """
+    FAQ 목록 조회 API
+    """
+    try:
+        faqs = await FAQService.get_faqs(db=db, category=category)
+        return StandardResponse(
+            success=True,
+            data={
+                "items": [FAQResponse.model_validate(faq) for faq in faqs],
+                "total": len(faqs)
+            }
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"FAQ 목록 조회 중 오류: {str(e)}")
+
+@router.post("/faqs", response_model=StandardResponse)
+async def create_faq(
+    request: FAQCreateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    FAQ 생성 API
+    """
+    try:
+        faq = await FAQService.create_faq(
+            db=db,
+            category=request.category,
+            question=request.question,
+            answer=request.answer,
+            is_active=request.is_active,
+            display_order=request.display_order
+        )
+        return StandardResponse(success=True, data=FAQResponse.model_validate(faq))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"FAQ 생성 중 오류: {str(e)}")
+
+@router.patch("/faqs/{faq_id}", response_model=StandardResponse)
+async def update_faq(
+    faq_id: str,
+    request: FAQUpdateRequest,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    FAQ 수정 API
+    """
+    try:
+        faq_uuid = uuid.UUID(faq_id)
+        update_data = request.model_dump(exclude_unset=True)
+        if not update_data:
+            raise ValueError("변경할 데이터가 없습니다.")
+            
+        faq = await FAQService.update_faq(db=db, faq_id=faq_uuid, **update_data)
+        if not faq:
+            raise HTTPException(status_code=404, detail="FAQ를 찾을 수 없습니다.")
+            
+        return StandardResponse(success=True, data=FAQResponse.model_validate(faq))
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"FAQ 수정 중 오류: {str(e)}")
+
+@router.delete("/faqs/{faq_id}", response_model=StandardResponse)
+async def delete_faq(
+    faq_id: str,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(require_admin_only)
+):
+    """
+    FAQ 삭제 API
+    """
+    try:
+        faq_uuid = uuid.UUID(faq_id)
+        success = await FAQService.delete_faq(db=db, faq_id=faq_uuid)
+        if not success:
+            raise HTTPException(status_code=404, detail="FAQ를 찾을 수 없습니다.")
+            
+        return StandardResponse(success=True, data={"message": "FAQ가 삭제되었습니다."})
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"FAQ 삭제 중 오류: {str(e)}")

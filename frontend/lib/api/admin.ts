@@ -16,25 +16,25 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
     const response = await apiClient.get<StandardResponse<DashboardStats>>('/admin/dashboard/stats', {
       timeout: 10000, // 10초 타임아웃
     });
-    
+
     if (!response.data.success || !response.data.data) {
       throw new Error(response.data.error || '대시보드 통계 데이터를 불러올 수 없습니다');
     }
-    
+
     return response.data.data;
   } catch (error: any) {
     console.error('대시보드 통계 API 호출 실패:', error);
-    
+
     // 네트워크 오류
     if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
       throw new Error('서버 응답 시간이 초과되었습니다. 잠시 후 다시 시도해주세요.');
     }
-    
+
     // HTTP 오류
     if (error.response) {
       const status = error.response.status;
       const detail = error.response.data?.detail || error.response.data?.error;
-      
+
       if (status === 401) {
         throw new Error('인증이 필요합니다. 다시 로그인해주세요.');
       } else if (status === 403) {
@@ -42,10 +42,10 @@ export const getDashboardStats = async (): Promise<DashboardStats> => {
       } else if (status === 500) {
         throw new Error('서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.');
       }
-      
+
       throw new Error(detail || `API 오류: ${status}`);
     }
-    
+
     // 기타 오류
     throw error instanceof Error ? error : new Error('알 수 없는 오류가 발생했습니다.');
   }
@@ -1015,5 +1015,118 @@ export const syncVehicleModels = async (
     throw new Error('차량 모델 동기화에 실패했습니다');
   }
   return response.data.data;
+};
+
+
+// ==================== 리뷰 관리 API ====================
+export interface ReviewListItem {
+  id: string;
+  user_id: string;
+  inspection_id: string;
+  rating: number;
+  content: string | null;
+  photos: string[] | null;
+  is_hidden: boolean;
+  created_at: string;
+  updated_at: string;
+  user_name?: string | null;
+}
+
+export interface ReviewListParams {
+  rating?: number;
+  is_hidden?: boolean;
+  page?: number;
+  limit?: number;
+}
+
+export interface ReviewListResponse {
+  items: ReviewListItem[];
+  total: number;
+  page: number;
+  limit: number;
+  total_pages: number;
+}
+
+export const getReviews = async (params: ReviewListParams = {}): Promise<ReviewListResponse> => {
+  const response = await apiClient.get<StandardResponse<ReviewListResponse>>('/admin/reviews', { params });
+  if (!response.data.data) {
+    throw new Error('리뷰 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+export const updateReviewVisibility = async (reviewId: string, isHidden: boolean): Promise<ReviewListItem> => {
+  const response = await apiClient.patch<StandardResponse<ReviewListItem>>(`/admin/reviews/${reviewId}/visibility`, {
+    is_hidden: isHidden
+  });
+  if (!response.data.data) {
+    throw new Error('리뷰 상태 변경에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+// ==================== FAQ 관리 API ====================
+export interface FAQListItem {
+  id: string;
+  category: string;
+  question: string;
+  answer: string;
+  is_active: boolean;
+  display_order: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface FAQListParams {
+  category?: string;
+}
+
+export interface FAQListResponse {
+  items: FAQListItem[];
+  total: number;
+}
+
+export const getFAQs = async (params: FAQListParams = {}): Promise<FAQListResponse> => {
+  const response = await apiClient.get<StandardResponse<FAQListResponse>>('/admin/faqs', { params });
+  if (!response.data.data) {
+    throw new Error('FAQ 목록 데이터를 불러올 수 없습니다');
+  }
+  return response.data.data;
+};
+
+export interface FAQCreateRequest {
+  category: string;
+  question: string;
+  answer: string;
+  is_active?: boolean;
+  display_order?: number;
+}
+
+export const createFAQ = async (data: FAQCreateRequest): Promise<FAQListItem> => {
+  const response = await apiClient.post<StandardResponse<FAQListItem>>('/admin/faqs', data);
+  if (!response.data.data) {
+    throw new Error('FAQ 생성에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+export interface FAQUpdateRequest {
+  category?: string;
+  question?: string;
+  answer?: string;
+  is_active?: boolean;
+  display_order?: number;
+}
+
+export const updateFAQ = async (faqId: string, data: FAQUpdateRequest): Promise<FAQListItem> => {
+  const response = await apiClient.patch<StandardResponse<FAQListItem>>(`/admin/faqs/${faqId}`, data);
+  if (!response.data.data) {
+    throw new Error('FAQ 수정에 실패했습니다');
+  }
+  return response.data.data;
+};
+
+export const deleteFAQ = async (faqId: string): Promise<void> => {
+  await apiClient.delete(`/admin/faqs/${faqId}`);
 };
 

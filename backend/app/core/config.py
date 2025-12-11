@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     # 데이터베이스 설정
     DB_HOST: str = "localhost"
     DB_PORT: int = 5432
-    DB_NAME: str = "nearcar_db"
+    DB_NAME: str = "nearcar"
     DB_USER: str = "postgres"
     DB_PASSWORD: str = ""
     DATABASE_URL: Optional[str] = None
@@ -99,7 +99,7 @@ class Settings(BaseSettings):
     VWORLD_API_KEY: Optional[str] = None  # VWorld API Key
     
     class Config:
-        env_file = [".env.local", ".env"]
+        env_file = [".env", ".env.local"]
         env_file_encoding = "utf-8"
         case_sensitive = True
         extra = "ignore"  # 정의되지 않은 필드 무시
