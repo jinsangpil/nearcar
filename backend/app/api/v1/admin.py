@@ -1610,8 +1610,8 @@ async def delete_user(
 
 @router.get("/users", response_model=StandardResponse)
 async def list_users(
-    role: Optional[str] = Query(None, description="역할 필터"),
-    status: Optional[str] = Query(None, description="상태 필터"),
+    role: Optional[str] = Query(None, description="역할 필터 (admin, user, partner)"),
+    user_status: Optional[str] = Query(None, alias="status", description="계정 상태 필터 (active, inactive, suspended)"),
     level: Optional[int] = Query(None, description="등급 필터 (기사용)"),
     search: Optional[str] = Query(None, description="검색어 (이름, 이메일)"),
     page: int = Query(1, ge=1, description="페이지 번호"),
@@ -1631,7 +1631,7 @@ async def list_users(
         result = await UserService.list_users(
             db=db,
             role=role,
-            status=status,
+            status=user_status,
             level=level,
             search=search,
             offset=offset,
@@ -1644,9 +1644,12 @@ async def list_users(
             error=None
         )
     except Exception as e:
+        import traceback
+        print(f"Error in list_users: {str(e)}")
+        print(traceback.format_exc())
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"유저 목록 조회 중 오류가 발생했습니다: {str(e)}"
+            detail=f"유저 목록 조회 중 오류가 발생했습니다: {repr(e)}"
         )
 
 

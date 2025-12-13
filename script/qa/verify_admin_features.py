@@ -11,17 +11,18 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../../b
 
 from app.core.database import AsyncSessionLocal
 from app.models.user import User
-from app.core.config import settings
+from app.core.security import encrypt_phone
 
 # Setup logging
+import logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 # Password hashing
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-TEST_ADMIN_EMAIL = "test_admin@nearcar.com"
-TEST_ADMIN_PASSWORD = "admin_password"
+TEST_ADMIN_EMAIL = "admin@nearcar.co.kr"
+TEST_ADMIN_PASSWORD = "12341234"
 BASE_URL = "http://localhost:8000/api/v1"
 
 async def create_test_admin_if_not_exists():
@@ -33,11 +34,12 @@ async def create_test_admin_if_not_exists():
         if not user:
             logger.info("Creating new test admin user...")
             hashed_password = pwd_context.hash(TEST_ADMIN_PASSWORD)
+            encrypted_phone = encrypt_phone("010-1234-5678")
             new_admin = User(
                 email=TEST_ADMIN_EMAIL,
                 password_hash=hashed_password,
                 name="Test Admin",
-                phone="010-1234-5678",
+                phone=encrypted_phone,
                 role="admin",
                 status="active"
             )
