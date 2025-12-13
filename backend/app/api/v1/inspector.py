@@ -402,7 +402,7 @@ async def get_monthly_settlement_summary(
     """
     try:
         from app.services.settlement_service import SettlementService
-        from datetime import date, datetime
+        from datetime import date, datetime, timedelta
         
         if not year:
             year = datetime.now().year

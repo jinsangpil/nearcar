@@ -14,6 +14,11 @@ function InspectorLayoutContent({
   const pathname = usePathname();
   const router = useRouter();
   const { user, logout: logoutStore } = useAuthStore();
+  
+  // 로그인 페이지인 경우 레이아웃 없이 children만 렌더링
+  if (pathname === '/inspector/login') {
+    return <>{children}</>;
+  }
 
   const handleLogout = async () => {
     try {
@@ -114,6 +119,20 @@ function InspectorLayoutContent({
   );
 }
 
-// 권한 검증 HOC 적용
-export default withInspectorAuth(InspectorLayoutContent);
+// 로그인 페이지는 HOC 적용하지 않음
+function InspectorLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  
+  // 로그인 페이지인 경우 HOC 없이 렌더링
+  if (pathname === '/inspector/login') {
+    return <>{children}</>;
+  }
+  
+  // 그 외 페이지는 인증 필요
+  return <InspectorLayoutWithAuth>{children}</InspectorLayoutWithAuth>;
+}
+
+const InspectorLayoutWithAuth = withInspectorAuth(InspectorLayoutContent);
+
+export default InspectorLayout;
 
