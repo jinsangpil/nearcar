@@ -3,6 +3,8 @@
 """
 from fastapi import APIRouter, Depends, HTTPException, status, Query
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select, func
+from typing import Optional
 
 from app.core.database import get_db
 from app.core.dependencies import get_current_user
@@ -18,9 +20,16 @@ from app.schemas.payment import (
     PaymentConfirmResponse
 )
 from app.schemas.vehicle import StandardResponse
+from app.schemas.review import ReviewResponse, ReviewListResponse
+from app.schemas.faq import FAQResponse, FAQListResponse
 from app.services.inspection_service import InspectionService
 from app.services.payment_service import PaymentService
+from app.services.review_service import ReviewService
+from app.services.faq_service import FAQService
 from app.models.user import User
+from app.models.inspection import Inspection
+from app.models.review import Review
+from app.models.faq import FAQ
 
 router = APIRouter(prefix="/client", tags=["고객"])
 
@@ -236,5 +245,175 @@ async def confirm_payment(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"결제 확인 중 오류가 발생했습니다: {str(e)}"
-    )
+        )
+
+
+@router.get("/reviews", response_model=StandardResponse)
+async def get_public_reviews(
+    rating: Optional[int] = Query(None, ge=1, le=5, description="별점 필터 (1-5)"),
+    page: int = Query(1, ge=1, description="페이지 번호"),
+    limit: int = Query(20, ge=1, le=100, description="페이지 크기"),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    공개 후기 목록 조회 API
+    
+    인증 없이 조회 가능한 공개 후기 목록을 반환합니다.
+    - is_hidden=false인 후기만 조회
+    - 사용자 이름은 마스킹 처리 (개인정보 보호)
+    """
+    try:
+        offset = (page - 1) * limit
+        result = await ReviewService.get_reviews(
+            db=db,
+            skip=offset,
+            limit=limit,
+            rating=rating,
+            is_hidden=False  # 공개 후기만
+        )
+        
+        # 사용자 이름 마스킹 처리
+        items = []
+        for review in result["items"]:
+            review_dict = {
+                "id": str(review.id),
+                "user_id": str(review.user_id),
+                "inspection_id": str(review.inspection_id),
+                "rating": review.rating,
+                "content": review.content,
+                "photos": review.photos,
+                "is_hidden": review.is_hidden,
+                "created_at": review.created_at.isoformat() if review.created_at else None,
+                "updated_at": review.updated_at.isoformat() if review.updated_at else None,
+            }
+            
+            # 사용자 이름 마스킹 (이름의 첫 글자만 표시)
+            if review.user:
+                user_name = review.user.name or ""
+                if len(user_name) > 1:
+                    masked_name = user_name[0] + "○" * (len(user_name) - 1)
+                else:
+                    masked_name = user_name[0] if user_name else "고객"
+                review_dict["user_name"] = masked_name
+            else:
+                review_dict["user_name"] = "고객"
+            
+            items.append(review_dict)
+        
+        total_pages = (result["total"] + limit - 1) // limit
+        
+        return StandardResponse(
+            success=True,
+            data={
+                "items": items,
+                "total": result["total"],
+                "page": page,
+                "limit": limit,
+                "total_pages": total_pages
+            },
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"후기 목록 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/faqs", response_model=StandardResponse)
+async def get_public_faqs(
+    category: Optional[str] = Query(None, description="카테고리 필터"),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    공개 FAQ 목록 조회 API
+    
+    인증 없이 조회 가능한 공개 FAQ 목록을 반환합니다.
+    - is_active=true인 FAQ만 조회
+    - display_order 기준 정렬
+    """
+    try:
+        faqs = await FAQService.get_faqs(db=db, category=category)
+        
+        # 활성화된 FAQ만 필터링
+        active_faqs = [faq for faq in faqs if faq.is_active]
+        
+        items = [
+            {
+                "id": str(faq.id),
+                "category": faq.category,
+                "question": faq.question,
+                "answer": faq.answer,
+                "is_active": faq.is_active,
+                "display_order": faq.display_order,
+                "created_at": faq.created_at.isoformat() if faq.created_at else None,
+                "updated_at": faq.updated_at.isoformat() if faq.updated_at else None,
+            }
+            for faq in active_faqs
+        ]
+        
+        return StandardResponse(
+            success=True,
+            data={
+                "items": items,
+                "total": len(items)
+            },
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"FAQ 목록 조회 중 오류가 발생했습니다: {str(e)}"
+        )
+
+
+@router.get("/stats", response_model=StandardResponse)
+async def get_public_stats(
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    공개 통계 조회 API
+    
+    인증 없이 조회 가능한 공개 통계 정보를 반환합니다.
+    - 누적 진단 수 (완료된 진단: sent 상태)
+    - 평균 별점
+    - 총 후기 수
+    """
+    try:
+        # 누적 진단 수 (완료된 진단: sent 상태)
+        completed_query = select(func.count()).select_from(Inspection).where(
+            Inspection.status == "sent"
+        )
+        completed_result = await db.execute(completed_query)
+        total_inspections = completed_result.scalar_one() or 0
+        
+        # 총 후기 수 (공개 후기만)
+        review_query = select(func.count()).select_from(Review).where(
+            Review.is_hidden == False
+        )
+        review_result = await db.execute(review_query)
+        total_reviews = review_result.scalar_one() or 0
+        
+        # 평균 별점
+        avg_rating_query = select(func.avg(Review.rating)).where(
+            Review.is_hidden == False
+        )
+        avg_rating_result = await db.execute(avg_rating_query)
+        avg_rating = avg_rating_result.scalar_one()
+        avg_rating = round(float(avg_rating), 1) if avg_rating else 0.0
+        
+        return StandardResponse(
+            success=True,
+            data={
+                "total_inspections": total_inspections,
+                "total_reviews": total_reviews,
+                "average_rating": avg_rating
+            },
+            error=None
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"통계 조회 중 오류가 발생했습니다: {str(e)}"
+        )
 

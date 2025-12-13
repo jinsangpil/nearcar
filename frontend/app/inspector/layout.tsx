@@ -1,14 +1,35 @@
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { useAuthStore } from '@/stores/authStore';
+import { logout } from '@/lib/api/auth';
+import withInspectorAuth from '@/components/inspector/withInspectorAuth';
 
-export default function InspectorLayout({
+function InspectorLayoutContent({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, logout: logoutStore } = useAuthStore();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      logoutStore();
+      router.push('/inspector/login');
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+      // 에러가 발생해도 로컬 상태는 초기화
+      logoutStore();
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('access_token');
+      }
+      router.push('/inspector/login');
+    }
+  };
 
   const navItems = [
     { href: '/inspector/dashboard', label: '대시보드' },
@@ -47,12 +68,17 @@ export default function InspectorLayout({
               })}
             </nav>
             <div className="flex items-center space-x-4">
-              <Link
-                href="/login"
+              {user && (
+                <span className="text-sm text-gray-600">
+                  {user.name || user.email}
+                </span>
+              )}
+              <button
+                onClick={handleLogout}
                 className="text-sm text-gray-600 hover:text-gray-900"
               >
                 로그아웃
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -87,4 +113,7 @@ export default function InspectorLayout({
     </div>
   );
 }
+
+// 권한 검증 HOC 적용
+export default withInspectorAuth(InspectorLayoutContent);
 

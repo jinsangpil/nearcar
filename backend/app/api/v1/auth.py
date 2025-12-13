@@ -13,12 +13,14 @@ from app.core.security import (
     create_access_token,
     create_guest_token,
     decode_token,
-    encrypt_phone
+    encrypt_phone,
+    get_password_hash
 )
 from app.core.redis import set_guest_auth, get_guest_auth, delete_guest_auth
 from app.core.config import settings
 from app.models.user import User
-from app.schemas.auth import LoginRequest, GuestAuthRequest, TokenResponse
+from app.schemas.auth import LoginRequest, GuestAuthRequest, RegisterRequest, TokenResponse
+from app.services.user_service import UserService
 
 router = APIRouter(prefix="/auth", tags=["인증"])
 security = HTTPBearer()
@@ -178,6 +180,82 @@ async def guest_auth(
         token_type="bearer",
         expires_in=ttl_seconds
     )
+
+
+@router.post("/register", response_model=TokenResponse)
+async def register(
+    register_data: RegisterRequest,
+    response: Response,
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    고객 회원가입 엔드포인트
+    
+    - 이메일, 비밀번호, 이름, 휴대폰 번호로 회원가입
+    - 성공 시 자동 로그인 (Access Token 발급)
+    """
+    try:
+        # 고객 계정 생성
+        result = await UserService.create_user(
+            db=db,
+            role="client",
+            name=register_data.name,
+            phone=register_data.phone,
+            email=register_data.email,
+            password=register_data.password,
+            status="active"
+        )
+        
+        # 생성된 사용자 조회
+        result_query = await db.execute(
+            select(User).where(User.email == register_data.email)
+        )
+        user = result_query.scalar_one_or_none()
+        
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="회원가입 후 사용자 조회에 실패했습니다"
+            )
+        
+        # 토큰 생성
+        token_data = {
+            "sub": str(user.id),
+            "role": user.role,
+            "type": "access"
+        }
+        access_token = create_access_token(data=token_data)
+        
+        # 쿠키에 토큰 저장
+        response.set_cookie(
+            key="access_token",
+            value=access_token,
+            max_age=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES * 60,
+            httponly=settings.COOKIE_HTTP_ONLY,
+            secure=settings.COOKIE_SECURE,
+            samesite=settings.COOKIE_SAME_SITE
+        )
+        
+        return TokenResponse(
+            access_token=access_token,
+            token_type="bearer",
+            expires_in=settings.JWT_ACCESS_TOKEN_EXPIRE_MINUTES * 60
+        )
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        )
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        print(f"회원가입 오류: {str(e)}")
+        print(traceback.format_exc())
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"회원가입 중 오류가 발생했습니다: {str(e)}"
+        )
 
 
 @router.post("/logout")

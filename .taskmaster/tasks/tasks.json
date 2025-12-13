@@ -832,12 +832,136 @@
           }
         ],
         "updatedAt": "2025-12-10T06:57:39.691Z"
+      },
+      {
+        "id": "27",
+        "title": "고객용 웹앱 페이지 개발",
+        "description": "고객용 웹앱의 공개 페이지들을 개발합니다. 메인 랜딩 페이지, 서비스 소개, 이용 요금, 후기, FAQ, 로그인/회원가입 페이지를 포함합니다.",
+        "details": "Next.js 14+ App Router와 TypeScript를 사용하여 고객용 웹앱 페이지를 개발합니다:\n\n**페이지 구성:**\n1. C-01: 메인 랜딩 페이지 (/) - 서비스 특장점, 누적 진단 수, 후기 하이라이트, 차량번호 조회(CTA)\n2. C-02: 서비스 소개 (/service) - 진단 범위 설명, 기사 검증 시스템 소개, 이용 가이드\n3. C-03: 이용 요금 (/pricing) - 차종/지역별 예상 요금표 (동적 가격 정책 안내, 기존 API 연동)\n4. C-04: 실제 후기 (/reviews) - 별점 및 포토 후기 리스트, 필터링\n5. C-05: 자주 묻는 질문 (/faq) - 결제, 환불, 당일예약 등 FAQ\n6. C-06: 로그인/회원가입 (/login) - 고객용 로그인, 회원가입, 아이디/비밀번호 찾기 기능\n\n**구현 사항:**\n- 기존 API와 연동하여 동적 데이터 표시 (가격 정책, 후기 등)\n- 반응형 디자인 적용 (모바일/데스크톱)\n- SEO 최적화 (메타 태그, 구조화된 데이터)\n- 디자인은 임시로 진행하고 추후 업데이트 예정\n- 기존 고객 신청 플로우(/apply/*)와 통합\n\n**기술 스택:**\n- Next.js 14+ (App Router)\n- TypeScript\n- TailwindCSS\n- TanStack Query (서버 상태 관리)\n- Zustand (클라이언트 상태 관리)",
+        "testStrategy": "1. 각 페이지 렌더링 테스트\n2. API 연동 테스트 (가격 정책, 후기 등)\n3. 반응형 디자인 테스트 (다양한 화면 크기)\n4. SEO 메타 태그 검증\n5. 로그인/회원가입 플로우 테스트\n6. 접근성 테스트 (키보드 네비게이션, 스크린 리더)\n7. 성능 테스트 (Lighthouse 점수)",
+        "priority": "high",
+        "dependencies": [
+          "14"
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "메인 랜딩 페이지 개발 (C-01)",
+            "description": "서비스 특장점, 누적 진단 수, 후기 하이라이트, 차량번호 조회(CTA)를 포함한 메인 랜딩 페이지를 개발합니다.",
+            "dependencies": [],
+            "details": "Next.js 14+ App Router를 사용하여 메인 랜딩 페이지(/)를 개발합니다:\n- 히어로 섹션: 서비스 소개 및 주요 CTA\n- 서비스 특장점 섹션: 3-4개 주요 특징\n- 누적 진단 수 표시 (API 연동)\n- 후기 하이라이트 섹션 (최근 후기 3-5개)\n- 차량번호 조회 CTA 버튼 (신청 플로우로 연결)\n- 반응형 디자인 적용\n- SEO 최적화 (메타 태그, 구조화된 데이터)",
+            "status": "pending",
+            "testStrategy": "페이지 렌더링 테스트, API 연동 테스트, 반응형 디자인 테스트, SEO 메타 태그 검증",
+            "parentId": "27"
+          },
+          {
+            "id": 2,
+            "title": "서비스 소개 페이지 개발 (C-02)",
+            "description": "진단 범위 설명, 기사 검증 시스템 소개, 이용 가이드를 포함한 서비스 소개 페이지를 개발합니다.",
+            "dependencies": [],
+            "details": "Next.js 14+ App Router를 사용하여 서비스 소개 페이지(/service)를 개발합니다:\n- 진단 범위 설명 (외관, 엔진룸, 하부, 실내, 전장품)\n- 기사 검증 시스템 소개 (등급, 수수료율, 활동 지역 등)\n- 이용 가이드 (신청부터 완료까지 단계별 설명)\n- 이미지 및 아이콘 활용\n- 반응형 디자인 적용",
+            "status": "pending",
+            "testStrategy": "페이지 렌더링 테스트, 콘텐츠 정확성 검증, 반응형 디자인 테스트",
+            "parentId": "27"
+          },
+          {
+            "id": 3,
+            "title": "이용 요금 페이지 개발 (C-03)",
+            "description": "차종/지역별 예상 요금표를 동적 가격 정책과 연동하여 표시하는 이용 요금 페이지를 개발합니다.",
+            "dependencies": [],
+            "details": "Next.js 14+ App Router를 사용하여 이용 요금 페이지(/pricing)를 개발합니다:\n- 차종별 가격 정책 표시 (국산/수입, 등급별)\n- 지역별 출장비 표시 (서비스 지역 API 연동)\n- 패키지별 기본 가격 표시 (패키지 API 연동)\n- 실시간 견적 계산기 (선택적)\n- 반응형 디자인 적용\n- 기존 가격 정책 API(/api/packages, /api/regions, /api/quotes/calculate) 활용",
+            "status": "pending",
+            "testStrategy": "API 연동 테스트, 가격 정책 표시 정확성 검증, 반응형 디자인 테스트",
+            "parentId": "27"
+          },
+          {
+            "id": 4,
+            "title": "실제 후기 페이지 개발 (C-04)",
+            "description": "별점 및 포토 후기 리스트를 표시하고 필터링 기능을 제공하는 후기 페이지를 개발합니다.",
+            "dependencies": [],
+            "details": "Next.js 14+ App Router를 사용하여 실제 후기 페이지(/reviews)를 개발합니다:\n- 후기 리스트 표시 (별점, 텍스트, 사진)\n- 필터링 기능 (별점별, 날짜별, 차종별)\n- 페이지네이션\n- 후기 상세 모달/페이지\n- 후기 작성 기능 (로그인 사용자만, 추후 구현)\n- 반응형 디자인 적용\n- 기존 후기 API 연동 (필요 시 백엔드 API 개발)",
+            "status": "pending",
+            "testStrategy": "후기 리스트 렌더링 테스트, 필터링 기능 테스트, 페이지네이션 테스트, 반응형 디자인 테스트",
+            "parentId": "27"
+          },
+          {
+            "id": 5,
+            "title": "FAQ 페이지 개발 (C-05)",
+            "description": "결제, 환불, 당일예약 등 자주 묻는 질문을 표시하는 FAQ 페이지를 개발합니다.",
+            "dependencies": [],
+            "details": "Next.js 14+ App Router를 사용하여 FAQ 페이지(/faq)를 개발합니다:\n- FAQ 카테고리별 분류 (결제, 환불, 당일예약, 서비스 이용 등)\n- 아코디언 UI로 질문/답변 표시\n- 검색 기능 (선택적)\n- 반응형 디자인 적용\n- FAQ 데이터는 초기에는 하드코딩, 추후 DB 연동 가능",
+            "status": "pending",
+            "testStrategy": "FAQ 렌더링 테스트, 아코디언 UI 동작 테스트, 검색 기능 테스트, 반응형 디자인 테스트",
+            "parentId": "27"
+          },
+          {
+            "id": 6,
+            "title": "고객용 로그인/회원가입 페이지 개발 (C-06)",
+            "description": "고객용 로그인, 회원가입, 아이디/비밀번호 찾기 기능을 포함한 인증 페이지를 개발합니다.",
+            "dependencies": [],
+            "details": "Next.js 14+ App Router를 사용하여 고객용 로그인/회원가입 페이지(/login)를 개발합니다:\n- 로그인 폼 (이메일/비밀번호 또는 휴대폰 인증)\n- 회원가입 폼 (고객 역할로 가입)\n- 아이디/비밀번호 찾기 기능\n- 탭 또는 모달로 로그인/회원가입 전환\n- 기존 인증 API(/auth/login, /auth/register) 활용\n- 로그인 성공 시 고객 대시보드 또는 신청 플로우로 리다이렉트\n- 반응형 디자인 적용",
+            "status": "pending",
+            "testStrategy": "로그인/회원가입 플로우 테스트, 아이디/비밀번호 찾기 테스트, API 연동 테스트, 반응형 디자인 테스트",
+            "parentId": "27"
+          }
+        ],
+        "updatedAt": "2025-12-10T14:00:00.000Z"
+      },
+      {
+        "id": "28",
+        "title": "기사용 웹앱 분리 및 로그인 페이지 개발",
+        "description": "기사용 웹앱을 분리하고 전용 로그인 페이지를 개발합니다. 기사용 페이지 접근 시 권한 검증 미들웨어를 구현하여 권한이 없는 사용자는 기사용 로그인 페이지로 리다이렉트되도록 처리합니다.",
+        "details": "Next.js 14+ App Router와 TypeScript를 사용하여 기사용 웹앱을 분리하고 로그인 페이지를 개발합니다:\n\n**구현 사항:**\n1. 기사용 로그인 페이지 (/inspector/login)\n   - 기사 전용 로그인 폼 (이메일/비밀번호 또는 휴대폰 인증)\n   - 로그인 성공 시 기사 대시보드(/inspector/dashboard)로 리다이렉트\n   - 회원가입 링크 (필요 시)\n\n2. 기사용 페이지 접근 권한 검증 미들웨어\n   - /inspector/* 경로 접근 시 권한 검증\n   - inspector 역할이 아닌 경우 /inspector/login으로 리다이렉트\n   - 기존 withAdminAuth 패턴 참고하여 withInspectorAuth HOC 구현\n   - 권한 검증 실패 시 현재 URL을 쿼리 파라미터로 전달하여 로그인 후 원래 페이지로 복귀\n\n3. 기사용 레이아웃 개선\n   - 기사용 전용 레이아웃 (/inspector/layout.tsx)에 권한 검증 적용\n   - 로그아웃 기능 추가\n\n4. 기존 기사 대시보드와 통합\n   - 기존 /inspector/* 페이지들과 통합\n   - 로그인 상태 관리 (Zustand authStore 활용)\n\n**기술 스택:**\n- Next.js 14+ (App Router)\n- TypeScript\n- TailwindCSS\n- 기존 인증 시스템 활용 (Task 12)\n- Zustand (인증 상태 관리)",
+        "testStrategy": "1. 기사용 로그인 페이지 렌더링 테스트\n2. 권한 검증 미들웨어 동작 테스트\n3. 권한 없는 사용자 접근 시 리다이렉트 테스트\n4. 로그인 후 원래 페이지 복귀 테스트\n5. 기사 역할이 아닌 사용자 접근 차단 테스트\n6. 로그아웃 기능 테스트\n7. 기존 기사 대시보드와의 통합 테스트",
+        "priority": "high",
+        "dependencies": [
+          "18"
+        ],
+        "status": "pending",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "기사용 로그인 페이지 개발",
+            "description": "기사 전용 로그인 페이지를 개발합니다.",
+            "dependencies": [],
+            "details": "Next.js 14+ App Router를 사용하여 기사용 로그인 페이지(/inspector/login)를 개발합니다:\n- 기사 전용 로그인 폼 (이메일/비밀번호 또는 휴대폰 인증)\n- 기존 인증 API(/auth/login) 활용\n- 로그인 성공 시 기사 대시보드(/inspector/dashboard)로 리다이렉트\n- 회원가입 링크 (필요 시, 관리자 승인 필요 안내)\n- 반응형 디자인 적용 (모바일 최적화)\n- 로그인 실패 시 에러 메시지 표시",
+            "status": "pending",
+            "testStrategy": "로그인 페이지 렌더링 테스트, 로그인 플로우 테스트, API 연동 테스트, 반응형 디자인 테스트",
+            "parentId": "28"
+          },
+          {
+            "id": 2,
+            "title": "기사용 페이지 접근 권한 검증 미들웨어 구현",
+            "description": "기사용 페이지 접근 시 권한을 검증하고 권한이 없는 사용자는 기사용 로그인 페이지로 리다이렉트하는 미들웨어를 구현합니다.",
+            "dependencies": [
+              1
+            ],
+            "details": "기사용 페이지 접근 권한 검증 미들웨어를 구현합니다:\n- withInspectorAuth HOC 구현 (기존 withAdminAuth 패턴 참고)\n- /inspector/* 경로 접근 시 inspector 역할 검증\n- 권한이 없는 경우 /inspector/login으로 리다이렉트\n- 현재 URL을 쿼리 파라미터(returnUrl)로 전달하여 로그인 후 원래 페이지로 복귀\n- 기사용 레이아웃(/inspector/layout.tsx)에 권한 검증 적용\n- 로그인 상태 확인 (Zustand authStore 활용)",
+            "status": "pending",
+            "testStrategy": "권한 검증 미들웨어 동작 테스트, 권한 없는 사용자 접근 시 리다이렉트 테스트, 로그인 후 원래 페이지 복귀 테스트, 기사 역할이 아닌 사용자 접근 차단 테스트",
+            "parentId": "28"
+          },
+          {
+            "id": 3,
+            "title": "기사용 레이아웃 개선 및 로그아웃 기능 추가",
+            "description": "기사용 레이아웃에 권한 검증을 적용하고 로그아웃 기능을 추가합니다.",
+            "dependencies": [
+              2
+            ],
+            "details": "기사용 레이아웃(/inspector/layout.tsx)을 개선합니다:\n- withInspectorAuth HOC 적용\n- 로그아웃 버튼 추가 (헤더 또는 사이드바)\n- 로그아웃 기능 구현 (쿠키 삭제, authStore 초기화, 로그인 페이지로 리다이렉트)\n- 로그인 상태 표시 (기사명, 프로필 이미지 등)\n- 기존 기사 대시보드와 통합",
+            "status": "pending",
+            "testStrategy": "로그아웃 기능 테스트, 레이아웃 권한 검증 테스트, 기존 기사 대시보드와의 통합 테스트",
+            "parentId": "28"
+          }
+        ],
+        "updatedAt": "2025-12-10T14:00:00.000Z"
       }
     ],
     "metadata": {
       "version": "1.0.0",
-      "lastModified": "2025-12-10T13:45:38.815Z",
-      "taskCount": 16,
+      "lastModified": "2025-12-10T14:00:00.000Z",
+      "taskCount": 18,
       "completedCount": 16,
       "tags": [
         "master"
