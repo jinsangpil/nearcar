@@ -204,7 +204,7 @@ export interface UserListItem {
   name: string;
   email?: string | null;
   phone: string;
-  region_id?: string | null;
+  region_ids?: string[];
   level?: number | null;
   commission_rate?: number | null;
   status: string;
@@ -244,7 +244,7 @@ export interface UserDetail {
   name: string;
   email?: string | null;
   phone: string;
-  region_id?: string | null;
+  region_ids?: string[];
   level?: number | null;
   commission_rate?: number | null;
   status: string;
@@ -272,7 +272,7 @@ export interface UserCreateRequest {
   email?: string | null;
   phone: string;
   password?: string | null;
-  region_id?: string | null;
+  region_ids?: string[];
   level?: number | null;
   commission_rate?: number | null;
   status?: string;
@@ -292,7 +292,7 @@ export interface UserUpdateRequest {
   email?: string | null;
   phone?: string | null;
   password?: string | null;
-  region_id?: string | null;
+  region_ids?: string[];
   level?: number | null;
   commission_rate?: number | null;
   status?: string | null;

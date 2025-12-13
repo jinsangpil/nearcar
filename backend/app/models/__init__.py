@@ -6,6 +6,7 @@ from app.models.vehicle_model import VehicleModel
 from app.models.price_policy import PricePolicy
 from app.models.package import Package
 from app.models.service_region import ServiceRegion
+from app.models.inspector_region import InspectorRegion
 from app.models.payment import Payment
 from app.models.inspection import Inspection
 from app.models.vehicle import Vehicle
@@ -18,7 +19,7 @@ from app.models.faq import FAQ
 
 __all__ = [
     "User", "VehicleMaster", "Manufacturer", "VehicleModel", "PricePolicy", "Package", "ServiceRegion",
-    "Payment", "Inspection", "Vehicle", "InspectionReport", "Settlement", "Notification",
+    "InspectorRegion", "Payment", "Inspection", "Vehicle", "InspectionReport", "Settlement", "Notification",
     "NotificationTemplate", "Review", "FAQ"
 ]
 

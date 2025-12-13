@@ -9,6 +9,7 @@ import uuid
 
 from app.models.user import User
 from app.core.security import get_password_hash, encrypt_phone, decrypt_phone
+from app.services.inspector_region_service import InspectorRegionService
 from loguru import logger
 
 
@@ -23,7 +24,7 @@ class UserService:
         phone: str,
         email: Optional[str] = None,
         password: Optional[str] = None,
-        region_id: Optional[str] = None,
+        region_ids: Optional[List[str]] = None,
         level: Optional[int] = None,
         commission_rate: Optional[float] = None,
         status: str = "active"
@@ -38,7 +39,7 @@ class UserService:
             phone: 전화번호 (평문)
             email: 이메일
             password: 비밀번호 (평문)
-            region_id: 활동 지역 ID
+            region_ids: 활동 지역 ID 목록 (기사 전용)
             level: 기사 등급 (1~5)
             commission_rate: 수수료율 (0~100)
             status: 계정 상태
@@ -70,8 +71,8 @@ class UserService:
                 raise ValueError("기사는 등급(level)이 필수입니다")
             if commission_rate is None:
                 raise ValueError("기사는 수수료율(commission_rate)이 필수입니다")
-            if region_id is None:
-                raise ValueError("기사는 활동 지역(region_id)이 필수입니다")
+            if not region_ids or len(region_ids) == 0:
+                raise ValueError("기사는 활동 지역(region_ids)이 최소 1개 이상 필요합니다")
         
         # 비밀번호 해싱
         password_hash = None
@@ -86,13 +87,20 @@ class UserService:
             phone=encrypted_phone,
             email=email,
             password_hash=password_hash,
-            region_id=uuid.UUID(region_id) if region_id else None,
             level=level,
             commission_rate=commission_rate,
             status=status
         )
         
         db.add(user)
+        await db.flush()  # user.id를 얻기 위해 flush
+        
+        # 기사인 경우 활동 지역 생성
+        if role == "inspector" and region_ids:
+            await InspectorRegionService.create_inspector_regions(
+                db, str(user.id), region_ids
+            )
+        
         await db.commit()
         await db.refresh(user)
         
@@ -133,13 +141,25 @@ class UserService:
         # 전화번호 복호화
         phone = decrypt_phone(user.phone) if user.phone else None
         
+        # 기사인 경우 활동 지역 ID 목록 조회
+        region_ids = []
+        if user.role == "inspector":
+            try:
+                region_ids = await InspectorRegionService.get_inspector_regions(
+                    db, str(user.id)
+                )
+            except Exception as e:
+                # inspector_regions 테이블이 없거나 오류가 발생한 경우 빈 배열 반환
+                logger.warning(f"기사 활동 지역 조회 실패 (user_id={user.id}): {str(e)}")
+                region_ids = []
+        
         return {
             "id": str(user.id),
             "role": user.role,
             "name": user.name,
             "email": user.email,
             "phone": phone,
-            "region_id": str(user.region_id) if user.region_id else None,
+            "region_ids": region_ids,
             "level": user.level,
             "commission_rate": float(user.commission_rate) if user.commission_rate else None,
             "status": user.status,
@@ -155,7 +175,7 @@ class UserService:
         email: Optional[str] = None,
         phone: Optional[str] = None,
         password: Optional[str] = None,
-        region_id: Optional[str] = None,
+        region_ids: Optional[List[str]] = None,
         level: Optional[int] = None,
         commission_rate: Optional[float] = None,
         status: Optional[str] = None
@@ -170,7 +190,7 @@ class UserService:
             email: 이메일
             phone: 전화번호
             password: 비밀번호
-            region_id: 활동 지역 ID
+            region_ids: 활동 지역 ID 목록 (기사 전용)
             level: 기사 등급
             commission_rate: 수수료율
             status: 계정 상태
@@ -214,14 +234,20 @@ class UserService:
             user.email = email
         if password is not None:
             user.password_hash = get_password_hash(password)
-        if region_id is not None:
-            user.region_id = uuid.UUID(region_id) if region_id else None
         if level is not None:
             user.level = level
         if commission_rate is not None:
             user.commission_rate = commission_rate
         if status is not None:
             user.status = status
+        
+        # 기사인 경우 활동 지역 업데이트
+        if user.role == "inspector" and region_ids is not None:
+            if len(region_ids) == 0:
+                raise ValueError("기사는 활동 지역(region_ids)이 최소 1개 이상 필요합니다")
+            await InspectorRegionService.update_inspector_regions(
+                db, str(user.id), region_ids
+            )
         
         await db.commit()
         await db.refresh(user)
@@ -342,17 +368,30 @@ class UserService:
         result = await db.execute(query)
         users = result.scalars().all()
         
-        # 전화번호 복호화
+        # 전화번호 복호화 및 활동 지역 조회
         items = []
         for user in users:
             phone = decrypt_phone(user.phone) if user.phone else None
+            
+            # 기사인 경우 활동 지역 ID 목록 조회
+            region_ids = []
+            if user.role == "inspector":
+                try:
+                    region_ids = await InspectorRegionService.get_inspector_regions(
+                        db, str(user.id)
+                    )
+                except Exception as e:
+                    # inspector_regions 테이블이 없거나 오류가 발생한 경우 빈 배열 반환
+                    logger.warning(f"기사 활동 지역 조회 실패 (user_id={user.id}): {str(e)}")
+                    region_ids = []
+            
             items.append({
                 "id": str(user.id),
                 "role": user.role,
                 "name": user.name,
                 "email": user.email,
                 "phone": phone,
-                "region_id": str(user.region_id) if user.region_id else None,
+                "region_ids": region_ids,
                 "level": user.level,
                 "commission_rate": float(user.commission_rate) if user.commission_rate else None,
                 "status": user.status,
@@ -459,46 +498,6 @@ class UserService:
             "commission_rate": float(user.commission_rate) if user.commission_rate else None
         }
     
-    @staticmethod
-    async def update_user_region(
-        db: AsyncSession,
-        user_id: str,
-        region_id: str
-    ) -> Dict[str, Any]:
-        """
-        활동 지역 변경
-        
-        Args:
-            db: 데이터베이스 세션
-            user_id: 유저 ID
-            region_id: 새 활동 지역 ID
-        
-        Returns:
-            업데이트된 유저 정보
-        """
-        result = await db.execute(
-            select(User).where(User.id == uuid.UUID(user_id))
-        )
-        user = result.scalar_one_or_none()
-        
-        if not user:
-            raise ValueError("유저를 찾을 수 없습니다")
-        
-        if user.role != "inspector":
-            raise ValueError("기사만 활동 지역을 변경할 수 있습니다")
-        
-        old_region = str(user.region_id) if user.region_id else None
-        user.region_id = uuid.UUID(region_id) if region_id else None
-        
-        await db.commit()
-        await db.refresh(user)
-        
-        logger.info(f"활동 지역 변경: {user.id} ({user.name}) {old_region} -> {region_id}")
-        
-        return {
-            "id": str(user.id),
-            "region_id": str(user.region_id) if user.region_id else None
-        }
     
     @staticmethod
     async def update_user_role(
@@ -547,7 +546,8 @@ class UserService:
         if new_role != "inspector":
             user.level = None
             user.commission_rate = None
-            user.region_id = None
+            # 활동 지역 삭제
+            await InspectorRegionService.delete_inspector_regions(db, str(user.id))
         
         await db.commit()
         await db.refresh(user)

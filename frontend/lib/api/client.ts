@@ -41,8 +41,15 @@ apiClient.interceptors.response.use(
         // 로그인 페이지로 리다이렉트 (중복 리다이렉트 방지)
         if (typeof window !== 'undefined') {
           localStorage.removeItem('access_token');
+          const currentPath = window.location.pathname;
+          const returnUrl = encodeURIComponent(currentPath);
+          
           // 현재 경로가 로그인 페이지가 아닐 때만 리다이렉트
-          if (window.location.pathname !== '/login') {
+          if (currentPath.startsWith('/admin') && currentPath !== '/admin/login') {
+            window.location.href = `/admin/login?returnUrl=${returnUrl}`;
+          } else if (currentPath.startsWith('/inspector') && currentPath !== '/inspector/login') {
+            window.location.href = `/inspector/login?returnUrl=${returnUrl}`;
+          } else if (currentPath !== '/login' && !currentPath.startsWith('/admin') && !currentPath.startsWith('/inspector')) {
             window.location.href = '/login';
           }
         }
@@ -52,9 +59,16 @@ apiClient.interceptors.response.use(
       if (status === 403) {
         // 권한 없음 페이지로 리다이렉트 또는 에러 표시
         console.error('권한이 없습니다.');
-        if (typeof window !== 'undefined' && window.location.pathname.startsWith('/admin')) {
+        if (typeof window !== 'undefined') {
           localStorage.removeItem('access_token');
-          if (window.location.pathname !== '/login') {
+          const currentPath = window.location.pathname;
+          const returnUrl = encodeURIComponent(currentPath);
+          
+          if (currentPath.startsWith('/admin') && currentPath !== '/admin/login') {
+            window.location.href = `/admin/login?returnUrl=${returnUrl}`;
+          } else if (currentPath.startsWith('/inspector') && currentPath !== '/inspector/login') {
+            window.location.href = `/inspector/login?returnUrl=${returnUrl}`;
+          } else if (currentPath !== '/login' && !currentPath.startsWith('/admin') && !currentPath.startsWith('/inspector')) {
             window.location.href = '/login';
           }
         }

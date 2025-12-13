@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuthStore } from '@/stores/authStore';
 import { getCurrentUser } from '@/lib/api/auth';
 
@@ -14,6 +14,7 @@ export default function withAdminAuth<P extends object>(
 ) {
   return function AuthenticatedComponent(props: P) {
     const router = useRouter();
+    const pathname = usePathname();
     const { user, setUser, isAuthenticated } = useAuthStore();
     const [isLoading, setIsLoading] = useState(true);
 
@@ -24,7 +25,9 @@ export default function withAdminAuth<P extends object>(
           const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
           
           if (!token) {
-            router.push('/login');
+            // 현재 URL을 쿼리 파라미터로 전달하여 로그인 후 복귀
+            const returnUrl = encodeURIComponent(pathname || '/admin/dashboard');
+            router.push(`/admin/login?returnUrl=${returnUrl}`);
             setIsLoading(false);
             return;
           }
@@ -35,7 +38,9 @@ export default function withAdminAuth<P extends object>(
           // 관리자/직원 권한 확인
           if (userInfo.role !== 'admin' && userInfo.role !== 'staff') {
             console.error('권한이 없습니다:', userInfo.role);
-            router.push('/login');
+            // 현재 URL을 쿼리 파라미터로 전달
+            const returnUrl = encodeURIComponent(pathname || '/admin/dashboard');
+            router.push(`/admin/login?returnUrl=${returnUrl}`);
             setIsLoading(false);
             return;
           }
@@ -47,14 +52,16 @@ export default function withAdminAuth<P extends object>(
           if (typeof window !== 'undefined') {
             localStorage.removeItem('access_token');
           }
-          router.push('/login');
+          // 현재 URL을 쿼리 파라미터로 전달
+          const returnUrl = encodeURIComponent(pathname || '/admin/dashboard');
+          router.push(`/admin/login?returnUrl=${returnUrl}`);
         } finally {
           setIsLoading(false);
         }
       };
 
       checkAuth();
-    }, [router, setUser]);
+    }, [router, pathname, setUser]);
 
     if (isLoading) {
       return (

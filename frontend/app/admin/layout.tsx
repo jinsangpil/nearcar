@@ -41,11 +41,14 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
         return;
       }
 
+      const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/admin/dashboard';
+      const returnUrl = encodeURIComponent(currentPath);
+
       timeoutId = setTimeout(() => {
         if (isMounted) {
           console.error('인증 확인 타임아웃');
           setIsLoading(false);
-          if (!token) router.push('/login');
+          if (!token) router.push(`/admin/login?returnUrl=${returnUrl}`);
         }
       }, 5000);
 
@@ -54,7 +57,7 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
           clearTimeout(timeoutId);
           if (isMounted) {
             setIsLoading(false);
-            router.push('/login');
+            router.push(`/admin/login?returnUrl=${returnUrl}`);
           }
           return;
         }
@@ -68,7 +71,7 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
           console.error('권한이 없습니다:', userInfo.role);
           if (typeof window !== 'undefined') localStorage.removeItem('access_token');
           setIsLoading(false);
-          router.push('/login');
+          router.push(`/admin/login?returnUrl=${returnUrl}`);
           return;
         }
 
@@ -80,7 +83,9 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
         if (typeof window !== 'undefined') localStorage.removeItem('access_token');
         if (isMounted) {
           setIsLoading(false);
-          if (window.location.pathname !== '/login') router.push('/login');
+          if (window.location.pathname !== '/admin/login') {
+            router.push(`/admin/login?returnUrl=${returnUrl}`);
+          }
         }
       }
     };
@@ -92,6 +97,11 @@ function AdminLayout({ children }: { children: React.ReactNode }) {
       if (timeoutId) clearTimeout(timeoutId);
     };
   }, [router, setUser, isAuthenticated, user]);
+
+  // 로그인 페이지는 레이아웃 적용 안 함
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
 
   if (isLoading) {
     return (

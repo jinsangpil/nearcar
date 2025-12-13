@@ -65,7 +65,6 @@ from app.schemas.user import (
     UserListResponse,
     UserLevelUpdateRequest,
     UserCommissionUpdateRequest,
-    UserRegionUpdateRequest,
     UserRoleUpdateRequest,
     UserStatusUpdateRequest
 )
@@ -1467,6 +1466,14 @@ async def create_user(
     관리자/직원 권한 필요.
     """
     try:
+        # commission_rate를 0~1 범위로 변환 (프론트엔드는 0~100으로 전송)
+        commission_rate = None
+        if request.commission_rate is not None:
+            # 0~100 범위를 0~1 범위로 변환
+            commission_rate = float(request.commission_rate) / 100.0
+            if commission_rate < 0 or commission_rate > 1:
+                raise ValueError("수수료율은 0~100 사이여야 합니다")
+        
         result = await UserService.create_user(
             db=db,
             role=request.role,
@@ -1474,9 +1481,9 @@ async def create_user(
             phone=request.phone,
             email=request.email,
             password=request.password,
-            region_id=request.region_id,
+            region_ids=request.region_ids,
             level=request.level,
-            commission_rate=float(request.commission_rate) if request.commission_rate else None,
+            commission_rate=commission_rate,
             status=request.status
         )
         
@@ -1546,6 +1553,14 @@ async def update_user(
     관리자/직원 권한 필요.
     """
     try:
+        # commission_rate를 0~1 범위로 변환 (프론트엔드는 0~100으로 전송)
+        commission_rate = None
+        if request.commission_rate is not None:
+            # 0~100 범위를 0~1 범위로 변환
+            commission_rate = float(request.commission_rate) / 100.0
+            if commission_rate < 0 or commission_rate > 1:
+                raise ValueError("수수료율은 0~100 사이여야 합니다")
+        
         result = await UserService.update_user(
             db=db,
             user_id=user_id,
@@ -1553,9 +1568,9 @@ async def update_user(
             email=request.email,
             phone=request.phone,
             password=request.password,
-            region_id=request.region_id,
+            region_ids=request.region_ids,
             level=request.level,
-            commission_rate=float(request.commission_rate) if request.commission_rate else None,
+            commission_rate=commission_rate,
             status=request.status
         )
         
@@ -1729,41 +1744,6 @@ async def update_user_commission(
         )
 
 
-@router.patch("/users/{user_id}/region", response_model=StandardResponse)
-async def update_user_region(
-    user_id: str,
-    request: UserRegionUpdateRequest,
-    db: AsyncSession = Depends(get_db),
-    current_user: User = Depends(require_role(["admin", "staff"]))
-):
-    """
-    활동 지역 변경 API
-    
-    기사의 활동 지역을 변경합니다.
-    관리자/직원 권한 필요.
-    """
-    try:
-        result = await UserService.update_user_region(
-            db=db,
-            user_id=user_id,
-            region_id=request.region_id
-        )
-        
-        return StandardResponse(
-            success=True,
-            data=result,
-            error=None
-        )
-    except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
-    except Exception as e:
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"활동 지역 변경 중 오류가 발생했습니다: {str(e)}"
-        )
 
 
 @router.patch("/users/{user_id}/role", response_model=StandardResponse)

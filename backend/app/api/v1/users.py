@@ -72,27 +72,17 @@ async def get_inspectors(
     """
     기사 목록 조회 (관리자/직원/기사만 접근 가능)
     """
-    from sqlalchemy import select
+    from app.services.user_service import UserService
     
-    result = await db.execute(
-        select(User).where(User.role == "inspector", User.status == "active")
+    result = await UserService.list_users(
+        db=db,
+        role="inspector",
+        status="active"
     )
-    inspectors = result.scalars().all()
-    
-    inspectors_list = [
-        {
-            "id": str(inspector.id),
-            "name": inspector.name,
-            "phone": inspector.phone if inspector.phone else "",
-            "level": inspector.level,
-            "commission_rate": float(inspector.commission_rate) if inspector.commission_rate else None
-        }
-        for inspector in inspectors
-    ]
     
     return StandardResponse(
         success=True,
-        data=inspectors_list,
+        data=result,
         error=None
     )
 

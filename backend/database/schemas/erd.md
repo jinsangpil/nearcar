@@ -22,11 +22,19 @@
   - `phone` (VARCHAR(256)): 휴대폰 번호 (AES-256 암호화 저장)
   - `email` (VARCHAR(100)): 이메일 (선택 사항)
   - `password_hash` (VARCHAR(256)): 비밀번호 해시 (비회원은 NULL)
-  - `region_id` (UUID, FK): 활동 지역 ID (기사 전용, service_regions 참조)
   - `level` (INT): 기사 등급 (1~5, 기사 전용)
   - `commission_rate` (DECIMAL(5,2)): 기사 수수료율 (예: 0.70, 기사 전용)
   - `status` (VARCHAR(20)): 계정 상태 (active, inactive, suspended)
   - `created_at`, `updated_at` (TIMESTAMP): 생성일/수정일
+
+#### inspector_regions (기사 활동 지역)
+- **역할**: 기사와 활동 지역의 다대다 관계 매핑
+- **주요 속성**:
+  - `id` (UUID, PK): 매핑 ID
+  - `user_id` (UUID, FK): 기사 ID (users 참조)
+  - `region_id` (UUID, FK): 활동 지역 ID (service_regions 참조)
+  - `created_at`, `updated_at` (TIMESTAMP): 생성일/수정일
+  - UNIQUE 제약: (user_id, region_id)
 
 #### service_regions (서비스 지역)
 - **역할**: 지역별 출장비 할증 관리
@@ -38,7 +46,7 @@
   - `is_active` (BOOLEAN): 서비스 가능 여부
 
 **관계**: 
-- `users.region_id` → `service_regions.id` (1:N, 기사 활동 지역)
+- `users.id` ← `inspector_regions.user_id` → `inspector_regions.region_id` → `service_regions.id` (다대다, 기사 활동 지역)
 
 ### 2.2 차량 관리 엔티티
 
@@ -192,7 +200,7 @@ users (1) ──< (N) inspections (as inspector)
 users (1) ──< (N) settlements
 users (1) ──< (N) notifications
 
-service_regions (1) ──< (N) users (inspector activity region)
+users (1) ──< (N) inspector_regions ──> (N) service_regions (기사 활동 지역, 다대다)
 
 vehicle_master (1) ──< (N) vehicles
 vehicle_master.vehicle_class ── (logical) ── price_policies.vehicle_class
@@ -216,10 +224,17 @@ erDiagram
         VARCHAR phone "암호화"
         VARCHAR email
         VARCHAR password_hash
-        UUID region_id FK
         INT level
         DECIMAL commission_rate
         VARCHAR status
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+
+    inspector_regions {
+        UUID id PK
+        UUID user_id FK
+        UUID region_id FK
         TIMESTAMP created_at
         TIMESTAMP updated_at
     }
@@ -232,7 +247,8 @@ erDiagram
         BOOLEAN is_active
     }
 
-    users }o--|| service_regions : "활동지역(기사)"
+    users ||--o{ inspector_regions : "활동지역"
+    inspector_regions }o--|| service_regions : "지역"
 
     %% 2. Vehicles & Master Data
     vehicle_master {

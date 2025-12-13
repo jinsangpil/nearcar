@@ -123,16 +123,11 @@ CREATE TABLE users (
     phone VARCHAR(256) NOT NULL, -- AES-256 암호화 저장
     email VARCHAR(100),
     password_hash VARCHAR(256), -- 비회원은 NULL
-    region_id UUID REFERENCES service_regions(id) ON DELETE SET NULL,
     level INT CHECK (level >= 1 AND level <= 5), -- 기사 등급 (1~5)
     commission_rate DECIMAL(5,2) CHECK (commission_rate >= 0 AND commission_rate <= 1), -- 기사 수수료율
     status VARCHAR(20) NOT NULL DEFAULT 'active' CHECK (status IN ('active', 'inactive', 'suspended')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT inspector_region_check CHECK (
-        (role = 'inspector' AND region_id IS NOT NULL) OR 
-        (role != 'inspector')
-    ),
     CONSTRAINT inspector_level_check CHECK (
         (role = 'inspector' AND level IS NOT NULL) OR 
         (role != 'inspector')
@@ -141,8 +136,27 @@ CREATE TABLE users (
 
 COMMENT ON TABLE users IS '사용자 통합 테이블 (고객/기사/운영자)';
 COMMENT ON COLUMN users.phone IS '휴대폰 번호 (AES-256 암호화 저장)';
-COMMENT ON COLUMN users.region_id IS '활동 지역 ID (기사 전용)';
 COMMENT ON COLUMN users.commission_rate IS '기사 수수료율 (예: 0.70 = 70%)';
+```
+
+### 3.5.1 inspector_regions (기사 활동 지역)
+
+```sql
+CREATE TABLE inspector_regions (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    region_id UUID NOT NULL REFERENCES service_regions(id) ON DELETE CASCADE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT unique_inspector_region UNIQUE (user_id, region_id)
+);
+
+CREATE INDEX idx_inspector_regions_user_id ON inspector_regions(user_id);
+CREATE INDEX idx_inspector_regions_region_id ON inspector_regions(region_id);
+
+COMMENT ON TABLE inspector_regions IS '기사 활동 지역 매핑 테이블 (다대다 관계)';
+COMMENT ON COLUMN inspector_regions.user_id IS '기사 ID';
+COMMENT ON COLUMN inspector_regions.region_id IS '활동 지역 ID';
 ```
 
 ### 3.6 vehicles (등록 차량)
